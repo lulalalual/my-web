@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "lulalalual | Apple Toy-Like Portfolio",
+  title: "lulalalual | 个人网站",
   description:
-    "An iPhone-inspired 3D personal site for showcasing projects and publishing notes.",
+    "一个以 iPhone 风格 3D 舞台展示项目并发布笔记的个人网站。",
 };
 
 export default function RootLayout({

@@ -87,9 +87,9 @@ export async function getStudioSettings() {
 
   if (!supabase) {
     return {
-      heroTitle: "iPhone-styled 3D journeys for projects and notes.",
+      heroTitle: "像 iPhone 一样展示项目与笔记的 3D 个人网站。",
       heroSubtitle:
-        "A liquid-glass personal site where a tiny character auto-runs through projects and writing.",
+        "这是一个带液态玻璃质感的个人网站，小人会自动穿过关卡，展示项目与写作内容。",
       socialLinks: "[]",
       projectOrder: "interview-master,tower-defense-duo",
     } satisfies StudioSettingsRecord;

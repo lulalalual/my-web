@@ -8,7 +8,7 @@ export function NoteCard({ note }: { note: PublicNoteRecord }) {
     <LiquidGlassPanel className="glass-interactive rounded-[2rem] p-6">
       <div className="flex items-center justify-between gap-4">
         <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
-          {note.isPinned ? "Pinned Note" : "Note"}
+          {note.isPinned ? "置顶笔记" : "笔记"}
         </p>
         <p className="text-sm text-slate-500">
           {formatArticleDate(note.publishedAt)}

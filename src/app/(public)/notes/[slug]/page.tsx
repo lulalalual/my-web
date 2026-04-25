@@ -15,7 +15,7 @@ export default async function NoteDetailPage({
     <main className="mx-auto max-w-6xl px-6 py-16">
       <section className="mb-8">
         <p className="text-sm font-semibold uppercase tracking-[0.28em] text-slate-500">
-          Notes
+          笔记
         </p>
         <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-slate-950 md:text-6xl">
           {note.title}
@@ -25,7 +25,7 @@ export default async function NoteDetailPage({
             {formatArticleDate(note.publishedAt)}
           </span>
           <span className="glass-panel rounded-full px-4 py-2">
-            {estimateReadingMinutes(note.contentMarkdown)} min read
+            预计阅读 {estimateReadingMinutes(note.contentMarkdown)} 分钟
           </span>
         </div>
       </section>

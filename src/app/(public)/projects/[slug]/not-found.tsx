@@ -5,7 +5,7 @@ export default function ProjectNotFound() {
     <main className="mx-auto max-w-4xl px-6 py-24">
       <div className="glass-panel rounded-[2rem] px-8 py-10">
         <p className="text-sm uppercase tracking-[0.3em] text-slate-500">
-          Project Not Found
+          未找到项目
         </p>
         <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-slate-950">
           这个项目还没有公开页面。

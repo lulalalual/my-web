@@ -48,13 +48,13 @@ export function HomeHero({ settings, projects }: HomeHeroProps) {
             <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-slate-500">
               lulalalual
             </p>
-            <p className="text-sm text-slate-700">Owner-only GitHub studio</p>
+            <p className="text-sm text-slate-700">仅限本人登录的 GitHub 后台</p>
           </div>
         </LiquidGlassPanel>
 
         <div className="space-y-5">
           <p className="text-sm font-semibold uppercase tracking-[0.34em] text-slate-500">
-            Apple Toy-Like Portfolio
+            Apple 风格玩具感作品集
           </p>
           <h1 className="max-w-2xl text-[3.25rem] font-semibold leading-[0.96] tracking-[-0.05em] text-slate-950 md:text-[4.8rem]">
             {settings.heroTitle}
@@ -66,13 +66,13 @@ export function HomeHero({ settings, projects }: HomeHeroProps) {
 
         <div className="flex flex-wrap gap-3 text-sm text-slate-600">
           <span className="glass-panel inline-flex rounded-full px-4 py-2">
-            React Three Fiber stage
+            React Three Fiber 舞台
           </span>
           <span className="glass-panel inline-flex rounded-full px-4 py-2">
-            GitHub OAuth owner gate
+            GitHub OAuth 所有者权限
           </span>
           <span className="glass-panel inline-flex rounded-full px-4 py-2">
-            Vercel + Supabase
+            Vercel 与 Supabase
           </span>
         </div>
 
@@ -82,7 +82,7 @@ export function HomeHero({ settings, projects }: HomeHeroProps) {
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-200 to-blue-500 text-xl text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
                 ◫
               </div>
-              <p className="text-xl font-semibold text-slate-900">Projects</p>
+              <p className="text-xl font-semibold text-slate-900">项目</p>
               <p className="mt-2 text-sm leading-6 text-slate-500">
                 {featuredProjects
                   .slice(0, 2)
@@ -97,9 +97,9 @@ export function HomeHero({ settings, projects }: HomeHeroProps) {
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-lime-100 to-lime-300 text-xl text-lime-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
                 ☰
               </div>
-              <p className="text-xl font-semibold text-slate-900">Notes</p>
+              <p className="text-xl font-semibold text-slate-900">笔记</p>
               <p className="mt-2 text-sm leading-6 text-slate-500">
-                Markdown 在线编辑、发布与管理，只允许你的 GitHub 账号写入。
+                支持 Markdown 在线编辑、发布与管理，只允许你的 GitHub 账号写入。
               </p>
             </LiquidGlassPanel>
           </Link>
@@ -121,7 +121,7 @@ export function HomeHero({ settings, projects }: HomeHeroProps) {
             href="/login"
             className="glass-interactive glass-panel rounded-full px-4 py-2 text-sm text-slate-700"
           >
-            Studio Login
+            进入后台
           </Link>
         </div>
       </motion.div>

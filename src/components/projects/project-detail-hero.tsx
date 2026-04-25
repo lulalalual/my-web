@@ -8,7 +8,7 @@ export function ProjectDetailHero({ project }: { project: ProjectRecord }) {
         <div className="grid gap-8 md:grid-cols-2">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-500">
-              Project Detail
+              项目详情
             </p>
             <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-slate-950 md:text-6xl">
               {project.title}
@@ -21,7 +21,7 @@ export function ProjectDetailHero({ project }: { project: ProjectRecord }) {
           <div className="grid gap-4">
             <div className="glass-panel rounded-[2rem] px-5 py-5">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
-                Summary
+                项目概览
               </p>
               <p className="mt-3 text-lg font-medium text-slate-900">
                 {project.summary}
@@ -29,7 +29,7 @@ export function ProjectDetailHero({ project }: { project: ProjectRecord }) {
             </div>
             <div className="glass-panel rounded-[2rem] px-5 py-5">
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
-                Stack
+                技术栈
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {project.techStack.map((item) => (

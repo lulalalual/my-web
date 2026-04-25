@@ -1,6 +1,6 @@
 export function formatArticleDate(value: string | null | undefined) {
   if (!value) {
-    return "Draft";
+    return "草稿";
   }
 
   return new Intl.DateTimeFormat("zh-CN", {

@@ -14,9 +14,9 @@ export type PublicSiteSettings = {
 };
 
 const fallbackSiteSettings: PublicSiteSettings = {
-  heroTitle: "iPhone-styled 3D journeys for projects and notes.",
+  heroTitle: "像 iPhone 一样展示项目与笔记的 3D 个人网站。",
   heroSubtitle:
-    "A liquid-glass personal site where a tiny character auto-runs through your achievements, unlocks projects, and leads visitors into a private Markdown studio behind GitHub login.",
+    "这是一个带液态玻璃质感的个人网站，小人会自动穿过关卡，依次展示你的项目成果，并引导访问者进入只属于你的 Markdown 写作后台。",
   socialLinks: [
     {
       label: "GitHub",

@@ -8,7 +8,7 @@ export function ProjectHighlightGrid({ highlights }: { highlights: string[] }) {
             className="glass-panel rounded-[2rem] px-6 py-6"
           >
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
-              Highlight {index + 1}
+              亮点 {index + 1}
             </p>
             <p className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-slate-900">
               {highlight}

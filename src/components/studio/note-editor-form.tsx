@@ -18,7 +18,7 @@ export function NoteEditorForm({ note }: NoteEditorFormProps) {
     status: note?.status ?? "draft",
     isPinned: note?.isPinned ?? false,
     publishedAt: note?.publishedAt?.slice(0, 16) ?? "",
-    contentMarkdown: note?.contentMarkdown ?? "# New note",
+    contentMarkdown: note?.contentMarkdown ?? "# 新建笔记",
   });
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -68,14 +68,14 @@ export function NoteEditorForm({ note }: NoteEditorFormProps) {
         <input
           className="rounded-[1.4rem] border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-500"
           name="title"
-          placeholder="Title"
+          placeholder="标题"
           value={form.title}
           onChange={(event) => updateField("title", event.target.value)}
         />
         <input
           className="rounded-[1.4rem] border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-500"
           name="slug"
-          placeholder="slug"
+          placeholder="文章 slug"
           value={form.slug}
           onChange={(event) => updateField("slug", event.target.value)}
         />
@@ -84,7 +84,7 @@ export function NoteEditorForm({ note }: NoteEditorFormProps) {
       <textarea
         className="min-h-[96px] rounded-[1.4rem] border border-white/10 bg-white/5 px-4 py-4 text-white outline-none placeholder:text-slate-500"
         name="excerpt"
-        placeholder="Excerpt"
+        placeholder="摘要"
         value={form.excerpt}
         onChange={(event) => updateField("excerpt", event.target.value)}
       />
@@ -93,7 +93,7 @@ export function NoteEditorForm({ note }: NoteEditorFormProps) {
         <input
           className="rounded-[1.4rem] border border-white/10 bg-white/5 px-4 py-3 text-white outline-none placeholder:text-slate-500"
           name="tags"
-          placeholder="tags, comma separated"
+          placeholder="标签，使用英文逗号分隔"
           value={form.tags}
           onChange={(event) => updateField("tags", event.target.value)}
         />
@@ -108,8 +108,8 @@ export function NoteEditorForm({ note }: NoteEditorFormProps) {
           value={form.status}
           onChange={(event) => updateField("status", event.target.value as "draft" | "published")}
         >
-          <option value="draft">draft</option>
-          <option value="published">published</option>
+          <option value="draft">草稿</option>
+          <option value="published">已发布</option>
         </select>
       </div>
 
@@ -119,7 +119,7 @@ export function NoteEditorForm({ note }: NoteEditorFormProps) {
           checked={form.isPinned}
           onChange={(event) => updateField("isPinned", event.target.checked)}
         />
-        Pin this note
+        设为置顶笔记
       </label>
 
       <textarea
@@ -130,13 +130,13 @@ export function NoteEditorForm({ note }: NoteEditorFormProps) {
       />
 
       <div className="flex items-center justify-between gap-4">
-        <p className="text-sm text-slate-400">{message ?? "Markdown-first editor"}</p>
+        <p className="text-sm text-slate-400">{message ?? "Markdown 编辑器"}</p>
         <button
           type="submit"
           disabled={saving}
           className="rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950 disabled:cursor-not-allowed disabled:bg-slate-400"
         >
-          {saving ? "Saving..." : "Save note"}
+          {saving ? "保存中..." : "保存笔记"}
         </button>
       </div>
     </form>

@@ -33,10 +33,10 @@ export function LoginButton() {
       className="rounded-full bg-slate-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400"
     >
       {unavailable
-        ? "Configure Supabase To Enable GitHub Login"
+        ? "请先配置 Supabase 以启用 GitHub 登录"
         : loading
-          ? "Redirecting..."
-          : "Continue With GitHub"}
+          ? "正在跳转..."
+          : "使用 GitHub 登录"}
     </button>
   );
 }

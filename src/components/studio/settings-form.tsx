@@ -48,13 +48,13 @@ export function SettingsForm({ settings }: { settings: StudioSettingsRecord }) {
         className="rounded-[1.4rem] border border-white/10 bg-white/5 px-4 py-3 text-white outline-none"
         value={form.heroTitle}
         onChange={(event) => updateField("heroTitle", event.target.value)}
-        placeholder="Hero title"
+        placeholder="首页主标题"
       />
       <textarea
         className="min-h-[120px] rounded-[1.4rem] border border-white/10 bg-white/5 px-4 py-4 text-white outline-none"
         value={form.heroSubtitle}
         onChange={(event) => updateField("heroSubtitle", event.target.value)}
-        placeholder="Hero subtitle"
+        placeholder="首页副标题"
       />
       <textarea
         className="min-h-[180px] rounded-[1.4rem] border border-white/10 bg-white/5 px-4 py-4 font-mono text-sm text-white outline-none"
@@ -70,13 +70,13 @@ export function SettingsForm({ settings }: { settings: StudioSettingsRecord }) {
       />
 
       <div className="flex items-center justify-between gap-4">
-        <p className="text-sm text-slate-400">{message ?? "Site settings"}</p>
+        <p className="text-sm text-slate-400">{message ?? "站点设置"}</p>
         <button
           type="submit"
           disabled={saving}
           className="rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950 disabled:cursor-not-allowed disabled:bg-slate-400"
         >
-          {saving ? "Saving..." : "Save settings"}
+          {saving ? "保存中..." : "保存设置"}
         </button>
       </div>
     </form>

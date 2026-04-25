@@ -8,7 +8,7 @@ export default async function NotesIndexPage() {
     <main className="mx-auto max-w-6xl px-6 py-16">
       <section className="mb-10">
         <p className="text-sm font-semibold uppercase tracking-[0.28em] text-slate-500">
-          Notes
+          笔记
         </p>
         <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-slate-950 md:text-6xl">
           像 iPhone 备忘录，但为技术内容而设计。

@@ -4,7 +4,7 @@ export default function StudioHomePage() {
   return (
     <main className="space-y-6">
       <div>
-        <p className="text-sm uppercase tracking-[0.3em] text-slate-400">Owner Studio</p>
+        <p className="text-sm uppercase tracking-[0.3em] text-slate-400">内容后台</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-[-0.04em] text-white">
           管理项目、笔记和首页内容
         </h1>
@@ -14,17 +14,17 @@ export default function StudioHomePage() {
         {[
           {
             href: "/studio/notes",
-            title: "Notes",
+            title: "笔记",
             body: "创建、编辑、发布 Markdown 笔记。",
           },
           {
             href: "/studio/projects",
-            title: "Projects",
+            title: "项目",
             body: "维护项目摘要、技术栈和亮点。",
           },
           {
             href: "/studio/settings",
-            title: "Settings",
+            title: "设置",
             body: "配置首页文案、社交链接和项目顺序。",
           },
         ].map((item) => (

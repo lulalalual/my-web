@@ -64,14 +64,14 @@ export function StageControls({
         <div className="glass-panel pointer-events-auto flex items-center justify-between rounded-[1.8rem] px-4 py-3">
           <div>
             <p className="text-xs uppercase tracking-[0.26em] text-slate-500">
-              Auto Journey
+              自动旅程
             </p>
             <p className="mt-1 text-sm font-medium text-slate-800">
               {prefersReducedMotion
-                ? "Reduced motion mode"
+                ? "当前为低动效模式"
                 : activeProject === "interview"
-                  ? "Approaching 计算机面试大师"
-                  : "Approaching 塔防双人"}
+                  ? "正在展示 计算机面试大师"
+                  : "正在展示 塔防双人"}
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -82,7 +82,7 @@ export function StageControls({
               disabled={prefersReducedMotion}
               className="glass-interactive rounded-full border border-white/70 bg-white/55 px-4 py-2 text-sm font-medium text-slate-800"
             >
-              {prefersReducedMotion ? "Static" : isPlaying ? "Pause" : "Play"}
+              {prefersReducedMotion ? "静态模式" : isPlaying ? "暂停" : "播放"}
             </button>
           </div>
         </div>
@@ -97,14 +97,14 @@ export function StageControls({
                 onClick={() => jumpTo("interview")}
                 className="glass-interactive rounded-full border border-white/70 bg-white/55 px-4 py-2 text-sm font-medium text-slate-700"
               >
-                Interview
+                面试大师
               </button>
               <button
                 type="button"
                 onClick={() => jumpTo("tower")}
                 className="glass-interactive rounded-full border border-white/70 bg-white/55 px-4 py-2 text-sm font-medium text-slate-700"
               >
-                Tower
+                塔防双人
               </button>
             </div>
             <button
@@ -112,7 +112,7 @@ export function StageControls({
               onClick={replay}
               className="glass-interactive rounded-full border border-white/70 bg-white/55 px-4 py-2 text-sm font-medium text-slate-700"
             >
-              Replay
+              重播
             </button>
           </div>
           <input
@@ -130,10 +130,10 @@ export function StageControls({
           />
           <div className="mt-4 grid grid-cols-2 gap-3 text-xs font-medium uppercase tracking-[0.24em] text-slate-500">
             <div className="flex h-12 items-center justify-center rounded-[1.4rem] border border-white/70 bg-gradient-to-br from-sky-50 to-sky-100 text-sky-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
-              Projects
+              项目
             </div>
             <div className="flex h-12 items-center justify-center rounded-[1.4rem] border border-white/70 bg-gradient-to-br from-lime-50 to-lime-100 text-lime-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
-              Notes
+              笔记
             </div>
           </div>
         </div>

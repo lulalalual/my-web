@@ -38,7 +38,7 @@ export function ProjectPedestalCard({
       <p className="mt-2 text-sm leading-6 text-slate-500">{subtitle}</p>
       <div className="mt-5 flex items-center justify-between">
         <div className="rounded-full border border-white/70 bg-white/55 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-          Level Card
+          关卡卡片
         </div>
         <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/70 bg-white/55 text-lime-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
           ▶

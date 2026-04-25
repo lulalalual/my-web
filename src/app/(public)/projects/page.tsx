@@ -8,7 +8,7 @@ export default async function ProjectsIndexPage() {
     <main className="mx-auto max-w-6xl px-6 py-16">
       <section className="mb-10">
         <p className="text-sm font-semibold uppercase tracking-[0.28em] text-slate-500">
-          Projects
+          项目
         </p>
         <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-slate-950 md:text-6xl">
           游戏化首页之外的完整项目页。
@@ -26,7 +26,7 @@ export default async function ProjectsIndexPage() {
             className="glass-panel glass-interactive rounded-[2rem] px-6 py-6"
           >
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
-              Project {project.orderIndex}
+              项目 {project.orderIndex}
             </p>
             <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950">
               {project.title}

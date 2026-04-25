@@ -62,7 +62,7 @@ export function ProjectEditorForm({ project }: { project: StudioProjectRecord })
             checked={form.isPublished}
             onChange={(event) => updateField("isPublished", event.target.checked)}
           />
-          Published
+          已发布
         </label>
       </div>
 
@@ -102,19 +102,19 @@ export function ProjectEditorForm({ project }: { project: StudioProjectRecord })
         <div className="grid gap-4 md:grid-cols-3">
           <input
             className="rounded-[1.4rem] border border-white/10 bg-white/5 px-4 py-3 text-white outline-none"
-            placeholder="Repo URL"
+            placeholder="仓库链接"
             value={form.repoUrl}
             onChange={(event) => updateField("repoUrl", event.target.value)}
           />
           <input
             className="rounded-[1.4rem] border border-white/10 bg-white/5 px-4 py-3 text-white outline-none"
-            placeholder="Demo URL"
+            placeholder="演示链接"
             value={form.demoUrl}
             onChange={(event) => updateField("demoUrl", event.target.value)}
           />
           <input
             className="rounded-[1.4rem] border border-white/10 bg-white/5 px-4 py-3 text-white outline-none"
-            placeholder="Order"
+            placeholder="排序"
             value={form.orderIndex}
             onChange={(event) => updateField("orderIndex", event.target.value)}
           />
@@ -122,13 +122,13 @@ export function ProjectEditorForm({ project }: { project: StudioProjectRecord })
       </div>
 
       <div className="mt-5 flex items-center justify-between gap-4">
-        <p className="text-sm text-slate-400">{message ?? "Project editor"}</p>
+        <p className="text-sm text-slate-400">{message ?? "项目编辑器"}</p>
         <button
           type="submit"
           disabled={saving}
           className="rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950 disabled:cursor-not-allowed disabled:bg-slate-400"
         >
-          {saving ? "Saving..." : "Save project"}
+          {saving ? "保存中..." : "保存项目"}
         </button>
       </div>
     </form>
