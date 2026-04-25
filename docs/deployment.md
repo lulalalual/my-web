@@ -25,6 +25,24 @@
 2. Add all required environment variables in the Vercel project settings.
 3. Set `NEXT_PUBLIC_SITE_URL` to your production domain.
 4. Trigger the first deployment.
+5. After the first deployment, update Supabase GitHub provider callback URL with the exact Vercel domain if it changed.
+
+## Local Preflight
+
+Before deploying, run:
+
+```bash
+npm run lint
+npm run build
+```
+
+## Post-Deploy Verification
+
+After Vercel gives you a URL, run:
+
+```bash
+npm run verify:deployment -- https://<your-vercel-domain>
+```
 
 ## Production Verification
 
@@ -33,3 +51,4 @@
 - `/login` starts GitHub OAuth.
 - Only GitHub user `lulalalual` can access `/studio`.
 - Studio API routes reject unauthenticated requests.
+- `/api/health` returns `{ ok: true }`.

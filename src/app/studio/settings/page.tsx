@@ -11,6 +11,9 @@ export default async function StudioSettingsPage() {
         <h1 className="mt-3 text-4xl font-semibold tracking-[-0.04em] text-white">
           管理首页文案与站点设置
         </h1>
+        <p className="mt-3 max-w-2xl text-slate-300">
+          这些字段会直接驱动首页 Hero、页脚社交链接，以及首页项目的展示顺序。
+        </p>
       </div>
       <SettingsForm settings={settings} />
     </main>

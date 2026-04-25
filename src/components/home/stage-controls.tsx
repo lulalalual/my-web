@@ -5,7 +5,12 @@ import { ProjectPedestalCard } from "@/components/home/project-pedestal-card";
 type StageControlsProps = {
   progress: number;
   isPlaying: boolean;
+  prefersReducedMotion?: boolean;
   activeProject: "interview" | "tower";
+  projectCards?: Array<{
+    title: string;
+    subtitle: string;
+  }>;
   setProgress: (progress: number) => void;
   setIsPlaying: (isPlaying: boolean) => void;
   jumpTo: (stage: "interview" | "tower") => void;
@@ -15,27 +20,40 @@ type StageControlsProps = {
 export function StageControls({
   progress,
   isPlaying,
+  prefersReducedMotion,
   activeProject,
+  projectCards,
   setProgress,
   setIsPlaying,
   jumpTo,
   replay,
 }: StageControlsProps) {
+  const cards = projectCards ?? [
+    {
+      title: "计算机面试大师",
+      subtitle: "AI 模拟面试、代码编辑器与系统设计评审",
+    },
+    {
+      title: "塔防双人",
+      subtitle: "SDL2 双人塔防、波次、防御塔与升级机制",
+    },
+  ];
+
   return (
     <>
       <div className="pointer-events-none absolute inset-x-6 bottom-32 z-20 flex gap-3">
         <div className="pointer-events-auto flex-1">
           <ProjectPedestalCard
-            title="计算机面试大师"
-            subtitle="AI 模拟面试、代码编辑器与系统设计评审"
+            title={cards[0]?.title ?? "计算机面试大师"}
+            subtitle={cards[0]?.subtitle ?? "AI 模拟面试、代码编辑器与系统设计评审"}
             accent="blue"
             active={activeProject === "interview"}
           />
         </div>
         <div className="pointer-events-auto flex-1">
           <ProjectPedestalCard
-            title="塔防双人"
-            subtitle="SDL2 双人塔防、波次、防御塔与升级机制"
+            title={cards[1]?.title ?? "塔防双人"}
+            subtitle={cards[1]?.subtitle ?? "SDL2 双人塔防、波次、防御塔与升级机制"}
             accent="lime"
             active={activeProject === "tower"}
           />
@@ -49,9 +67,11 @@ export function StageControls({
               Auto Journey
             </p>
             <p className="mt-1 text-sm font-medium text-slate-800">
-              {activeProject === "interview"
-                ? "Approaching 计算机面试大师"
-                : "Approaching 塔防双人"}
+              {prefersReducedMotion
+                ? "Reduced motion mode"
+                : activeProject === "interview"
+                  ? "Approaching 计算机面试大师"
+                  : "Approaching 塔防双人"}
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -59,9 +79,10 @@ export function StageControls({
             <button
               type="button"
               onClick={() => setIsPlaying(!isPlaying)}
+              disabled={prefersReducedMotion}
               className="glass-interactive rounded-full border border-white/70 bg-white/55 px-4 py-2 text-sm font-medium text-slate-800"
             >
-              {isPlaying ? "Pause" : "Play"}
+              {prefersReducedMotion ? "Static" : isPlaying ? "Pause" : "Play"}
             </button>
           </div>
         </div>

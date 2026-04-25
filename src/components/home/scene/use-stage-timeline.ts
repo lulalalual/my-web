@@ -18,9 +18,25 @@ function getStage(progress: number) {
 export function useStageTimeline() {
   const [progress, setProgress] = useState(0.08);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    if (!isPlaying) {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => {
+      setPrefersReducedMotion(mediaQuery.matches);
+      if (mediaQuery.matches) {
+        setIsPlaying(false);
+      }
+    };
+
+    updatePreference();
+    mediaQuery.addEventListener("change", updatePreference);
+
+    return () => mediaQuery.removeEventListener("change", updatePreference);
+  }, []);
+
+  useEffect(() => {
+    if (!isPlaying || prefersReducedMotion) {
       return;
     }
 
@@ -32,7 +48,7 @@ export function useStageTimeline() {
     }, 32);
 
     return () => window.clearInterval(id);
-  }, [isPlaying]);
+  }, [isPlaying, prefersReducedMotion]);
 
   const activeProject = useMemo(() => getStage(progress), [progress]);
 
@@ -54,5 +70,6 @@ export function useStageTimeline() {
     setIsPlaying,
     jumpTo,
     replay,
+    prefersReducedMotion,
   };
 }

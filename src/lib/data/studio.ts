@@ -1,5 +1,5 @@
-import { createServerSupabaseClient } from "@/lib/supabase/server";
 import type { PublicNoteRecord } from "@/lib/data/notes";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 import type { ProjectRecord } from "@/lib/types";
 
 export type StudioNoteRecord = PublicNoteRecord;
@@ -41,7 +41,7 @@ export async function getStudioNotes() {
     publishedAt: note.published_at,
     updatedAt: note.updated_at,
     createdAt: note.created_at,
-    tags: note.note_tags?.map((tag) => tag.tag) ?? [],
+    tags: note.note_tags?.map((tag: { tag: string }) => tag.tag) ?? [],
   })) as StudioNoteRecord[];
 }
 
@@ -116,4 +116,45 @@ export async function getStudioSettings() {
     socialLinks: JSON.stringify(data.social_links, null, 2),
     projectOrder: data.project_order.join(","),
   } satisfies StudioSettingsRecord;
+}
+
+export function getFallbackStudioProjects() {
+  return [
+    {
+      id: "fallback-interview-master",
+      slug: "interview-master",
+      title: "计算机面试大师",
+      summary: "AI 模拟面试、代码执行、系统设计与简历分析一体化训练平台。",
+      description:
+        "一个产品化程度很高的技术面试训练系统，围绕真实面试流程设计流式对话、代码编辑与执行、系统设计白板、简历 ATS 扫描和面试回放。",
+      techStack: ["React 18", "TypeScript", "Vite", "Tailwind v4", "Electron"],
+      highlights: [
+        "流式 AI 面试与多面试官风格",
+        "Monaco 编辑器与多语言代码执行",
+      ],
+      coverImage: null,
+      repoUrl: null,
+      demoUrl: null,
+      orderIndex: 1,
+      isPublished: true,
+    },
+    {
+      id: "fallback-tower-defense-duo",
+      slug: "tower-defense-duo",
+      title: "塔防双人",
+      summary: "基于 C++ 与 SDL2 的双人协作塔防与角色操作混合玩法游戏。",
+      description:
+        "一款原生 C++ 桌面游戏项目，围绕双人配合、角色操作、塔放置升级、敌人波次和外置关卡配置构建完整的塔防体验。",
+      techStack: ["C++", "SDL2", "SDL2_image", "SDL2_mixer", "cJSON"],
+      highlights: [
+        "双人协作与角色技能配合",
+        "JSON/CSV 驱动的关卡和数值配置",
+      ],
+      coverImage: null,
+      repoUrl: null,
+      demoUrl: null,
+      orderIndex: 2,
+      isPublished: true,
+    },
+  ] as StudioProjectRecord[];
 }

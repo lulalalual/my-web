@@ -6,7 +6,16 @@ import { StageControls } from "@/components/home/stage-controls";
 import { StageScene } from "@/components/home/stage-scene";
 import { useStageTimeline } from "@/components/home/scene/use-stage-timeline";
 
-export function HomeStage() {
+type StageCard = {
+  title: string;
+  subtitle: string;
+};
+
+type HomeStageProps = {
+  projectCards?: StageCard[];
+};
+
+export function HomeStage({ projectCards }: HomeStageProps) {
   const timeline = useStageTimeline();
 
   return (
@@ -20,7 +29,7 @@ export function HomeStage() {
         </Float>
         <ContactShadows position={[0, -1.68, 0]} opacity={0.4} scale={8.5} blur={2.8} far={3.4} />
       </Canvas>
-      <StageControls {...timeline} />
+      <StageControls {...timeline} projectCards={projectCards} />
     </div>
   );
 }

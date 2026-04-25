@@ -50,13 +50,13 @@ export function NoteArticle({ markdown }: { markdown: string }) {
                 {children}
               </pre>
             ),
-            code: ({ inline, children }) =>
-              inline ? (
+            code: ({ className, children }) =>
+              className ? (
+                <code className={className}>{children}</code>
+              ) : (
                 <code className="rounded-md bg-slate-900/8 px-1.5 py-1 font-mono text-[0.92em] text-sky-700">
                   {children}
                 </code>
-              ) : (
-                <code className="font-mono">{children}</code>
               ),
             a: ({ href, children }) => (
               <a

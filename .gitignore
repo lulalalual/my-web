@@ -31,6 +31,8 @@ yarn-error.log*
 .pnpm-debug.log*
 task*-dev*.log
 task*-dev*.pid
+*-dev*.log
+*-dev*.pid
 
 # env files (can opt-in for committing if needed)
 .env*

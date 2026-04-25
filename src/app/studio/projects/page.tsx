@@ -1,8 +1,9 @@
 import { ProjectEditorForm } from "@/components/studio/project-editor-form";
-import { getStudioProjects } from "@/lib/data/studio";
+import { getFallbackStudioProjects, getStudioProjects } from "@/lib/data/studio";
 
 export default async function StudioProjectsPage() {
   const projects = await getStudioProjects();
+  const resolvedProjects = projects.length > 0 ? projects : getFallbackStudioProjects();
 
   return (
     <main className="space-y-6">
@@ -14,7 +15,7 @@ export default async function StudioProjectsPage() {
       </div>
 
       <div className="grid gap-5">
-        {projects.map((project) => (
+        {resolvedProjects.map((project) => (
           <ProjectEditorForm key={project.id} project={project} />
         ))}
       </div>
