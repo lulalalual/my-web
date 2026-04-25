@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Personal Site
 
-## Getting Started
+Apple-inspired personal site built with Next.js, Supabase, and Vercel.
 
-First, run the development server:
+## Local Development
+
+1. Copy `.env.example` to `.env.local`.
+2. Fill in the Supabase and GitHub owner values.
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Supabase Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Database files live in:
 
-## Learn More
+- `supabase/migrations/20260425_initial_schema.sql`
+- `supabase/seed.sql`
 
-To learn more about Next.js, take a look at the following resources:
+Apply them in the Supabase SQL Editor or through the CLI once a project exists.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Current Scope
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Public homepage, project pages, and notes
+- GitHub owner-only studio access
+- Markdown-first note storage
+- iPhone-styled 3D homepage planned in later tasks
