@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Personal Site
 
 Apple-inspired personal site built with Next.js, Supabase, and Vercel.
@@ -34,3 +35,7 @@ Apply them in the Supabase SQL Editor or through the CLI once a project exists.
 ## Deployment
 
 Deployment instructions live in [docs/deployment.md](./docs/deployment.md).
+=======
+# my-web
+我的个人网站
+>>>>>>> 090b038bc0976bd8835edb301229783e58c5689e

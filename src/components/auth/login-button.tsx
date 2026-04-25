@@ -1,10 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createBrowserSupabaseClient } from "@/lib/supabase/client";
 
 export function LoginButton() {
   const [loading, setLoading] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      setIsHydrated(true);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   async function handleLogin() {
     const supabase = createBrowserSupabaseClient();
@@ -23,16 +32,19 @@ export function LoginButton() {
     });
   }
 
-  const unavailable = !createBrowserSupabaseClient();
+  const supabase = isHydrated ? createBrowserSupabaseClient() : null;
+  const unavailable = isHydrated && !supabase;
 
   return (
     <button
       type="button"
       onClick={handleLogin}
-      disabled={loading || unavailable}
+      disabled={!isHydrated || loading || unavailable}
       className="rounded-full bg-slate-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400"
     >
-      {unavailable
+      {!isHydrated
+        ? "正在检查登录环境..."
+        : unavailable
         ? "请先配置 Supabase 以启用 GitHub 登录"
         : loading
           ? "正在跳转..."
