@@ -1,0 +1,18 @@
+import { SettingsForm } from "@/components/studio/settings-form";
+import { getStudioSettings } from "@/lib/data/studio";
+
+export default async function StudioSettingsPage() {
+  const settings = await getStudioSettings();
+
+  return (
+    <main className="space-y-6">
+      <div>
+        <p className="text-sm uppercase tracking-[0.3em] text-slate-400">Studio Settings</p>
+        <h1 className="mt-3 text-4xl font-semibold tracking-[-0.04em] text-white">
+          管理首页文案与站点设置
+        </h1>
+      </div>
+      <SettingsForm settings={settings} />
+    </main>
+  );
+}
