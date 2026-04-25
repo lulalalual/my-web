@@ -25,7 +25,12 @@ Apply them in the Supabase SQL Editor or through the CLI once a project exists.
 
 ## Current Scope
 
-- Public homepage, project pages, and notes
-- GitHub owner-only studio access
-- Markdown-first note storage
-- iPhone-styled 3D homepage planned in later tasks
+- Public iPhone-style homepage with a 3D auto-play stage
+- Public `/projects` index and detail pages
+- Public Markdown-driven `/notes` index and detail pages
+- Owner-only `/studio` routes and write APIs for notes, projects, and settings
+- Fallback local content for previewing the site before Supabase is configured
+
+## Deployment
+
+Deployment instructions live in [docs/deployment.md](./docs/deployment.md).
