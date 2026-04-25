@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { IPhoneShell } from "@/components/chrome/iphone-shell";
 import { LiquidGlassPanel } from "@/components/chrome/liquid-glass-panel";
 import { HomeStage } from "@/components/home/home-stage";
@@ -13,33 +10,15 @@ type HomeHeroProps = {
   projects: ProjectRecord[];
 };
 
-const heroVariants = {
-  hidden: { opacity: 0, y: 26 },
-  visible: { opacity: 1, y: 0 },
-};
-
 export function HomeHero({ settings, projects }: HomeHeroProps) {
-  const prefersReducedMotion = useReducedMotion();
   const orderedProjects = settings.projectOrder
     .map((slug) => projects.find((project) => project.slug === slug))
     .filter((project): project is ProjectRecord => Boolean(project));
   const featuredProjects = orderedProjects.length > 0 ? orderedProjects : projects;
-  const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
-  const motionProps = prefersReducedMotion
-    ? {}
-    : {
-        initial: "hidden" as const,
-        animate: "visible" as const,
-        transition: { duration: 0.72, ease: easing },
-        variants: heroVariants,
-      };
 
   return (
     <section className="mx-auto grid max-w-[1350px] gap-10 xl:min-h-[calc(100vh-7rem)] xl:grid-cols-2 xl:items-center xl:gap-16">
-      <motion.div
-        className="order-2 max-w-2xl space-y-7 xl:order-1"
-        {...motionProps}
-      >
+      <div className="order-2 max-w-2xl space-y-7 xl:order-1">
         <LiquidGlassPanel className="inline-flex items-center gap-3 rounded-full px-4 py-3 shadow-[0_24px_80px_rgba(148,163,184,0.22)]">
           <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-sky-300 via-blue-400 to-cyan-300 text-lg font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
             L
@@ -124,18 +103,9 @@ export function HomeHero({ settings, projects }: HomeHeroProps) {
             进入后台
           </Link>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        className="order-1 flex justify-center xl:order-2 xl:justify-end"
-        {...(prefersReducedMotion
-          ? {}
-          : {
-              initial: { opacity: 0, scale: 0.965, y: 24 },
-              animate: { opacity: 1, scale: 1, y: 0 },
-              transition: { duration: 0.84, delay: 0.12, ease: easing },
-            })}
-      >
+      <div className="order-1 flex justify-center xl:order-2 xl:justify-end">
         <div className="w-full max-w-[470px]">
           <IPhoneShell>
             <HomeStage
@@ -146,7 +116,7 @@ export function HomeHero({ settings, projects }: HomeHeroProps) {
             />
           </IPhoneShell>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
