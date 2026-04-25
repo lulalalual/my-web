@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #edf4ff;
+  --fg: #0f172a;
+  --muted: #64748b;
+  --line: rgba(148, 163, 184, 0.22);
+  --glass: rgba(255, 255, 255, 0.5);
+  --glass-strong: rgba(255, 255, 255, 0.74);
+  --shadow: 0 24px 80px rgba(15, 23, 42, 0.14);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top, rgba(191, 219, 254, 0.9), transparent 35%),
+    linear-gradient(180deg, #f8fbff 0%, #edf4ff 45%, #e8eefb 100%);
+  color: var(--fg);
+}

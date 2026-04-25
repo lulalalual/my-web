@@ -1,0 +1,117 @@
+<h2>个人网站首页方向</h2>
+<p class="subtitle">目标固定：iPhone 视觉语言 + 2D 横版自动通关展示项目 + 独立 Notes 系统支持在线编辑。先选首页骨架。</p>
+
+<div class="cards" style="grid-template-columns:repeat(3,minmax(0,1fr));align-items:start">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:linear-gradient(180deg,#d7e7ff 0%,#f5f8ff 40%,#eef2fa 100%);border-radius:34px;padding:12px;border:1px solid rgba(15,23,42,.12);box-shadow:0 18px 48px rgba(30,41,59,.12);height:320px;position:relative;overflow:hidden">
+        <div style="width:96px;height:20px;border-radius:999px;background:#0f172a;position:absolute;top:10px;left:50%;transform:translateX(-50%)"></div>
+        <div style="position:absolute;top:44px;left:18px;font-size:12px;color:#64748b">Direction A</div>
+        <div style="position:absolute;top:42px;right:18px;font-size:12px;color:#64748b">9:41</div>
+        <div style="position:absolute;left:18px;right:18px;top:70px;height:96px;border-radius:24px;background:linear-gradient(135deg,#0f172a 0%,#334155 100%);color:#fff;padding:16px">
+          <div style="font-size:12px;opacity:.72">Game App</div>
+          <div style="font-size:24px;font-weight:700;line-height:1.1;margin-top:6px">自动跑酷展示项目</div>
+          <div style="display:flex;gap:6px;margin-top:14px">
+            <div style="width:32px;height:32px;border-radius:10px;background:#93c5fd"></div>
+            <div style="width:32px;height:32px;border-radius:10px;background:#fde68a"></div>
+            <div style="width:32px;height:32px;border-radius:10px;background:#c4b5fd"></div>
+          </div>
+        </div>
+        <div style="position:absolute;left:18px;right:18px;top:182px;height:88px;border-radius:22px;background:#fff;padding:14px;box-shadow:0 10px 24px rgba(15,23,42,.08)">
+          <div style="font-size:13px;color:#94a3b8">Notes</div>
+          <div style="margin-top:10px;height:8px;background:#e2e8f0;border-radius:999px;width:72%"></div>
+          <div style="margin-top:8px;height:8px;background:#e2e8f0;border-radius:999px;width:58%"></div>
+          <div style="margin-top:8px;height:8px;background:#e2e8f0;border-radius:999px;width:80%"></div>
+        </div>
+        <div style="position:absolute;left:18px;right:18px;bottom:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+          <div style="height:42px;border-radius:14px;background:#ffffffb8;border:1px solid rgba(148,163,184,.25)"></div>
+          <div style="height:42px;border-radius:14px;background:#ffffffb8;border:1px solid rgba(148,163,184,.25)"></div>
+          <div style="height:42px;border-radius:14px;background:#ffffffb8;border:1px solid rgba(148,163,184,.25)"></div>
+          <div style="height:42px;border-radius:14px;background:#ffffffb8;border:1px solid rgba(148,163,184,.25)"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. iPhone 主屏幕入口</h3>
+      <p>先看到类似 iOS 主屏幕，再点进 Game 和 Notes。优点是像 iPhone，缺点是“首页本身就是游戏”会弱一点。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:linear-gradient(180deg,#dbeafe 0%,#f8fafc 48%,#eef2ff 100%);border-radius:34px;padding:12px;border:1px solid rgba(15,23,42,.12);box-shadow:0 18px 48px rgba(30,41,59,.12);height:320px;position:relative;overflow:hidden">
+        <div style="width:96px;height:20px;border-radius:999px;background:#111827;position:absolute;top:10px;left:50%;transform:translateX(-50%)"></div>
+        <div style="position:absolute;left:16px;right:16px;top:54px;height:198px;border-radius:28px;background:linear-gradient(180deg,#dbeafe 0%,#bfdbfe 45%,#93c5fd 100%);overflow:hidden;border:1px solid rgba(255,255,255,.6)">
+          <div style="position:absolute;left:0;right:0;bottom:0;height:54px;background:#84cc16"></div>
+          <div style="position:absolute;left:26px;bottom:54px;width:22px;height:34px;border-radius:8px;background:#1d4ed8"></div>
+          <div style="position:absolute;left:78px;bottom:54px;width:30px;height:28px;background:#ca8a04;border-radius:6px"></div>
+          <div style="position:absolute;left:124px;bottom:54px;width:22px;height:40px;background:#475569;border-radius:6px"></div>
+          <div style="position:absolute;left:170px;bottom:54px;width:52px;height:58px;border-radius:14px;background:#0f172a;color:#fff;padding:8px;box-sizing:border-box">
+            <div style="font-size:8px;opacity:.7">Boss</div>
+            <div style="font-size:10px;font-weight:700;line-height:1.2;margin-top:4px">计算机面试大师</div>
+          </div>
+          <div style="position:absolute;left:234px;bottom:54px;width:48px;height:48px;border-radius:14px;background:#7c3aed;color:#fff;padding:8px;box-sizing:border-box">
+            <div style="font-size:9px;font-weight:700;line-height:1.1">塔防双人</div>
+          </div>
+        </div>
+        <div style="position:absolute;left:16px;right:16px;bottom:18px;height:42px;border-radius:16px;background:#ffffffbf;backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 14px;border:1px solid rgba(148,163,184,.24)">
+          <span style="font-size:12px;color:#64748b">Projects</span>
+          <span style="font-size:12px;color:#64748b">Notes</span>
+          <span style="font-size:12px;color:#64748b">About</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. iPhone 里的单屏横版通关</h3>
+      <p>首页打开就是手机屏幕里的横版自动通关。项目是关卡和障碍，底部保留 iOS 导航切去 Notes。创意和需求匹配度最高。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:linear-gradient(180deg,#e0f2fe 0%,#f8fafc 45%,#fef3c7 100%);border-radius:34px;padding:12px;border:1px solid rgba(15,23,42,.12);box-shadow:0 18px 48px rgba(30,41,59,.12);height:320px;position:relative;overflow:hidden">
+        <div style="width:96px;height:20px;border-radius:999px;background:#0f172a;position:absolute;top:10px;left:50%;transform:translateX(-50%)"></div>
+        <div style="position:absolute;left:16px;right:16px;top:54px;height:78px;border-radius:24px;background:#ffffffc9;backdrop-filter:blur(10px);padding:14px;border:1px solid rgba(148,163,184,.25)">
+          <div style="font-size:12px;color:#64748b">Hello, I build games and tools</div>
+          <div style="margin-top:8px;height:10px;width:80%;background:#cbd5e1;border-radius:999px"></div>
+          <div style="margin-top:8px;height:10px;width:58%;background:#e2e8f0;border-radius:999px"></div>
+        </div>
+        <div style="position:absolute;left:16px;right:16px;top:144px;height:128px;border-radius:28px;background:linear-gradient(180deg,#dbeafe 0%,#bfdbfe 52%,#86efac 100%);overflow:hidden">
+          <div style="position:absolute;left:0;right:0;bottom:0;height:40px;background:#65a30d"></div>
+          <div style="position:absolute;left:24px;bottom:40px;width:22px;height:34px;border-radius:8px;background:#2563eb"></div>
+          <div style="position:absolute;left:82px;bottom:40px;width:64px;height:52px;background:#fff;border-radius:16px;padding:6px;box-sizing:border-box">
+            <div style="font-size:8px;color:#94a3b8">Project 01</div>
+            <div style="font-size:10px;font-weight:700;line-height:1.15;margin-top:4px">计算机面试大师</div>
+          </div>
+          <div style="position:absolute;left:168px;bottom:40px;width:52px;height:46px;background:#fff;border-radius:16px;padding:6px;box-sizing:border-box">
+            <div style="font-size:9px;font-weight:700;line-height:1.1">塔防双人</div>
+          </div>
+        </div>
+        <div style="position:absolute;left:16px;right:16px;bottom:18px;height:30px;display:flex;align-items:center;justify-content:center;color:#475569;font-size:12px">下方继续滚动进入 iPhone Notes 风格笔记区</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. 作品集首页 + 中段游戏舞台</h3>
+      <p>上半屏先用强视觉介绍你，下半屏再进入横版游戏区。更像作品集网站，但“完全模仿 iPhone”会弱一些。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:20px">
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>我的建议</h4>
+      <ul>
+        <li>选 B：最贴合你原始要求，首页一打开就进入“iPhone 里的 2D 通关个人站”。</li>
+        <li>Notes 作为底部 Tab 单独进入，既不破坏创意首页，也方便以后在线编辑和检索。</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>要你拍板</h4>
+      <ul>
+        <li>你更想要哪一版作为主结构？</li>
+        <li>如果选 B，我下一轮会继续细化“游戏像素风 vs 更精致 Apple 风”的美术方向。</li>
+      </ul>
+    </div>
+  </div>
+</div>
