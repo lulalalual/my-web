@@ -9,7 +9,7 @@
     "clean": "hexo clean",
     "lint": "hexo generate --silent",
     "verify:deployment": "node tools/verify-deployment.mjs",
-    "postinstall": "patch-package"
+    "postinstall": "node node_modules/patch-package/index.js"
   },
   "dependencies": {
     "hexo": "^8.1.1",
