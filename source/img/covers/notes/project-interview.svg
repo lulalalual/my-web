@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+  <rect width="960" height="540" rx="42" fill="#10131f"/>
+  <circle cx="170" cy="112" r="140" fill="#4f79ff" opacity=".16"/>
+  <circle cx="778" cy="408" r="170" fill="#f2bf5d" opacity=".14"/>
+  <rect x="178" y="162" width="604" height="220" rx="34" fill="#1e2640" stroke="#27365f" stroke-width="6"/>
+  <rect x="222" y="208" width="214" height="16" rx="8" fill="#b2bdd5" opacity=".96"/>
+  <rect x="222" y="246" width="284" height="14" rx="7" fill="#b2bdd5" opacity=".72"/>
+  <rect x="222" y="284" width="176" height="14" rx="7" fill="#f2bf5d" opacity=".92"/>
+  <circle cx="664" cy="238" r="42" fill="#27365f" opacity=".92"/>
+  <path d="M602 346c0-34 28-62 62-62s62 28 62 62" fill="#27365f" opacity=".92"/>
+  <circle cx="761" cy="411" r="2.8" fill="#b2bdd5" opacity=".22"/><circle cx="138" cy="124" r="1.8" fill="#b2bdd5" opacity=".22"/><circle cx="275" cy="221" r="1.8" fill="#b2bdd5" opacity=".22"/><circle cx="412" cy="318" r="2.8" fill="#b2bdd5" opacity=".22"/><circle cx="549" cy="415" r="1.8" fill="#b2bdd5" opacity=".22"/><circle cx="686" cy="128" r="1.8" fill="#b2bdd5" opacity=".22"/><circle cx="823" cy="225" r="2.8" fill="#b2bdd5" opacity=".22"/><circle cx="200" cy="322" r="1.8" fill="#b2bdd5" opacity=".22"/><circle cx="337" cy="419" r="1.8" fill="#b2bdd5" opacity=".22"/><circle cx="474" cy="132" r="2.8" fill="#b2bdd5" opacity=".22"/><circle cx="611" cy="229" r="1.8" fill="#b2bdd5" opacity=".22"/><circle cx="748" cy="326" r="1.8" fill="#b2bdd5" opacity=".22"/>
+  <text x="100" y="110" fill="#f2bf5d" font-family="'JetBrains Mono','Consolas',monospace" font-size="28" font-weight="800" letter-spacing="4">PROJECT</text>
+  <text x="112" y="454" fill="#eef4ff" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="118" font-weight="900">面试</text>
+  <text x="112" y="534" fill="#eef4ff" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="118" font-weight="900">大师</text>
+  <text x="520" y="482" fill="#b2bdd5" font-family="'JetBrains Mono','Consolas',monospace" font-size="28" font-weight="700">AI / WEB / SYSTEM DESIGN</text>
+</svg>

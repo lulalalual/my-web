@@ -1,0 +1,371 @@
+menu:
+  专栏:
+    计算机八股文: /categories/计算机八股文笔记/ || anzhiyu-icon-book
+    算法笔记: /categories/算法笔记/ || anzhiyu-icon-shapes
+    AI 开发笔记: /categories/AI开发笔记/ || anzhiyu-icon-robot
+    C++ 语法: /categories/cpp-syntax/ || anzhiyu-icon-code
+    分布式系统: /tags/分布式/ || anzhiyu-icon-network-wired
+    游戏开发: /categories/游戏开发/ || anzhiyu-icon-gamepad
+    项目合集: /projects/ || anzhiyu-icon-folder
+  文章:
+    隧道: /archives/ || anzhiyu-icon-box-archive
+    分类: /categories/ || anzhiyu-icon-shapes
+    标签: /tags/ || anzhiyu-icon-tags
+  互动:
+    留言板: /comments/ || anzhiyu-icon-envelope
+  我的:
+    关于本站: /about/ || anzhiyu-icon-paper-plane
+    GitHub: https://github.com/lulalalual || anzhiyu-icon-github
+
+nav:
+  enable: false
+  travelling: false
+  clock: true
+
+social:
+  Github: https://github.com/lulalalual || anzhiyu-icon-github
+
+favicon: /favicon.svg
+
+avatar:
+  img: /img/avatar.jpg
+  effect: true
+
+disable_top_img: false
+index_img: false
+default_top_img: false
+
+cover:
+  index_enable: true
+  aside_enable: true
+  archives_enable: true
+  position: left
+  default_cover:
+    - /img/covers/notes/site-portal.svg
+    - /img/covers/notes/cpp-index.svg
+    - /img/covers/notes/project-game.svg
+
+post_meta:
+  page:
+    date_type: created
+    date_format: simple
+    categories: true
+    tags: true
+    label: false
+  post:
+    date_type: both
+    date_format: date
+    categories: true
+    tags: true
+    label: true
+    unread: false
+
+index_post_content:
+  method: 2
+  length: 180
+
+toc:
+  post: true
+  page: true
+  number: true
+  expand: false
+  style_simple: false
+
+post_copyright:
+  enable: true
+  decode: false
+  author_href: https://github.com/lulalalual
+  location: 中国
+  license: CC BY-NC-SA 4.0
+  license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+  avatarSinks: false
+
+related_post:
+  enable: true
+  limit: 6
+  date_type: created
+
+noticeOutdate:
+  enable: false
+
+sharejs:
+  enable: false
+
+comments:
+  use:
+  text: true
+  lazyload: false
+  count: false
+  card_post_count: false
+
+footer:
+  owner:
+    enable: true
+    since: 2024
+  custom_text: 青阳寻雪：技术、项目、复盘和持续学习。
+  runtime:
+    enable: false
+    launch_time: 04/25/2026 00:00:00
+  bdageitem:
+    enable: true
+    list:
+      - link: https://hexo.io/
+        shields: https://npm.elemecdn.com/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg
+        message: 博客框架为 Hexo
+      - link: https://docs.anheyu.com/
+        shields: https://npm.elemecdn.com/anzhiyu-theme-static@1.0.9/img/Theme-AnZhiYu-2E67D3.svg
+        message: 本站使用 AnZhiYu 主题
+      - link: https://github.com/lulalalual/my-web
+        shields: https://img.shields.io/badge/Source-GitHub-24292f?style=flat&logo=github
+        message: 内容由 GitHub 托管
+  footerBar:
+    enable: true
+    authorLink: /
+    cc:
+      enable: false
+    linkList:
+      - link: /archives/
+        text: 文章归档
+      - link: /projects/
+        text: 项目合集
+    subTitle:
+      enable: true
+      effect: true
+      loop: true
+      source: false
+      sub:
+        - 青阳寻雪，写代码也写山河。
+        - 把项目经验写成能复用的工程笔记。
+
+theme_color:
+  enable: true
+  main: "#3b70fc"
+  dark_main: "#f2b94b"
+  paginator: "#3b70fc"
+  text_selection: "#2128bd"
+  link_color: "var(--anzhiyu-fontcolor)"
+  meta_color: "var(--anzhiyu-fontcolor)"
+  hr_color: "#4259ef23"
+  code_foreground: "#fff"
+  code_background: "var(--anzhiyu-code-stress)"
+  toc_color: "#3b70fc"
+  scrollbar_color: "var(--anzhiyu-scrollbar)"
+  meta_theme_color_light: "#f7f9fe"
+  meta_theme_color_dark: "#18171d"
+
+sidebar:
+  avatar: true
+  archive: true
+  tag: true
+  category: true
+  menus_items: true
+  tags_cloud: true
+
+article_double_row: true
+category_ui: index
+tag_ui: index
+footer_bg: false
+display_mode: dark
+
+font:
+  global-font-size: 16px
+  code-font-size:
+  font-family: '"LXGW WenKai Screen", "PingFang SC", "Microsoft YaHei", sans-serif'
+  code-font-family: 'JetBrains Mono, Fira Code, Consolas, Menlo, monospace'
+
+blog_title_font:
+  font_link:
+  font-family: '"PingFang SC", "Microsoft YaHei", sans-serif'
+
+subtitle:
+  enable: true
+  effect: true
+  startDelay: 260
+  typeSpeed: 90
+  backSpeed: 42
+  loop: true
+  source: false
+  sub:
+    - 青阳寻雪：用代码拆解问题，用文章沉淀经验。
+    - C++、分布式、AI 面试平台和游戏开发复盘。
+
+preloader:
+  enable: false
+  source: 3
+  avatar: /img/avatar.jpg
+
+aside:
+  enable: true
+  hide: false
+  button: true
+  mobile: true
+  position: right
+  display:
+    archive: true
+    tag: true
+    category: true
+  card_author:
+    enable: true
+    description: <div style="line-height:1.55;text-align:justify;color:rgba(255,255,255,.88)">这里是 <b style="color:#fff">青阳寻雪</b> 的技术档案：C++、分布式、算法、AI 开发、游戏开发和面试复盘。目标不是堆资料，而是把踩坑、结构和取舍写清楚。</div>
+    name_link: /
+  card_announcement:
+    enable: true
+    content: 青阳寻雪的项目档案馆：AI 面试训练、SDL2 塔防、Muduo 通信平台、Raft KV 存储。
+  card_weixin:
+    enable: false
+  card_recent_post:
+    enable: true
+    limit: 5
+    sort: date
+  card_categories:
+    enable: true
+    limit: 8
+    expand: none
+  card_tags:
+    enable: true
+    limit: 40
+    color: false
+    highlightTags:
+      - C++
+      - 分布式
+      - Raft
+      - 算法
+      - AI开发
+      - 游戏开发
+      - 面试
+      - Hexo
+  card_archives:
+    enable: true
+    type: monthly
+    format: YYYY年MM月
+    order: -1
+    limit: 8
+  card_webinfo:
+    enable: true
+    post_count: true
+    last_push_date: false
+
+busuanzi:
+  site_uv: false
+  site_pv: false
+  page_pv: false
+
+runtimeshow:
+  enable: false
+  publish_date: 4/25/2026 00:00:00
+
+translate:
+  enable: false
+  default: 繁
+  defaultEncoding: 2
+
+readmode: true
+centerConsole: true
+darkmode:
+  enable: true
+  button: true
+  autoChangeMode: false
+
+medium_zoom: false
+fancybox: false
+
+note:
+  style: flat
+  icons: true
+  border_radius: 6
+  light_bg_offset: 0
+
+pjax:
+  enable: true
+  exclude:
+
+snackbar:
+  enable: false
+  position: top-center
+  bg_light: "#3b70fc"
+  bg_dark: "#1f1f1f"
+
+instantpage: true
+
+lazyload:
+  enable: false
+  field: site
+  placeholder:
+  blur: false
+  progressive: false
+
+Open_Graph_meta: true
+css_prefix: true
+
+home_top:
+  enable: true
+  timemode: date
+  title: 青阳寻雪
+  subTitle: 写代码，也写系统的来路。
+  siteText: qingyangxunxue.dev
+  category:
+    - name: 八股文
+      path: /categories/计算机八股文笔记/
+      shadow: var(--anzhiyu-shadow-blue)
+      class: blue
+      icon: anzhiyu-icon-book
+    - name: 算法笔记
+      path: /categories/算法笔记/
+      shadow: var(--anzhiyu-shadow-red)
+      class: red
+      icon: anzhiyu-icon-shapes
+    - name: AI 开发
+      path: /categories/AI开发笔记/
+      shadow: var(--anzhiyu-shadow-green)
+      class: green
+      icon: anzhiyu-icon-robot
+  default_descr: 这是一篇项目和技术复盘笔记。
+  swiper:
+    enable: false
+  banner:
+    tips: 站点导览
+    title: 从八股、算法到项目复盘
+    image: /img/covers/notes/home-map.svg
+    link: /categories/
+
+universe:
+  enable: false
+
+bubble:
+  enable: false
+
+console:
+  enable: false
+
+diytitle:
+  enable: false
+  leaveTitle: 先别走，文章还没看完。
+  backTitle: 欢迎回来，继续写代码。
+
+nav_music:
+  enable: false
+
+post_head_ai_description:
+  enable: false
+
+shortcutKey:
+  enable: false
+
+accesskey:
+  enable: false
+
+rightClickMenu:
+  enable: true
+
+inject:
+  head:
+    - <link rel="stylesheet" href="/css/custom.css">
+  bottom:
+    - <script src="/js/lula-motion.js"></script>
+
+CDN:
+  internal_provider: local
+  third_party_provider: cbd
+  version: true
+  custom_format:
+  option:

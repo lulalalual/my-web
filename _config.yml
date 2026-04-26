@@ -1,0 +1,84 @@
+title: 青阳寻雪
+subtitle: 个人技术博客
+description: 青阳寻雪的技术博客，记录 C++、分布式系统、AI 面试平台、游戏开发和项目复盘。
+keywords: 青阳寻雪, C++, Hexo, AnZhiYu, 技术博客, 分布式系统, Raft, 游戏开发, 面试
+author: 青阳寻雪
+language: zh-CN
+timezone: Asia/Shanghai
+
+url: https://my-web-pi-orcin.vercel.app
+root: /
+permalink: posts/:title/
+permalink_defaults:
+pretty_urls:
+  trailing_index: true
+  trailing_html: true
+
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+new_post_name: :title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true
+  field: site
+  exclude:
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+syntax_highlighter: highlight.js
+
+highlight:
+  line_number: true
+  auto_detect: false
+  tab_replace: ""
+  wrap: true
+  hljs: false
+
+prismjs:
+  preprocess: true
+  line_number: true
+  tab_replace: ""
+
+index_generator:
+  path: ""
+  per_page: 10
+  order_by: -date
+
+archive_generator:
+  per_page: 20
+  yearly: true
+  monthly: true
+  daily: false
+
+category_generator:
+  per_page: 10
+
+tag_generator:
+  per_page: 10
+
+default_category: 技术笔记
+category_map:
+  C++语法笔记: cpp-syntax
+tag_map:
+
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+updated_option: mtime
+
+per_page: 10
+pagination_dir: page
+
+theme: anzhiyu
+
+deploy:
+  type:

@@ -1,41 +1,37 @@
-<<<<<<< HEAD
-## Personal Site
+# 青阳寻雪
 
-Apple-inspired personal site built with Next.js, Supabase, and Vercel.
+青阳寻雪的个人技术博客，使用 `Hexo + AnZhiYu` 主题构建，部署在 Vercel。
 
-## Local Development
-
-1. Copy `.env.example` to `.env.local`.
-2. Fill in the Supabase and GitHub owner values.
-3. Run the development server:
+## 本地开发
 
 ```bash
+npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+默认打开 `http://127.0.0.1:53248`。
 
-## Supabase Setup
+## 内容维护
 
-Database files live in:
+- 文章：`source/_posts/*.md`
+- 项目页：`source/projects/index.md`
+- 专栏页：`source/columns/index.md`
+- 关于页：`source/about/index.md`
+- 站点配置：`_config.yml`
+- 主题配置：`_config.anzhiyu.yml`
+- 自定义样式：`source/css/custom.css`
 
-- `supabase/migrations/20260425_initial_schema.sql`
-- `supabase/seed.sql`
+新增文章时，在 `source/_posts/` 下创建 Markdown 文件，并写入 Hexo front matter。
 
-Apply them in the Supabase SQL Editor or through the CLI once a project exists.
+## 构建
 
-## Current Scope
+```bash
+npm run clean
+npm run build
+```
 
-- Public iPhone-style homepage with a 3D auto-play stage
-- Public `/projects` index and detail pages
-- Public Markdown-driven `/notes` index and detail pages
-- Owner-only `/studio` routes and write APIs for notes, projects, and settings
-- Fallback local content for previewing the site before Supabase is configured
+构建产物输出到 `public/`，Vercel 会使用该目录作为静态站点输出。
 
-## Deployment
+## 部署
 
-Deployment instructions live in [docs/deployment.md](./docs/deployment.md).
-=======
-# my-web
-我的个人网站
->>>>>>> 090b038bc0976bd8835edb301229783e58c5689e
+部署说明见 [docs/deployment.md](./docs/deployment.md)。

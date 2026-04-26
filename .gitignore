@@ -13,12 +13,15 @@
 # testing
 /coverage
 
-# next.js
+# next.js legacy artifacts
 /.next/
 /out/
 
 # production
 /build
+/public/
+/db.json
+/.deploy_git/
 
 # misc
 .DS_Store
@@ -43,6 +46,7 @@ task*-dev*.pid
 
 # local brainstorming artifacts
 .superpowers/
+.codex-artifacts/
 
 # typescript
 *.tsbuildinfo

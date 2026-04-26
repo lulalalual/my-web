@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+  <rect width="960" height="540" rx="42" fill="#d86c2f"/>
+  <circle cx="764" cy="124" r="126" fill="#f09a49" opacity=".62"/>
+  <circle cx="860" cy="404" r="138" fill="#d84d1e" opacity=".3"/>
+  <circle cx="496" cy="206" r="2.8" fill="#fff0e1" opacity=".26"/><circle cx="633" cy="303" r="1.8" fill="#fff0e1" opacity=".26"/><circle cx="770" cy="400" r="1.8" fill="#fff0e1" opacity=".26"/><circle cx="147" cy="113" r="2.8" fill="#fff0e1" opacity=".26"/><circle cx="284" cy="210" r="1.8" fill="#fff0e1" opacity=".26"/><circle cx="421" cy="307" r="1.8" fill="#fff0e1" opacity=".26"/><circle cx="558" cy="404" r="2.8" fill="#fff0e1" opacity=".26"/><circle cx="695" cy="117" r="1.8" fill="#fff0e1" opacity=".26"/><circle cx="832" cy="214" r="1.8" fill="#fff0e1" opacity=".26"/><circle cx="209" cy="311" r="2.8" fill="#fff0e1" opacity=".26"/><circle cx="346" cy="408" r="1.8" fill="#fff0e1" opacity=".26"/><circle cx="483" cy="121" r="1.8" fill="#fff0e1" opacity=".26"/>
+  <path d="M138 310c84-104 248-136 396-66 62 30 104 40 164 36" fill="none" stroke="#f5d9c2" stroke-width="14" stroke-linecap="round"/>
+  <path d="M268 172c84-54 206-56 288 6" fill="none" stroke="#f5d9c2" stroke-width="10" stroke-linecap="round"/>
+  <path d="M234 362h486l-54 84H288z" fill="#d86a05" opacity=".96" stroke="#f5d9c2" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M234 362l-92 62 62-86z" fill="#d86a05" opacity=".96" stroke="#f5d9c2" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M720 362l96 54-80-78z" fill="#d86a05" opacity=".96" stroke="#f5d9c2" stroke-width="10" stroke-linejoin="round"/>
+  <text x="94" y="112" fill="#fff0e1" font-family="'JetBrains Mono','Consolas',monospace" font-size="28" font-weight="800" letter-spacing="4">GRAPH</text>
+  <text x="232" y="252" fill="#fff7ef" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="116" font-weight="900">图与</text>
+  <text x="290" y="362" fill="#fff7ef" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="116" font-weight="900">拓扑</text>
+  <text x="350" y="418" fill="#fff0e1" font-family="'JetBrains Mono','Consolas',monospace" font-size="34" font-weight="800">BFS / DFS / TOPO</text>
+</svg>

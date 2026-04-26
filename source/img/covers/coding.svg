@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="32" x2="840" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#181b28"/>
+      <stop offset=".55" stop-color="#111522"/>
+      <stop offset="1" stop-color="#0b0e18"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="116" y1="108" x2="808" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4f7cff"/>
+      <stop offset=".45" stop-color="#2a4ec1"/>
+      <stop offset="1" stop-color="#f4b94a"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" rx="44" fill="url(#bg)"/>
+  <circle cx="178" cy="124" r="186" fill="#2446a8" opacity=".18"/>
+  <circle cx="816" cy="88" r="126" fill="#f4b94a" opacity=".12"/>
+  <circle cx="760" cy="444" r="184" fill="#1f3f97" opacity=".18"/>
+  <g opacity=".45">
+    <circle cx="82" cy="86" r="2.2" fill="#f7d98c"/>
+    <circle cx="148" cy="42" r="1.8" fill="#8fb0ff"/>
+    <circle cx="248" cy="128" r="2" fill="#f7d98c"/>
+    <circle cx="382" cy="72" r="2.2" fill="#8fb0ff"/>
+    <circle cx="470" cy="48" r="2" fill="#f7d98c"/>
+    <circle cx="602" cy="112" r="1.8" fill="#8fb0ff"/>
+    <circle cx="712" cy="82" r="2.2" fill="#f7d98c"/>
+    <circle cx="836" cy="142" r="1.8" fill="#8fb0ff"/>
+    <circle cx="892" cy="214" r="2" fill="#f7d98c"/>
+  </g>
+  <rect x="98" y="116" width="764" height="314" rx="34" fill="#111625" stroke="rgba(255,255,255,.08)"/>
+  <rect x="148" y="168" width="308" height="204" rx="28" fill="#0f1422" stroke="#233053"/>
+  <rect x="492" y="142" width="316" height="220" rx="28" fill="#10182b" stroke="#24355c"/>
+  <rect x="532" y="188" width="234" height="18" rx="9" fill="#425ea9"/>
+  <rect x="532" y="230" width="182" height="16" rx="8" fill="#5b74be"/>
+  <rect x="532" y="268" width="144" height="16" rx="8" fill="#7a92da"/>
+  <rect x="532" y="306" width="198" height="16" rx="8" fill="#f4b94a"/>
+  <path d="M228 206 160 250l68 44v-34l-28-14 28-14v-26Zm150 88 68-44-68-44v26l28 14-28 14v34Z" fill="#78b3ff"/>
+  <path d="M266 324 334 178h42l-68 146h-42Z" fill="#f7f8fb"/>
+  <text x="148" y="96" fill="#f2f4f8" font-family="Arial, sans-serif" font-size="28" font-weight="700">QINGYANGXUNXUE</text>
+  <text x="148" y="408" fill="#8ca0c9" font-family="Arial, sans-serif" font-size="24" font-weight="700">TECH NOTEBOOK / PROJECT ARCHIVE</text>
+  <rect x="104" y="92" width="268" height="10" rx="5" fill="url(#glow)" opacity=".88"/>
+</svg>

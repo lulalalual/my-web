@@ -1,54 +1,63 @@
-# Deployment Checklist
+# Hexo + AnZhiYu 部署说明
 
-## Required Environment Variables
+当前站点不再使用 Supabase，也不需要数据库环境变量。内容由仓库内 Markdown 文件维护，推送 GitHub 后由 Vercel 自动构建。
 
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `NEXT_PUBLIC_SITE_URL`
-- `GITHUB_OWNER_USERNAME=lulalalual`
+## Vercel 配置
 
-## Supabase Setup
+导入 GitHub 仓库后，Vercel 使用以下配置：
 
-1. Create a Supabase project.
-2. In the SQL Editor, run:
-   - `supabase/migrations/20260425_initial_schema.sql`
-   - `supabase/seed.sql`
-3. In `Authentication -> Providers`, enable `GitHub`.
-4. Set the callback URL to:
-   - Local: `http://localhost:3000/auth/callback`
-   - Production: `https://<your-vercel-domain>/auth/callback`
+- Framework Preset：`Other`
+- Build Command：`npm run build`
+- Output Directory：`public`
+- Install Command：`npm install`
+- Root Directory：`./`
 
-## Vercel Setup
+仓库里已经提供 `vercel.json`，一般情况下 Vercel 会自动读取这些配置。
 
-1. Import this repository into Vercel.
-2. Add all required environment variables in the Vercel project settings.
-3. Set `NEXT_PUBLIC_SITE_URL` to your production domain.
-4. Trigger the first deployment.
-5. After the first deployment, update Supabase GitHub provider callback URL with the exact Vercel domain if it changed.
+## 环境变量
 
-## Local Preflight
+当前版本不需要必填环境变量。
 
-Before deploying, run:
+## 本地验证
+
+部署前执行：
 
 ```bash
-npm run lint
+npm install
+npm run clean
 npm run build
 ```
 
-## Post-Deploy Verification
-
-After Vercel gives you a URL, run:
+如需本地预览：
 
 ```bash
-npm run verify:deployment -- https://<your-vercel-domain>
+npm run dev
 ```
 
-## Production Verification
+打开 `http://127.0.0.1:53248`。这个端口是为了避开本机被系统占用的端口段。
 
-- Homepage renders the iPhone-style 3D stage.
-- `/projects` and `/notes` load published content.
-- `/login` starts GitHub OAuth.
-- Only GitHub user `lulalalual` can access `/studio`.
-- Studio API routes reject unauthenticated requests.
-- `/api/health` returns `{ ok: true }`.
+## 发布流程
+
+1. 修改 `source/_posts/`、`source/projects/index.md` 或主题配置。
+2. 本地运行 `npm run build` 确认可构建。
+3. 提交并推送到 GitHub。
+4. Vercel 会自动部署最新站点。
+
+## 线上验证
+
+Vercel 部署成功后运行：
+
+```bash
+npm run verify:deployment -- https://my-web-pi-orcin.vercel.app
+```
+
+确认以下页面返回正常：
+
+- `/`
+- `/archives/`
+- `/categories/`
+- `/tags/`
+- `/projects/`
+- `/columns/`
+- `/about/`
+- `/comments/`

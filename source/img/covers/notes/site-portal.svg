@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+  <rect width="960" height="540" rx="42" fill="#0f1b21"/>
+  <circle cx="170" cy="112" r="140" fill="#2fd0a3" opacity=".16"/>
+  <circle cx="778" cy="408" r="170" fill="#8ae9cf" opacity=".14"/>
+  <rect x="178" y="162" width="604" height="220" rx="34" fill="#183039" stroke="#285364" stroke-width="6"/>
+  <rect x="222" y="208" width="214" height="16" rx="8" fill="#bbd8d0" opacity=".96"/>
+  <rect x="222" y="246" width="284" height="14" rx="7" fill="#bbd8d0" opacity=".72"/>
+  <rect x="222" y="284" width="176" height="14" rx="7" fill="#8ae9cf" opacity=".92"/>
+  <circle cx="664" cy="238" r="42" fill="#285364" opacity=".92"/>
+  <path d="M602 346c0-34 28-62 62-62s62 28 62 62" fill="#285364" opacity=".92"/>
+  <circle cx="832" cy="262" r="2.8" fill="#bbd8d0" opacity=".22"/><circle cx="209" cy="359" r="1.8" fill="#bbd8d0" opacity=".22"/><circle cx="346" cy="72" r="1.8" fill="#bbd8d0" opacity=".22"/><circle cx="483" cy="169" r="2.8" fill="#bbd8d0" opacity=".22"/><circle cx="620" cy="266" r="1.8" fill="#bbd8d0" opacity=".22"/><circle cx="757" cy="363" r="1.8" fill="#bbd8d0" opacity=".22"/><circle cx="134" cy="76" r="2.8" fill="#bbd8d0" opacity=".22"/><circle cx="271" cy="173" r="1.8" fill="#bbd8d0" opacity=".22"/><circle cx="408" cy="270" r="1.8" fill="#bbd8d0" opacity=".22"/><circle cx="545" cy="367" r="2.8" fill="#bbd8d0" opacity=".22"/><circle cx="682" cy="80" r="1.8" fill="#bbd8d0" opacity=".22"/><circle cx="819" cy="177" r="1.8" fill="#bbd8d0" opacity=".22"/>
+  <text x="100" y="110" fill="#8ae9cf" font-family="'JetBrains Mono','Consolas',monospace" font-size="28" font-weight="800" letter-spacing="4">WEB NOTE</text>
+  <text x="112" y="454" fill="#f3fffb" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="118" font-weight="900">博客</text>
+  <text x="112" y="534" fill="#f3fffb" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="118" font-weight="900">门户</text>
+  <text x="520" y="482" fill="#bbd8d0" font-family="'JetBrains Mono','Consolas',monospace" font-size="28" font-weight="700">HEXO / MOTION / DESIGN</text>
+</svg>

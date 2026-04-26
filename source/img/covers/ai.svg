@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+  <rect width="960" height="540" rx="48" fill="#10131d"/>
+  <circle cx="174" cy="116" r="140" fill="#4e73ff" opacity=".16"/>
+  <circle cx="798" cy="420" r="170" fill="#21d7a8" opacity=".12"/>
+  <rect x="140" y="146" width="680" height="254" rx="36" fill="#171d2c" stroke="#2d4065" stroke-width="4"/>
+  <rect x="204" y="214" width="344" height="160" rx="28" fill="#24274f"/>
+  <circle cx="688" cy="248" r="40" fill="#d6d8df"/>
+  <path d="M620 344c0-34 28-62 62-62s62 28 62 62" fill="#d6d8df"/>
+  <rect x="244" y="250" width="184" height="16" rx="8" fill="#dbe3ff"/>
+  <rect x="244" y="286" width="226" height="14" rx="7" fill="#8f9dc9"/>
+  <rect x="244" y="320" width="146" height="14" rx="7" fill="#77d7c5"/>
+  <rect x="244" y="352" width="112" height="14" rx="7" fill="#f0b84d"/>
+  <path d="M730 184h28v-22" stroke="#22d6a8" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M758 162h18" stroke="#22d6a8" stroke-width="12" stroke-linecap="round"/>
+  <rect x="116" y="84" width="280" height="54" rx="27" fill="#466cff" opacity=".18"/>
+  <text x="138" y="121" fill="#eef3ff" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="30" font-weight="700">AI 开发笔记</text>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+  <rect width="960" height="540" rx="48" fill="#10131d"/>
+  <circle cx="154" cy="112" r="132" fill="#ffbf59" opacity=".16"/>
+  <circle cx="792" cy="412" r="176" fill="#4d75ff" opacity=".14"/>
+  <rect x="170" y="160" width="620" height="224" rx="34" fill="#151b2a" stroke="#2e4066" stroke-width="4"/>
+  <rect x="238" y="248" width="146" height="98" rx="26" fill="#20293d" stroke="#ffc35d" stroke-width="6"/>
+  <rect x="424" y="170" width="170" height="86" rx="24" fill="#1d2740" stroke="#7ca2ff" stroke-width="6"/>
+  <rect x="620" y="250" width="138" height="92" rx="24" fill="#132a2d" stroke="#3dd9be" stroke-width="6"/>
+  <path d="M384 298 424 224M594 224 620 284" stroke="#f0b84d" stroke-width="16" stroke-linecap="round"/>
+  <text x="268" y="292" fill="#ffda85" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="24" font-weight="700">二分</text>
+  <text x="254" y="326" fill="#f5f8ff" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="24" font-weight="700">窗口</text>
+  <text x="446" y="204" fill="#d9e5ff" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="24" font-weight="700">搜索</text>
+  <text x="448" y="236" fill="#f5f8ff" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="24" font-weight="700">框架</text>
+  <text x="646" y="292" fill="#81f1da" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="24" font-weight="700">前缀</text>
+  <text x="646" y="324" fill="#f5fffd" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="24" font-weight="700">和</text>
+  <rect x="116" y="86" width="290" height="54" rx="27" fill="#e8a836" opacity=".18"/>
+  <text x="138" y="121" fill="#fff0cf" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="30" font-weight="700">算法核心框架</text>
+</svg>
