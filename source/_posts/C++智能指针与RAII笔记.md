@@ -1,5 +1,6 @@
 ﻿---
 title: C++ 智能指针与 RAII 笔记
+permalink: posts/cpp-smart-pointer-raii-notes/
 date: 2026-04-26 13:20:00
 updated: 2026-04-26 13:20:00
 categories:

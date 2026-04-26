@@ -1,5 +1,6 @@
 ﻿---
 title: C++ 模板推导与 auto/decltype 笔记
+permalink: posts/cpp-template-auto-decltype-notes/
 date: 2026-04-26 13:00:00
 updated: 2026-04-26 13:00:00
 categories:

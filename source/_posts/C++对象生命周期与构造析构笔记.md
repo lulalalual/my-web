@@ -1,5 +1,6 @@
 ﻿---
 title: C++ 对象生命周期与构造析构笔记
+permalink: posts/cpp-object-lifecycle-notes/
 date: 2026-04-26 12:40:00
 updated: 2026-04-26 12:40:00
 categories:

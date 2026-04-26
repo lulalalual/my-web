@@ -1,5 +1,6 @@
 ﻿---
 title: C++ 笔记如何长期维护
+permalink: posts/cpp-notes-maintenance/
 date: 2026-04-25 13:00:00
 updated: 2026-04-25 13:00:00
 categories:

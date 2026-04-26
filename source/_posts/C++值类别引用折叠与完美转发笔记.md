@@ -1,5 +1,6 @@
 ﻿---
 title: C++ 值类别、引用折叠与完美转发笔记
+permalink: posts/cpp-forwarding-notes/
 date: 2026-04-26 12:20:00
 updated: 2026-04-26 12:20:00
 categories:

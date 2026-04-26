@@ -1,5 +1,6 @@
 ﻿---
 title: 回溯搜索与DFS框架笔记
+permalink: posts/backtracking-dfs-framework/
 date: 2026-04-26 10:40:00
 updated: 2026-04-26 10:40:00
 categories:

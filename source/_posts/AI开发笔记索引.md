@@ -1,5 +1,6 @@
 ﻿---
 title: AI 开发笔记索引
+permalink: posts/ai-dev-notes-index/
 date: 2026-04-25 15:30:00
 updated: 2026-04-25 15:30:00
 categories:

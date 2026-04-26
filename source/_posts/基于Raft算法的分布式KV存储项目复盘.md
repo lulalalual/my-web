@@ -1,5 +1,6 @@
 ﻿---
 title: 基于 Raft 算法的分布式 KV 存储项目复盘
+permalink: posts/raft-kv-storage-review/
 date: 2026-04-25 14:00:00
 updated: 2026-04-25 14:00:00
 categories:
