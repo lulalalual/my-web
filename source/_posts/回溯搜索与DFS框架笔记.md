@@ -1,4 +1,4 @@
----
+﻿---
 title: 回溯搜索与DFS框架笔记
 date: 2026-04-26 10:40:00
 updated: 2026-04-26 10:40:00
@@ -8,7 +8,7 @@ tags:
   - 算法
   - 回溯
   - DFS
-cover: /img/covers/notes/algo-dfs-note.svg
+cover: /img/covers/notes/algo-dfs-note.webp
 description: 回溯和 DFS 的核心不是递归本身，而是路径、选择列表、结束条件和撤销操作这四个元素。
 ---
 
@@ -59,3 +59,4 @@ void dfs(vector<int>& nums, vector<int>& used) {
 ## 和普通 DFS 的区别
 
 图遍历的 DFS 更关注“访问状态”和连通性；回溯更关注“枚举树”和撤销选择。两者都用递归，但目标不同。
+

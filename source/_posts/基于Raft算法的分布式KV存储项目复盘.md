@@ -1,4 +1,4 @@
----
+﻿---
 title: 基于 Raft 算法的分布式 KV 存储项目复盘
 date: 2026-04-25 14:00:00
 updated: 2026-04-25 14:00:00
@@ -10,7 +10,7 @@ tags:
   - C++
   - KV存储
   - RPC
-cover: /img/covers/notes/project-raft.svg
+cover: /img/covers/notes/project-raft.webp
 description: 基于 Raft 算法的分布式 KV 存储项目，用 C++ 实现领导者选举、日志复制、状态机应用、RPC 通信和基础持久化。
 ---
 
@@ -72,3 +72,4 @@ Raft 通过任期、日志索引、日志任期和多数派提交保证安全性
 ## 复盘结论
 
 这个项目最能体现分布式系统基本功。它要求对 Raft 的状态转换、日志复制、持久化和异常场景保持严谨。后续如果继续增强，可以加入快照压缩、成员变更、读线性一致性优化、批量日志复制和更系统的压测。
+

@@ -1,4 +1,4 @@
----
+﻿---
 title: C++ 笔记如何长期维护
 date: 2026-04-25 13:00:00
 updated: 2026-04-25 13:00:00
@@ -8,7 +8,7 @@ tags:
   - C++
   - 学习方法
   - 笔记
-cover: /img/covers/notes/cpp-maintain.svg
+cover: /img/covers/notes/cpp-maintain.webp
 description: C++ 笔记不要只记录语法点，更应该围绕问题、场景、边界和代码验证组织。
 ---
 
@@ -41,3 +41,4 @@ int main() {
 ## 和项目连接
 
 笔记应该反向服务项目。项目中遇到的 bug、设计选择、性能问题，都可以沉淀成文章。这样博客不会空转，文章也会越来越具体。
+

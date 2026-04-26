@@ -1,4 +1,4 @@
----
+﻿---
 title: C++ 值类别、引用折叠与完美转发笔记
 date: 2026-04-26 12:20:00
 updated: 2026-04-26 12:20:00
@@ -9,7 +9,7 @@ tags:
   - 值类别
   - 引用折叠
   - 完美转发
-cover: /img/covers/notes/cpp-forwarding.svg
+cover: /img/covers/notes/cpp-forwarding.webp
 description: 理解左值、右值、亡值、引用折叠和 std::forward，是看懂移动语义和泛型代码的基础。
 ---
 
@@ -64,3 +64,4 @@ int main() {
 - 写包装层、回调层、工厂函数时，需要保留实参值类别。
 - 写普通业务逻辑时，不要为了“高级”到处上 `std::forward`。
 - 如果一个对象之后还要继续用，不要轻易 `std::move`。
+

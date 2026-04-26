@@ -1,4 +1,4 @@
----
+﻿---
 title: C++ 对象生命周期与构造析构笔记
 date: 2026-04-26 12:40:00
 updated: 2026-04-26 12:40:00
@@ -9,7 +9,7 @@ tags:
   - 生命周期
   - 构造析构
   - 对象模型
-cover: /img/covers/notes/cpp-lifetime.svg
+cover: /img/covers/notes/cpp-lifetime.webp
 description: 读懂对象什么时候构造、什么时候析构、成员按什么顺序初始化，是 C++ 基础里最容易被忽略但最容易出 bug 的部分。
 ---
 
@@ -68,3 +68,4 @@ int main() {
 - 有资源就封装成成员对象，而不是手写 `new/delete`。
 - 让资源跟随对象生命周期自动管理。
 - 一旦一个类型拥有资源，就认真考虑拷贝构造、移动构造和析构语义。
+

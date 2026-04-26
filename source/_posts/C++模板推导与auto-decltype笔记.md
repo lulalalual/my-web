@@ -1,4 +1,4 @@
----
+﻿---
 title: C++ 模板推导与 auto/decltype 笔记
 date: 2026-04-26 13:00:00
 updated: 2026-04-26 13:00:00
@@ -9,7 +9,7 @@ tags:
   - 模板
   - auto
   - decltype
-cover: /img/covers/notes/cpp-template.svg
+cover: /img/covers/notes/cpp-template.webp
 description: 模板参数推导、auto 和 decltype 是一条线上的能力，核心是“编译器按什么规则保留或丢掉类型信息”。
 ---
 
@@ -60,3 +60,4 @@ int main() {
 - 局部变量不需要保留引用语义时，用 `auto` 简化代码。
 - 涉及返回值推导、泛型库封装时，要明确选择 `auto`、`auto&`、`decltype(auto)`。
 - 如果你说不清楚推导结果，就写 `static_assert(std::is_same_v<...>)` 验证。
+

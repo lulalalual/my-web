@@ -1,4 +1,4 @@
----
+﻿---
 title: C++ 智能指针与 RAII 笔记
 date: 2026-04-26 13:20:00
 updated: 2026-04-26 13:20:00
@@ -9,7 +9,7 @@ tags:
   - 智能指针
   - RAII
   - 资源管理
-cover: /img/covers/notes/cpp-raii.svg
+cover: /img/covers/notes/cpp-raii.webp
 description: 智能指针不是为了替代所有指针，而是为了把所有权、释放时机和异常安全写进类型系统。
 ---
 
@@ -56,3 +56,4 @@ int main() {
 - 默认优先 `unique_ptr`，只有确实存在共享所有权时才升级到 `shared_ptr`。
 - 函数参数如果只是借用，优先传引用或裸指针，不要平白制造所有权语义。
 - 自定义资源类型时，先想能不能直接做成 RAII 对象，而不是先裸拿资源再补释放逻辑。
+
