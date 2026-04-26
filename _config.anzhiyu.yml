@@ -85,6 +85,16 @@ related_post:
   limit: 6
   date_type: created
 
+reward:
+  enable: true
+  QR_code:
+    - img: /img/reward-wechat.jpg
+      link:
+      text: 微信
+    - img: /img/reward-alipay.jpg
+      link:
+      text: 支付宝
+
 noticeOutdate:
   enable: false
 
@@ -325,7 +335,7 @@ home_top:
   banner:
     tips: 站点导览
     title: 从八股、算法到项目复盘
-    image: /img/covers/notes/home-map.svg
+    image: /img/covers/notes/home-map.webp
     link: /categories/
 
 universe:
