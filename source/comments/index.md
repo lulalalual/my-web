@@ -1,10 +1,11 @@
----
+﻿---
 title: 留言板
 date: 2026-04-25 16:00:00
 aside: true
 top_img: false
 ---
 
-这里暂时作为留言板占位页。当前站点不接入数据库和第三方评论系统，因此不会保存公开留言。
+这里暂时作为留言入口。
 
-如果后续需要评论，可以再接入 Waline、Twikoo 或 GitHub Discussions。
+当前网站是静态博客，不接数据库，所以不会直接保存公开留言。后续如果需要评论功能，可以接入 GitHub Discussions、Waline 或 Twikoo。
+
