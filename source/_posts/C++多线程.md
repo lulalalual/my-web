@@ -1,4 +1,4 @@
-﻿---
+---
 title: 多线程
 permalink: posts/cpp-threading/
 date: 2026-04-29 20:45:00
@@ -11,7 +11,7 @@ tags:
   - 互斥锁
   - 原子操作
   - 条件变量
-cover: /img/covers/notes/cpp-raii.webp
+cover: /img/covers/notes/cover-cpp-thread.png
 description: 整理 std::thread、mutex、lock_guard、atomic、条件变量、信号量、死锁和读写锁。
 ---
 

@@ -1,4 +1,4 @@
-﻿---
+---
 title: KV存储
 permalink: posts/raft-kv-storage-review/
 date: 2026-04-25 14:00:00
@@ -11,7 +11,7 @@ tags:
   - C++
   - KV存储
   - RPC
-cover: /img/covers/notes/project-raft.webp
+cover: /img/covers/notes/cover-raft-kv.png
 description: 把 Raft KV 项目讲成一套多人记账系统：选主、复制、确认、落盘。
 ---
 

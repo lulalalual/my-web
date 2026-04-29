@@ -1,4 +1,4 @@
-﻿---
+---
 title: SQL八股
 permalink: posts/mysql-interview/
 date: 2026-04-29 21:20:00
@@ -11,7 +11,7 @@ tags:
   - 事务
   - 索引
   - MVCC
-cover: /img/covers/notes/interview-index.webp
+cover: /img/covers/notes/cover-mysql-interview.png
 description: 整理 MySQL 面试高频内容，覆盖查询流程、事务、MVCC、锁、索引和日志。
 ---
 

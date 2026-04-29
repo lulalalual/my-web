@@ -41,9 +41,9 @@ cover:
   archives_enable: true
   position: left
   default_cover:
-    - /img/covers/notes/site-portal.svg
-    - /img/covers/notes/cpp-index.svg
-    - /img/covers/notes/project-game.svg
+    - /img/covers/notes/cover-site-refactor.png
+    - /img/covers/notes/cover-cpp-basic.png
+    - /img/covers/notes/cover-tower-defense.png
 
 post_meta:
   page:
@@ -314,28 +314,28 @@ home_top:
   subTitle: 写代码，也写系统的来路。
   siteText: qingyangxunxue.dev
   category:
-    - name: 八股文
-      path: /categories/计算机八股文笔记/
+    - name: C++
+      path: /categories/cpp-syntax/
       shadow: var(--anzhiyu-shadow-blue)
       class: blue
-      icon: anzhiyu-icon-book
-    - name: 算法笔记
+      icon: anzhiyu-icon-code
+    - name: 算法
       path: /categories/算法笔记/
       shadow: var(--anzhiyu-shadow-red)
       class: red
       icon: anzhiyu-icon-shapes
-    - name: AI 开发
-      path: /categories/AI开发笔记/
+    - name: 八股
+      path: /categories/计算机八股文笔记/
       shadow: var(--anzhiyu-shadow-green)
       class: green
-      icon: anzhiyu-icon-robot
+      icon: anzhiyu-icon-book
   default_descr: 这是一篇项目和技术复盘笔记。
   swiper:
     enable: false
   banner:
     tips: 站点导览
     title: 从八股、算法到项目复盘
-    image: /img/covers/notes/home-map.webp
+    image: /img/covers/notes/cover-learning-map.png
     link: /categories/
 
 universe:

@@ -1,4 +1,4 @@
-﻿---
+---
 title: 网络编程
 permalink: posts/cpp-network/
 date: 2026-04-29 20:45:00
@@ -11,7 +11,7 @@ tags:
   - Socket
   - TCP
   - UDP
-cover: /img/covers/notes/project-distributed.webp
+cover: /img/covers/notes/cover-cpp-network.png
 description: 整理 Socket、IP、端口、TCP/UDP、字节序、客户端服务端流程和 Linux/Windows 平台差异。
 ---
 

@@ -1,4 +1,4 @@
-﻿---
+---
 title: 笔记维护
 permalink: posts/cpp-notes-maintenance/
 date: 2026-04-25 13:00:00
@@ -9,7 +9,7 @@ tags:
   - C++
   - 学习方法
   - 笔记
-cover: /img/covers/notes/cpp-maintain.webp
+cover: /img/covers/notes/cover-cpp-maintain.png
 description: C++ 笔记不要堆概念，要围绕问题、代码和踩坑来维护。
 ---
 

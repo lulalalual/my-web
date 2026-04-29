@@ -1,4 +1,4 @@
-﻿---
+---
 title: STL
 permalink: posts/cpp-stl/
 date: 2026-04-29 20:45:00
@@ -10,7 +10,7 @@ tags:
   - STL
   - 容器
   - 算法
-cover: /img/covers/notes/cpp-template.webp
+cover: /img/covers/notes/cover-cpp-stl.png
 description: 整理 vector、stack、queue、priority_queue、set、map、string、pair、迭代器和常用算法。
 ---
 

@@ -1,4 +1,4 @@
-﻿---
+---
 title: SQL进阶
 permalink: posts/sql-advanced/
 date: 2026-04-29 21:20:00
@@ -11,7 +11,7 @@ tags:
   - 索引
   - 视图
   - 存储过程
-cover: /img/covers/notes/project-raft.webp
+cover: /img/covers/notes/cover-sql-advanced.png
 description: 整理 MySQL 索引、SQL 优化、视图、存储过程、触发器、锁和日志等进阶内容。
 ---
 

@@ -1,4 +1,4 @@
-﻿---
+---
 title: SQL基础
 permalink: posts/sql-basic/
 date: 2026-04-29 21:20:00
@@ -10,7 +10,7 @@ tags:
   - SQL
   - 数据库
   - 基础
-cover: /img/covers/notes/interview-index.webp
+cover: /img/covers/notes/cover-sql-basic.png
 description: 整理 SQL 通用语法、DDL、DML、DQL、DCL、函数和约束等 MySQL 基础内容。
 ---
 

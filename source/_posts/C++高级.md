@@ -1,4 +1,4 @@
-﻿---
+---
 title: C++高级
 permalink: posts/cpp-advanced/
 date: 2026-04-29 20:45:00
@@ -11,7 +11,7 @@ tags:
   - 移动语义
   - 智能指针
   - Lambda
-cover: /img/covers/notes/cpp-forwarding.webp
+cover: /img/covers/notes/cover-cpp-advanced.png
 description: 整理移动语义、左右值引用、智能指针、对象优化、绑定器和 lambda 等现代 C++ 内容。
 ---
 

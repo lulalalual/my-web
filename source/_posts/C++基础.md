@@ -1,4 +1,4 @@
-﻿---
+---
 title: C++基础
 permalink: posts/cpp-basic/
 date: 2026-04-29 20:45:00
@@ -10,7 +10,7 @@ tags:
   - 基础
   - 内存
   - 面向对象
-cover: /img/covers/notes/cpp-index.webp
+cover: /img/covers/notes/cover-cpp-basic.png
 description: 从内存、编译链接、函数、const、引用、new/delete 到面向对象，系统整理 C++ 基础。
 ---
 
