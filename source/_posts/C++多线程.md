@@ -11,7 +11,7 @@ tags:
   - 互斥锁
   - 原子操作
   - 条件变量
-cover: /img/covers/notes/cover-cpp-thread.png
+cover: /img/covers/ai/cover-cpp-thread.webp
 description: 用人话讲 C++ 多线程：线程像多人协作，锁管秩序，条件变量负责通知，atomic 处理小共享状态。
 ---
 

@@ -11,7 +11,7 @@ tags:
   - 索引
   - 视图
   - 存储过程
-cover: /img/covers/notes/cover-sql-advanced.png
+cover: /img/covers/ai/cover-sql-advanced.webp
 description: 用人话讲 SQL 进阶：执行计划、索引设计、慢查询优化、事务锁和日志。
 ---
 

@@ -9,7 +9,7 @@ tags:
   - C++
   - 学习方法
   - 笔记
-cover: /img/covers/notes/cover-cpp-maintain.png
+cover: /img/covers/ai/cover-cpp-maintain.webp
 description: 讲清楚怎样维护 C++ 笔记：少堆概念，多写问题、例子、边界和复盘。
 ---
 C++ 笔记最容易写成两种样子：一种是复制定义，过几天自己也看不懂；另一种是只记结论，遇到代码还是不会用。真正有用的笔记，应该能帮你重新理解问题，并且能直接回到代码里。

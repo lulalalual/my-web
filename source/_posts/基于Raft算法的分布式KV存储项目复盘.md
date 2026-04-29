@@ -11,7 +11,7 @@ tags:
   - C++
   - KV存储
   - RPC
-cover: /img/covers/notes/cover-raft-kv.png
+cover: /img/covers/ai/cover-raft-kv.webp
 description: 复盘基于 Raft 的分布式 KV：选主、日志复制、持久化、状态机、跳表和 RPC 通信。
 ---
 这个项目是用 C++ 实现的基于 Raft 的分布式 KV 存储。先不要把它想成工业级数据库，它更适合理解成一个“用 Raft 把多台机器变成一台可靠 KV 服务”的学习项目。

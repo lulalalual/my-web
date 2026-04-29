@@ -16,7 +16,7 @@ top_img: false
 
 <div class="lula-project-grid">
   <a class="lula-project-card blue" href="/posts/interview-master-review/">
-    <img src="/img/covers/notes/cover-interview-master.png" alt="计算机面试大师" loading="lazy">
+    <img src="/img/covers/ai/cover-interview-master.webp" alt="计算机面试大师" loading="lazy">
     <span>项目一</span>
     <h2>面试大师</h2>
     <p>一个 AI 面试训练工具，把提问、答题、写代码和复盘连成完整练习流程。</p>
@@ -24,7 +24,7 @@ top_img: false
   </a>
 
   <a class="lula-project-card orange" href="/posts/tower-defense-duo-review/">
-    <img src="/img/covers/notes/cover-tower-defense.png" alt="塔防双人" loading="lazy">
+    <img src="/img/covers/ai/cover-tower-defense.webp" alt="塔防双人" loading="lazy">
     <span>项目二</span>
     <h2>塔防双人</h2>
     <p>一个 C++ SDL2 塔防游戏，重点看地图、怪物、炮塔、玩家和主循环怎么拆。</p>
@@ -32,7 +32,7 @@ top_img: false
   </a>
 
   <a class="lula-project-card cyan" href="/posts/distributed-communication-platform-review/">
-    <img src="/img/covers/notes/cover-distributed-platform.png" alt="分布式高性能通信平台" loading="lazy">
+    <img src="/img/covers/ai/cover-distributed-platform.webp" alt="分布式高性能通信平台" loading="lazy">
     <span>项目三</span>
     <h2>通信平台</h2>
     <p>一个后端通信项目，把网络连接、RPC、服务发现、消息通知和数据保存串起来。</p>
@@ -40,7 +40,7 @@ top_img: false
   </a>
 
   <a class="lula-project-card violet" href="/posts/raft-kv-storage-review/">
-    <img src="/img/covers/notes/cover-raft-kv.png" alt="基于 Raft 算法的分布式 KV 存储" loading="lazy">
+    <img src="/img/covers/ai/cover-raft-kv.webp" alt="基于 Raft 算法的分布式 KV 存储" loading="lazy">
     <span>项目四</span>
     <h2>KV存储</h2>
     <p>一个 C++ 分布式存储项目，重点看选主、日志复制、提交和状态机应用。</p>

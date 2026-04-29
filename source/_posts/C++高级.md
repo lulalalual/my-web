@@ -11,7 +11,7 @@ tags:
   - 移动语义
   - 智能指针
   - Lambda
-cover: /img/covers/notes/cover-cpp-advanced.png
+cover: /img/covers/ai/cover-cpp-advanced.webp
 description: 用人话讲现代 C++：智能指针管资源，移动语义提性能，lambda 和模板让接口更灵活。
 ---
 

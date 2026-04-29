@@ -10,7 +10,7 @@ tags:
   - 基础
   - 内存
   - 面向对象
-cover: /img/covers/notes/cover-cpp-basic.png
+cover: /img/covers/ai/cover-cpp-basic.webp
 description: 用人话讲 C++ 基础：程序怎么变成可执行文件，内存怎么分，指针引用和对象到底在干什么。
 ---
 

@@ -10,7 +10,7 @@ tags:
   - STL
   - 容器
   - 算法
-cover: /img/covers/notes/cover-cpp-stl.png
+cover: /img/covers/ai/cover-cpp-stl.webp
 description: 把 STL 讲成 C++ 标准工具箱：按场景选择容器，用迭代器和算法写出清楚代码。
 ---
 

@@ -40,9 +40,9 @@ cover:
   archives_enable: true
   position: left
   default_cover:
-    - /img/covers/notes/cover-site-refactor.png
-    - /img/covers/notes/cover-cpp-basic.png
-    - /img/covers/notes/cover-tower-defense.png
+    - /img/covers/ai/cover-site-refactor.webp
+    - /img/covers/ai/cover-cpp-basic.webp
+    - /img/covers/ai/cover-tower-defense.webp
 
 post_meta:
   page:
@@ -334,7 +334,7 @@ home_top:
   banner:
     tips: 站点导览
     title: 从八股、算法到项目复盘
-    image: /img/covers/notes/cover-learning-map.png
+    image: /img/covers/ai/cover-learning-map.webp
     link: /categories/
 
 universe:

@@ -537,7 +537,7 @@ body.lula-ready #content-inner {
   color: #fff;
   background:
     linear-gradient(115deg, rgba(11, 28, 84, 0.78), rgba(59, 112, 252, 0.68)),
-    url("/img/covers/notes/projects-hero.webp") center / cover no-repeat;
+    url("/img/covers/ai/projects-hero.webp") center / cover no-repeat;
   box-shadow: var(--lula-shadow);
   transform: translateZ(0);
 }
@@ -545,7 +545,7 @@ body.lula-ready #content-inner {
 [data-theme="dark"] .lula-project-hero {
   background:
     linear-gradient(115deg, rgba(8, 10, 16, 0.78), rgba(40, 74, 156, 0.52)),
-    url("/img/covers/notes/projects-hero.webp") center / cover no-repeat;
+    url("/img/covers/ai/projects-hero.webp") center / cover no-repeat;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 28px 70px -44px rgba(0, 0, 0, 0.9);
 }

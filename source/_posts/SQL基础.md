@@ -10,7 +10,7 @@ tags:
   - SQL
   - 数据库
   - 基础
-cover: /img/covers/notes/cover-sql-basic.png
+cover: /img/covers/ai/cover-sql-basic.webp
 description: 用人话讲 SQL 基础：建表、增删改查、过滤、排序、分组、连接和约束。
 ---
 

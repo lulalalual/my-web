@@ -11,7 +11,7 @@ tags:
   - Socket
   - TCP
   - UDP
-cover: /img/covers/notes/cover-cpp-network.png
+cover: /img/covers/ai/cover-cpp-network.webp
 description: 用人话讲 C++ 网络编程：两台机器怎么通过 IP、端口、协议和 Socket 完成通信。
 ---
 

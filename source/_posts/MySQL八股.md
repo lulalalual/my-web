@@ -11,7 +11,7 @@ tags:
   - 事务
   - 索引
   - MVCC
-cover: /img/covers/notes/cover-mysql-interview.png
+cover: /img/covers/ai/cover-mysql-interview.webp
 description: 用人话讲 MySQL 高频面试点：一条 SQL 怎么执行，索引、事务、锁、MVCC 和日志各管什么。
 ---
 
