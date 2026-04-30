@@ -19,3 +19,16 @@ index 2a29493..47b1b74 100644
            .content
              a.title(href=url_for(link) title=title)= title
              if theme.aside.card_recent_post.sort === 'updated'
+diff --git a/node_modules/hexo-theme-anzhiyu/scripts/helpers/random.js b/node_modules/hexo-theme-anzhiyu/scripts/helpers/random.js
+index 3fe0cdd..9b5f007 100644
+--- a/node_modules/hexo-theme-anzhiyu/scripts/helpers/random.js
++++ b/node_modules/hexo-theme-anzhiyu/scripts/helpers/random.js
+@@ -18,7 +18,7 @@ hexo.extend.generator.register("random", function (locals) {
+ 
+   let result = `var posts=${JSON.stringify(
+     posts
+-  )};function toRandomPost(){pjax.loadUrl('/'+posts[Math.floor(Math.random() * posts.length)]);};`;
++  )};function toRandomPost(){if(!Array.isArray(posts)||!posts.length){window.location.href='/archives/';return;}var target=posts[Math.floor(Math.random()*posts.length)]||'/archives/';target='/' + String(target).replace(/^\\/+/, '');if(window.pjax&&typeof window.pjax.loadUrl==='function'){pjax.loadUrl(target);}else{window.location.href=target;}};`;
+ 
+   if (themeConfig.footer.list.enable && randomNumberFriend > 0) {
+     result += `var friend_link_list=${JSON.stringify(link_list)};
