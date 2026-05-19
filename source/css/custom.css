@@ -679,6 +679,24 @@ body.lula-ready #content-inner {
   background: linear-gradient(120deg, transparent 12%, rgba(255, 200, 87, 0.13) 42%, transparent 70%);
 }
 
+.lula-project-card.green,
+[data-theme="dark"] #article-container .lula-project-card.green {
+  border-color: rgba(35, 209, 139, 0.18);
+}
+
+.lula-project-card.green:hover,
+[data-theme="dark"] #article-container .lula-project-card.green:hover {
+  border-color: rgba(35, 209, 139, 0.54) !important;
+  box-shadow:
+    0 28px 62px -38px rgba(0, 0, 0, 0.98),
+    0 0 0 1px rgba(35, 209, 139, 0.12),
+    inset 0 -1px 0 rgba(35, 209, 139, 0.36) !important;
+}
+
+.lula-project-card.green::after {
+  background: linear-gradient(120deg, transparent 12%, rgba(35, 209, 139, 0.14) 42%, transparent 70%);
+}
+
 .lula-column-card::after {
   content: "";
   position: absolute;
@@ -773,6 +791,12 @@ body.lula-ready #content-inner {
   color: #ffc857 !important;
 }
 
+.lula-project-card.green span,
+.lula-project-card.green strong,
+[data-theme="dark"] #article-container .lula-project-card.green strong {
+  color: #23d18b !important;
+}
+
 .lula-project-card.cyan span,
 .lula-column-card.cyan span {
   color: #0891b2;
@@ -794,6 +818,83 @@ body.lula-ready #content-inner {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.lula-ai-metric-grid,
+.lula-ai-kpi-row {
+  display: grid;
+  gap: 0.9rem;
+  margin: 1.1rem 0 1.35rem;
+}
+
+.lula-ai-metric-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.lula-ai-metric-grid > div,
+.lula-ai-kpi-row > div {
+  border: 1px solid rgba(59, 112, 252, 0.12);
+  border-radius: 14px;
+  padding: 1rem;
+  background:
+    radial-gradient(circle at 16% 12%, rgba(59, 112, 252, 0.09), transparent 46%),
+    rgba(255, 255, 255, 0.72);
+  box-shadow: 0 14px 30px -24px rgba(29, 55, 120, 0.35);
+}
+
+.lula-ai-metric-grid strong,
+.lula-ai-kpi-row strong {
+  display: block;
+  color: var(--lula-blue-deep);
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.lula-ai-metric-grid span,
+.lula-ai-kpi-row span {
+  display: block;
+  margin-top: 0.4rem;
+  color: #52637a;
+  line-height: 1.55;
+}
+
+.lula-ai-kpi-row {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.lula-ai-kpi-row > div {
+  text-align: center;
+}
+
+.lula-ai-kpi-row span {
+  margin: 0 0 0.4rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.76rem;
+}
+
+.lula-ai-kpi-row strong {
+  color: #159a69;
+  font-size: clamp(1.25rem, 2.6vw, 1.8rem);
+}
+
+[data-theme="dark"] .lula-ai-metric-grid > div,
+[data-theme="dark"] .lula-ai-kpi-row > div {
+  border-color: rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at 16% 12%, rgba(111, 149, 255, 0.12), transparent 46%),
+    rgba(20, 22, 31, 0.86);
+}
+
+[data-theme="dark"] .lula-ai-metric-grid strong,
+[data-theme="dark"] .lula-ai-kpi-row strong {
+  color: #8fb8ff;
+}
+
+[data-theme="dark"] .lula-ai-metric-grid span,
+[data-theme="dark"] .lula-ai-kpi-row span {
+  color: #aeb9cb;
 }
 
 .lula-column-card {
