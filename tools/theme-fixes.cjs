@@ -11,6 +11,14 @@ const updated = original.replace(/function toRandomPost\(\)\{.*?\};/, randomPost
 if (!updated.includes(randomPost)) throw new Error('Random-post helper shape changed; refusing a partial override.');
 fs.writeFileSync(helperPath, updated, 'utf8');
 fs.copyFileSync(path.join(root, 'layout', 'portfolio.pug'), path.join(theme, 'layout', 'portfolio.pug'));
+fs.copyFileSync(path.join(root, 'layout', 'category.pug'), path.join(theme, 'layout', 'category.pug'));
+const menuPath = path.join(theme, 'layout', 'includes', 'header', 'menu_item.pug');
+const menu = fs.readFileSync(menuPath, 'utf8').replaceAll('icon_value.startsWith("icon")', 'icon_label.startsWith("icon")').replaceAll('icon_value.startsWith("anzhiyu")', 'icon_label.startsWith("anzhiyu")')
+  .replace("a.site-page(href='javascript:void(0);')", "a.site-page(href=({'作品':'/','专栏':'/categories/','文章':'/blog/','关于':'/about/'}[trim(label.split('||')[0])] || '/blog/'))");
+fs.writeFileSync(menuPath, menu, 'utf8');
+const categoryGroupPath = path.join(theme, 'layout', 'includes', 'categoryGroup.pug');
+const categoryGroup = fs.readFileSync(categoryGroupPath, 'utf8').replace('a(href="/") 首页', 'a(href="/blog/") 全部文章');
+fs.writeFileSync(categoryGroupPath, categoryGroup, 'utf8');
 const scriptsPath = path.join(theme, 'layout', 'includes', 'additional-js.pug');
 const scripts = fs.readFileSync(scriptsPath, 'utf8');
 fs.writeFileSync(scriptsPath, scripts.replace('https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js', '/vendor/theme/qrcode.min.js'), 'utf8');

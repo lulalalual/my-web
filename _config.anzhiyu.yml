@@ -1,21 +1,23 @@
 menu:
-  作品集:
-    精选作品: /#work || anzhiyu-icon-folder
-    工作经历: /#experience || anzhiyu-icon-paper-plane
-    开源实践: /#opensource || anzhiyu-icon-github
-  博客:
-    全部文章: /blog/ || anzhiyu-icon-book
-    计算机八股文: /categories/计算机八股文笔记/ || anzhiyu-icon-book
-    算法笔记: /categories/算法笔记/ || anzhiyu-icon-shapes
-    C++ 语法: /categories/cpp-syntax/ || anzhiyu-icon-code
-    分布式系统: /tags/分布式/ || anzhiyu-icon-network-wired
-    游戏开发: /categories/游戏开发/ || anzhiyu-icon-gamepad
-    隧道: /archives/ || anzhiyu-icon-box-archive
+  作品 || anzhiyu-icon-folder-open:
+    精选项目: /#work || anzhiyu-icon-folder-open
+    计算机面试大师: /work/interview/ || anzhiyu-icon-comments
+    双人塔防: /work/defense/ || anzhiyu-icon-dice-d20
+    工作经历: /experience/ || anzhiyu-icon-file-lines
+    开源贡献: /#opensource || anzhiyu-icon-github
+  专栏 || anzhiyu-icon-book-open:
+    C++ 语法: /categories/cpp-syntax/ || anzhiyu-icon-keyboard
+    数据结构与算法: /categories/算法笔记/ || anzhiyu-icon-shapes
+    计算机基础: /categories/计算机八股文笔记/ || anzhiyu-icon-book
+    分布式系统: /categories/分布式系统/ || anzhiyu-icon-cube
+    游戏开发: /categories/游戏开发/ || anzhiyu-icon-dice-d20
+  文章 || anzhiyu-icon-file-lines:
+    全部文章: /blog/ || anzhiyu-icon-book-open
+    文章归档: /archives/ || anzhiyu-icon-box-archive
     分类: /categories/ || anzhiyu-icon-shapes
     标签: /tags/ || anzhiyu-icon-tags
-  关于:
-    关于我: /#about || anzhiyu-icon-paper-plane
-    关于本站: /about/ || anzhiyu-icon-paper-plane
+  关于 || anzhiyu-icon-circle-info:
+    关于本站: /about/ || anzhiyu-icon-circle-info
     GitHub: https://github.com/lulalalual || anzhiyu-icon-github
 
 nav:
@@ -131,8 +133,8 @@ footer:
     linkList:
       - link: /archives/
         text: 文章归档
-      - link: /projects/
-        text: 项目合集
+      - link: /#work
+        text: 精选项目
     subTitle:
       enable: false
       effect: true
@@ -214,8 +216,7 @@ aside:
     description: <div style="line-height:1.55;color:rgba(255,255,255,.88)"><b style="color:#fff">青阳寻雪</b></div>
     name_link: /
   card_announcement:
-    enable: true
-    content: 项目与经历在首页，思考与复盘留在博客。
+    enable: false
   card_weixin:
     enable: false
   card_recent_post:

@@ -22,9 +22,9 @@ const cover = item => {
   return `<img src="/portfolio-assets/${escape(item.cover)}.webp" srcset="${variants.join(', ')}" sizes="(max-width:760px) calc(100vw - 32px), (max-width:1440px) calc((100vw - 80px)/2), 620px" alt="${escape(item.title)}${item.id === 'defense' ? '原项目运行截图' : '的概念封面'}" width="${width}" height="${height}" loading="lazy" decoding="async">`;
 };
 const cards = projects.map(item => `<article class="work-card" data-project="${item.id}">
-  <a class="project-cover-link work-visual" href="/work/${item.id}/" data-case="${item.id}" aria-label="${escape(item.title)}：项目说明">${cover(item)}<span class="image-credit">${item.id === 'defense' ? '原项目截图' : 'AI 概念封面'}</span></a>
+  <a class="project-cover-link work-visual" href="/work/${item.id}/" aria-label="${escape(item.title)}：项目说明">${cover(item)}</a>
   <div class="card-info"><h3>${escape(item.title)}</h3><p>${escape(item.intro)}</p>
-  <div class="project-actions"><a href="/work/${item.id}/" data-case="${item.id}" class="project-detail-link">项目说明 ↗</a><a href="/?project=${item.id}#showcase" class="project-launch" data-start-project="${item.id}" aria-controls="showcase">体验项目 →</a></div></div></article>`).join('\n');
+  <div class="project-actions"><a href="/work/${item.id}/" class="project-detail-link">项目说明 ↗</a><a href="/?project=${item.id}#showcase" class="project-launch" data-start-project="${item.id}" aria-controls="showcase">体验项目 →</a></div></div></article>`).join('\n');
 const oss = contributions.map(item => {
   if (!item.url.startsWith('https://github.com/')) throw new Error('Invalid contribution URL');
   return `<article><span class="sample-badge">${escape(item.status)}</span><h3><a href="${escape(item.url)}" target="_blank" rel="noopener">${escape(item.name)} <span aria-hidden="true">↗</span></a></h3><p>${escape(item.description)}</p><small>${escape(item.validation)}</small></article>`;
@@ -52,6 +52,12 @@ for (const folder of ['diagrams', 'knowledge']) {
   const topics = JSON.parse(await readFile(path.join(directory, 'topics.json'), 'utf8'));
   if (!Array.isArray(topics) || !topics.length || topics.some(topic => !Array.isArray(topic.steps) || topic.steps.length !== 4)) throw new Error('Invalid explanation topics');
   const file = path.join(directory, 'composition.html');
+  if (folder === 'diagrams') {
+    const design = await readFile(path.join(root, 'tools/templates/portfolio-diagram.html'), 'utf8');
+    const fonts = (await readFile(path.join(assets, 'fonts/site-font.css'), 'utf8')).match(/@font-face\{[^}]+\}/g).join('\n').replaceAll('url("./', 'url("/portfolio-assets/fonts/');
+    await writeFile(file, design.replace('{{FONTS}}', () => fonts).replace('{{TOPICS}}', () => JSON.stringify(topics)));
+    continue;
+  }
   const original = await readFile(file, 'utf8');
   const embedded = original.match(/const TOPICS=([\s\S]*?);window\.__timelines/);
   if (!embedded) throw new Error('Explanation composition contract changed');

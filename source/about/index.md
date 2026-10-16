@@ -7,7 +7,7 @@ top_img: false
 
 青阳寻雪
 
-[项目精选](/#work) · [工作经历](/#experience) · [博客](/blog/)
+[项目精选](/#work) · [工作经历](/experience/) · [博客](/blog/)
 
 ## 写什么
 

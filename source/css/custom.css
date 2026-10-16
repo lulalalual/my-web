@@ -89,7 +89,7 @@ body {
   transform: scaleX(0);
   transform-origin: left;
   opacity: 0;
-  transition: transform 0.72s var(--lula-silk-ease), opacity 0.32s ease;
+  transition: transform 0.3s var(--lula-silk-ease), opacity 0.2s ease;
   pointer-events: none;
 }
 
@@ -103,7 +103,7 @@ body.lula-pjax-leaving #content-inner {
 }
 
 #content-inner {
-  transition: opacity 0.42s ease, transform 0.62s var(--lula-silk-ease);
+  transition: opacity 0.2s ease, transform 0.3s var(--lula-silk-ease);
   will-change: opacity, transform;
 }
 
@@ -192,10 +192,10 @@ body.lula-ready #content-inner {
   border-radius: 999px;
   padding: 0.35rem 0.72rem;
   transition:
-    color 0.96s ease,
-    background-color 0.96s ease,
-    box-shadow 1.12s ease,
-    transform 1.24s var(--lula-silk-ease);
+    color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s var(--lula-silk-ease);
 }
 
 #nav .menus_item:hover > a {
@@ -945,11 +945,11 @@ body.lula-ready #content-inner {
 #rightside > div > button,
 #rightside > div > a {
   transition:
-    transform 1.08s var(--lula-silk-ease),
-    background-color 0.92s ease,
-    color 0.92s ease,
-    opacity 0.84s ease,
-    box-shadow 1.04s ease;
+    transform 0.2s var(--lula-silk-ease),
+    background-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
   transform: translateZ(0);
 }
 
@@ -958,13 +958,15 @@ body.lula-ready #content-inner {
   transform: translate3d(-6px, 0, 0) scale(1.065);
 }
 
-.menus_item_child {
+#nav .menus_items .menus_item .menus_item_child {
   transform-origin: top center;
-  transition: opacity 0.72s ease, transform 1.04s var(--lula-silk-ease);
+  transition: opacity 0.2s ease, transform 0.2s var(--lula-silk-ease);
 }
 
-.menus_item:hover .menus_item_child {
-  transform: translate3d(0, 8px, 0);
+#nav .menus_item:focus-within .menus_item_child {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
 }
 
 @media (max-width: 768px) {

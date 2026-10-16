@@ -6,7 +6,6 @@ const projects = () => projectRequest ||= fetch('/portfolio-assets/projects.json
   if (!Array.isArray(items) || items.some(item => !/^[a-z][a-z0-9-]*$/.test(item.id) || !item.demo?.startsWith('/demos/'))) throw new Error('Invalid project metadata');
   return items;
 }).catch(error => {projectRequest = null; throw error;});
-const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 function manageEmbed(shell) {
   const frame = shell.querySelector('iframe');
@@ -54,7 +53,13 @@ function manageEmbed(shell) {
     loader.observe(shell);
     const visibility = new IntersectionObserver(entries => {visible = entries[0].isIntersecting; viewport();});
     visibility.observe(shell);
-    window.addEventListener('pagehide', () => {loader.disconnect(); visibility.disconnect(); clearTimeout(timeout);}, {once: true});
+    window.addEventListener('pagehide', () => {visible = false; viewport(); loader.disconnect(); visibility.disconnect(); clearTimeout(timeout);});
+    window.addEventListener('pageshow', event => {
+      if (!event.persisted) return;
+      if (!frame.getAttribute('src')) loader.observe(shell);
+      visibility.observe(shell);
+      if (shell.dataset.state === 'loading') timeout = setTimeout(() => state('slow', '载入时间较长，可稍候或重试。'), 15000);
+    });
   } else {visible = true; if (!shell.closest('[hidden]')) load();}
   document.addEventListener('visibilitychange', viewport);
   return {frame, load};
@@ -101,52 +106,10 @@ export function mountMedia(root) {
   document.addEventListener('fullscreenchange', syncFullscreen);
   document.addEventListener('keydown', event => {if (event.key === 'Escape' && shell?.classList.contains('expanded')) collapse();});
 
-  const dialog = root.querySelector('#case-dialog');
-  let opener;
-  let previousOverflow;
-  let dialogAnimation;
-  function animateDialog(closing = false) {
-    dialogAnimation?.cancel();
-    if (!dialog?.animate || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    dialogAnimation = dialog.animate(closing
-      ? [{opacity:1, transform:'translateY(0) scale(1)'}, {opacity:0, transform:'translateY(8px) scale(.99)'}]
-      : [{opacity:0, transform:'translateY(16px) scale(.985)'}, {opacity:1, transform:'translateY(0) scale(1)'}],
-      {duration:closing ? 150 : 320, easing:'cubic-bezier(.16,1,.3,1)'});
-    return dialogAnimation;
-  }
-  let closingDialog = false;
-  async function closeDialog() {
-    if (!dialog?.open || closingDialog) return;
-    closingDialog = true;
-    try {await animateDialog(true)?.finished;} catch {}
-    if (dialog.open) dialog.close();
-    closingDialog = false;
-  }
-  root.addEventListener('click', async event => {
+  root.addEventListener('click', event => {
     const launch = event.target.closest('[data-start-project]');
-    if (launch && live && event.button === 0 && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
-      event.preventDefault(); if (dialog?.open) {opener = null; dialog.close();}
-      activate(launch.dataset.startProject, true).catch(() => location.assign(launch.href)); return;
-    }
-    const link = event.target.closest('a[data-case]');
-    if (!link || !dialog?.showModal || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    if (!launch || !live || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
-    try {
-      const item = (await projects()).find(item => item.id === link.dataset.case);
-      if (!item) {location.assign(link.href); return;}
-      opener = link;
-      const chapters = item.story.map(([heading, text], index) => `<section class="case-chapter"><span>0${index + 1}</span><div><h3>${escape(heading)}</h3><p>${escape(text)}</p></div></section>`).join('');
-      root.querySelector('#case-content').innerHTML = `<article class="dialog-case"><div class="dialog-intro"><h2 id="case-title">${escape(item.title)}</h2><div class="case-summary"><p><b>我的角色</b>${escape(item.role)}</p><p><b>交付说明</b>${escape(item.scope)}</p></div><div class="case-links"><a class="button primary" href="/?project=${escape(item.id)}#showcase" data-start-project="${escape(item.id)}">体验项目 →</a></div></div>${chapters}</article>`;
-      previousOverflow = document.body.style.overflow; dialog.showModal(); dialog.scrollTop = 0; document.body.style.overflow = 'hidden';
-      animateDialog();
-    } catch {location.assign(link.href);}
+    activate(launch.dataset.startProject, true).catch(() => location.assign(launch.href));
   });
-  dialog?.querySelector('.dialog-close')?.addEventListener('click', closeDialog);
-  dialog?.addEventListener('cancel', event => {event.preventDefault(); closeDialog();});
-  dialog?.addEventListener('click', event => {
-    if (event.target !== dialog) return;
-    const rect = dialog.getBoundingClientRect();
-    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) closeDialog();
-  });
-  dialog?.addEventListener('close', () => {dialogAnimation?.cancel(); document.body.style.overflow = previousOverflow || ''; root.querySelector('#case-content').replaceChildren(); opener?.focus({preventScroll: true});});
 }

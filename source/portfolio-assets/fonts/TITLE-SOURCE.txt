@@ -1,0 +1,3 @@
+LXGW WenKai v1.522 Regular, subset for the four-character title.
+Source: https://github.com/lxgw/LxgwWenKai/releases/tag/v1.522
+License: SIL OFL 1.1 (LXGW-OFL.txt).

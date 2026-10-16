@@ -1,13 +1,17 @@
 :root {
-  --motion-fast: 180ms;
-  --motion-panel: 320ms;
-  --motion-enter: 480ms;
+  --motion-fast: 200ms;
+  --motion-panel: 300ms;
+  --motion-enter: 400ms;
   --motion-ease: cubic-bezier(.16,1,.3,1);
-  --motion-spring: linear(0,.32 8%,.79 20%,1.03 30%,1.01 46%,1);
+  --motion-spring: cubic-bezier(.16,1,.3,1);
 }
+@font-face { font-family:QingyangTitle; src:url('/portfolio-assets/fonts/qingyang-title.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+#portfolio-root .hero h1 { font-family:QingyangTitle,'Noto Serif SC',serif; font-weight:400; font-size:clamp(52px,7vw,94px); line-height:1.35; letter-spacing:.08em; text-shadow:0 2px 20px #e9d5ae18; }
+@media(max-width:760px) { #portfolio-root .hero h1 { font-size:clamp(42px,12vw,58px); letter-spacing:.07em; } }
 
 /* The native blog and portfolio share timing; text keeps its finished state. */
 #content-inner { animation:none!important; will-change:auto; }
+#content-inner > #portfolio-root { animation:none!important; opacity:1; transform:none; }
 body.lula-ready #content-inner { will-change:auto; transform:none; }
 #web_bg { animation:none; will-change:auto; }
 #web_bg::before { animation:none; will-change:auto; }
@@ -33,6 +37,17 @@ body.lula-ready #content-inner { will-change:auto; transform:none; }
 #portfolio-root .button:active { translate:0 1px; }
 #portfolio-root .section-nav::after { content:""; position:absolute; bottom:0; left:12px; right:12px; height:2px; border-radius:2px; background:var(--accent); transform:scaleX(var(--reading-progress,0)); transform-origin:left; pointer-events:none; }
 #portfolio-root .section-nav a { transition:color var(--motion-fast),background-color var(--motion-fast); }
+#portfolio-root .section-nav a { display:flex; align-items:center; justify-content:center; gap:7px; }
+#portfolio-root .section-nav i { font-size:16px; line-height:1; }
+#catalog-list .catalog-list-item a { display:inline-flex; align-items:center; gap:6px; }
+#catalog-list .catalog-list-item i { font-size:15px; }
+.reading-breadcrumb { display:flex; align-items:center; gap:12px; margin-bottom:26px; color:var(--anzhiyu-secondtext); font-size:15px; }
+.reading-breadcrumb a { padding:8px 0; }
+.column-index { padding-left:28px!important; }
+.column-index li { padding:18px 0 18px 8px; border-bottom:1px solid var(--anzhiyu-card-border); }
+.column-index li>a { display:inline-block; font-size:22px; line-height:1.6; font-weight:600; }
+.column-index li>p { margin:8px 0 0!important; font-size:16px; line-height:1.8; color:var(--anzhiyu-secondtext); }
+#menus .menus_item>a[aria-current=page] { color:var(--anzhiyu-theme)!important; }
 #portfolio-root .section-nav a:active { scale:.97; }
 #portfolio-root .reveal-pending { opacity:1; translate:none; transition:none; }
 #portfolio-root .work-card.reveal-pending { transition:border-color var(--motion-fast); }
@@ -54,7 +69,6 @@ body.lula-ready #content-inner { will-change:auto; transform:none; }
 #portfolio-root .journal-entry::after { content:""; position:absolute; bottom:-1px; left:0; right:0; height:1px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform var(--motion-panel) var(--motion-ease); }
 #portfolio-root .journal-entry:is(:hover,:focus-visible)::after { transform:scaleX(1); }
 #portfolio-root .journal-entry:is(:hover,:focus-visible)>span:last-child { transform:translate(4px,-3px); }
-#portfolio-root dialog[open] { transition:none; }
 #portfolio-root .demo-shell[data-state="ready"] iframe { animation:media-enter var(--motion-panel) var(--motion-ease); }
 #portfolio-root #copy-email.copied { animation:copy-confirm var(--motion-panel) var(--motion-spring); }
 @keyframes actions-enter { from { translate:0 10px; } to { translate:0 0; } }
@@ -67,6 +81,7 @@ body.lula-ready #content-inner { will-change:auto; transform:none; }
   }
 }
 @media(max-width:760px) {
+  #portfolio-root .section-nav a { flex-direction:column; gap:5px; min-height:58px; padding:6px 8px; }
   #portfolio-root .hero.is-in-view .hero-photo { animation:hero-drift 20s ease-in-out infinite alternate!important; }
   #portfolio-root .hero-scene { inset:-10px; }
   #portfolio-root .work-card.reveal-pending:not(.revealed) .work-visual img { transform:scale(1.025); opacity:.8; }

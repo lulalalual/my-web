@@ -1,0 +1,20 @@
+extends includes/layout.pug
+
+block content
+  #page.column-page
+    nav.reading-breadcrumb(aria-label="当前位置")
+      a(href="/") 首页
+      span(aria-hidden="true") /
+      a(href="/blog/") 博客
+      span(aria-hidden="true") /
+      a(href="/categories/") 专栏
+    h1.page-title= page.category
+    #article-container
+      h2 专栏目录
+      ol.column-index
+        each post in page.posts.sort('date', 1).toArray()
+          li
+            a(href=url_for(post.path))= post.title
+            if post.description
+              p= post.description
+      include includes/pagination.pug

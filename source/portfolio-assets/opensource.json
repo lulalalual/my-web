@@ -2,22 +2,22 @@
   {
     "name": "Dify",
     "url": "https://github.com/langgenius/dify/pull/44199",
-    "status": "PR #44199 · 待评审",
+    "status": "PR #44199 · 已提交",
     "description": "处理流式生成的错误响应，避免空答案或半截答案被误判为成功。",
     "validation": "HTTP 复现与 SDK 140 项测试通过；保留错误状态、原始响应与请求编号。"
   },
   {
     "name": "LlamaIndex",
     "url": "https://github.com/run-llama/llama_index/pull/23539",
-    "status": "PR #23539 · 待评审",
+    "status": "PR #23539 · 已提交",
     "description": "补齐文档摘要检索的异步路径，避免模型调用和文档读取阻塞其他请求。",
     "validation": "31 项回归通过；并发心跳验证事件循环可继续运行，检索结果一致。"
   },
   {
     "name": "Ragas",
     "url": "https://github.com/vibrantlabsai/ragas/pull/3065",
-    "status": "PR #3065 · 待评审",
+    "status": "PR #3065 · 已提交",
     "description": "为空示例库增加保护，跳过嵌入调用，避免矩阵异常。",
-    "validation": "3 项边界测试及 74 项相关用例通过；1 项上游跳过。"
+    "validation": "3 项边界测试及 74 项相关用例通过。"
   }
 ]

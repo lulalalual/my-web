@@ -6,8 +6,9 @@
 - `opensource.json`、`journal.json`：贡献及精选文章。贡献状态需核实后更新。
 - `tools/templates/portfolio-home.html`：首页结构与工作经历。不要直接修改生成的 `source/index.html` 或 `source/work/*/index.html`。
 - `site.css`：作品集布局及主题变量；`theme-bridge.css`：原主题的接合边界。
-- `site.js`：导航与阅读进度；`portfolio-media.js`：项目详情、共享体验框、加载和全屏。全站动效约定见 `tools/MOTION.md`，独立样式位于 `motion.css`，默认开启且没有手动开关。
+- `site.js`：导航与阅读进度；`portfolio-media.js`：共享体验框、加载和全屏。详情使用原生独立页面。全站动效约定见 `tools/MOTION.md`，独立样式位于 `motion.css`，默认开启且没有手动开关。
 - `explanation-player.js/css`：项目与博客图解共用控制器。主题分别存于 `diagrams/topics.json` 与 `knowledge/topics.json`；构建时自动同步到内层动画的数据与时长，避免播放器文字与画面各改一份。每主题四步、12 秒；播放器不把图解当作真实运行结果。
+- `tools/templates/portfolio-diagram.html` 与 `diagrams/scenes.js`：方案与实践图解的时间线和独立场景。修改模板后重新构建，勿直接编辑生成的 `composition.html`。
 - `source/demos/`：原项目。塔防 `web-ui.js` 处理父页面的可见性消息，离屏暂停实际 WASM 主循环；回到视口后由用户继续。
 
 封面保留原图。可选 `responsive/名称-480.webp`、`名称-800.webp`；没有变体时自动使用原图，不产生缺失链接。设置真实 `coverWidth/coverHeight` 预留空间。

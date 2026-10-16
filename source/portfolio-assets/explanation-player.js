@@ -74,12 +74,17 @@ window.addEventListener('message', event => {if (event.origin === location.origi
 document.addEventListener('visibilitychange', () => {if (document.hidden) pause();});
 reduced.addEventListener('change', skin);
 let themeObserver, viewportObserver;
-try {
+function connectObservers() {
+  resize.observe(frame.parentElement);
+  try {
   if (parent !== window) {
-    themeObserver = new MutationObserver(skin); themeObserver.observe(parent.document.documentElement, {attributes: true, attributeFilter: ['data-theme', 'class']});
+    themeObserver ||= new MutationObserver(skin); themeObserver.observe(parent.document.documentElement, {attributes: true, attributeFilter: ['data-theme', 'class']});
     parent.document.addEventListener('portfolio:motion', skin);
-    if (frameElement && parent.IntersectionObserver) {viewportObserver = new parent.IntersectionObserver(entries => {visible = entries[0].isIntersecting; if (!visible) pause();}); viewportObserver.observe(frameElement);}
+    if (frameElement && parent.IntersectionObserver) {viewportObserver ||= new parent.IntersectionObserver(entries => {visible = entries[0].isIntersecting; if (!visible) pause();}); viewportObserver.observe(frameElement);}
   }
-} catch {}
-skin();
-window.addEventListener('pagehide', () => {pause(); resize.disconnect(); themeObserver?.disconnect(); viewportObserver?.disconnect(); try {parent.document.removeEventListener('portfolio:motion', skin);} catch {}}, {once:true});
+  } catch {}
+  skin();
+}
+connectObservers();
+window.addEventListener('pagehide', () => {pause(); resize.disconnect(); themeObserver?.disconnect(); viewportObserver?.disconnect(); try {parent.document.removeEventListener('portfolio:motion', skin);} catch {}});
+window.addEventListener('pageshow', event => {if (event.persisted) connectObservers();});
