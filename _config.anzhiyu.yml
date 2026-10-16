@@ -1,6 +1,6 @@
 menu:
   作品 || anzhiyu-icon-folder-open:
-    精选项目: /#work || anzhiyu-icon-folder-open
+    全部项目: /projects/ || anzhiyu-icon-folder-open
     面试大师: /work/interview/ || anzhiyu-icon-comments
     双人塔防: /work/defense/ || anzhiyu-icon-dice-d20
     工作经历: /experience/ || anzhiyu-icon-file-lines
@@ -13,9 +13,7 @@ menu:
     分布式系统: /categories/分布式系统/ || anzhiyu-icon-cube
     游戏开发: /categories/游戏开发/ || anzhiyu-icon-dice-d20
   文章 || anzhiyu-icon-file-lines:
-    全部文章: /blog/ || anzhiyu-icon-book-open
     文章归档: /archives/ || anzhiyu-icon-box-archive
-    分类: /categories/ || anzhiyu-icon-shapes
     标签: /tags/ || anzhiyu-icon-tags
   关于 || anzhiyu-icon-circle-info:
     关于本站: /about/ || anzhiyu-icon-circle-info
@@ -376,6 +374,7 @@ inject:
     - <link rel="stylesheet" href="/portfolio-assets/site.css">
     - <link rel="stylesheet" href="/portfolio-assets/theme-bridge.css">
     - <link rel="stylesheet" href="/portfolio-assets/motion.css">
+    - <link rel="stylesheet" href="/portfolio-assets/projects.css">
     - <script src="/js/native-navigation.js"></script>
   bottom:
     - <script src="/js/lula-motion.js"></script>

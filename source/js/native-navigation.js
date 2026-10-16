@@ -9,8 +9,16 @@
     var nav = document.querySelector('#nav .menus_items');
     if (!nav || nav.dataset.nativeMenus) return;
     nav.dataset.nativeMenus = 'ready';
-    nav.addEventListener('pointermove', function () { nav.dataset.menuInput = 'pointer'; }, {passive:true});
+    var touchGroup = null;
+    nav.addEventListener('pointermove', function (event) { if (event.pointerType !== 'touch') nav.dataset.menuInput = 'pointer'; }, {passive:true});
+    nav.addEventListener('pointerleave', function (event) { if (event.pointerType === 'mouse') nav.dataset.menuInput = 'pointer'; });
     nav.addEventListener('keydown', function () { nav.dataset.menuInput = 'keyboard'; });
+    document.addEventListener('pointerdown', function (event) {
+      if (nav.contains(event.target)) return;
+      touchGroup = null;
+      nav.dataset.menuInput = 'pointer';
+      if (nav.contains(document.activeElement)) document.activeElement.blur();
+    });
     var groups = Array.from(nav.querySelectorAll(':scope > .menus_item'));
     var path = location.pathname;
     var current = /^\/categories\//.test(path) ? '专栏'
@@ -20,6 +28,7 @@
       var panel = group.querySelector(':scope > .menus_item_child');
       if (!panel) return;
       group.style.setProperty('--menu-shift', '0px');
+      if (matchMedia('(max-width:768px)').matches) return;
       var rect = panel.getBoundingClientRect();
       if (!rect.width) return;
       var limit = document.documentElement.clientWidth - 16;
@@ -29,6 +38,15 @@
     groups.forEach(function (group) {
       var link = group.querySelector(':scope > a.site-page');
       if (!link) return;
+      link.addEventListener('click', function (event) {
+        if (event.pointerType !== 'touch' || touchGroup === group) return;
+        event.preventDefault();
+        touchGroup = group;
+        group.classList.remove('menu-dismissed');
+        nav.dataset.menuInput = 'touch';
+        link.focus({preventScroll:true});
+        fit(group);
+      });
       if (link.textContent.trim() === current) {
         group.classList.add('is-current');
         link.setAttribute('aria-current', 'true');

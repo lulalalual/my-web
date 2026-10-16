@@ -15,6 +15,12 @@ const routes = [
   "/opensource/",
   "/work/interview/",
   "/work/defense/",
+  "/work/crawler/",
+  "/work/motion-factory/",
+  "/work/desktop-workbench/",
+  "/work/evalops/",
+  "/demos/motion-gallery/",
+  "/demos/evalops/",
   "/demos/interview/?mode=demo",
   "/demos/defense-original/",
   "/portfolio-assets/diagrams/",
@@ -47,6 +53,7 @@ for (const route of routes) {
 
 for (const [path, mime] of [
   ['/portfolio-assets/motion.css', 'text/css'],
+  ['/portfolio-assets/projects.css', 'text/css'],
   ['/portfolio-assets/site.js', 'javascript'],
   ['/portfolio-assets/projects.json', 'application/json'],
   ['/demos/defense-original/game.wasm', 'application/wasm'],

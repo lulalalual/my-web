@@ -11,7 +11,7 @@ tags:
   - RLHF
   - GRPO
   - 后训练
-cover: /img/covers/ai/cover-agentic-rl.png
+cover: /img/covers/ai/cover-agentic-rl.webp
 description: 复盘 Agentic RL Tool Optimizer：Agent trajectory 评测、偏好数据构造、SFT/DPO/GRPO JSONL 导出、策略投机检测和轻量训练。
 ---
 <!-- knowledge-diagram:start -->
@@ -29,7 +29,7 @@ description: 复盘 Agentic RL Tool Optimizer：Agent trajectory 评测、偏好
 
 Agentic RL Tool Optimizer 是一个面向 Agent 后训练的数据和 reward 实验台。它关注的不是“直接训练一个大模型”，而是训练前更关键的事情：如何记录 Agent 执行轨迹、如何评价轨迹质量、如何构造 SFT/DPO/GRPO 数据。
 
-![Agentic RL Tool Optimizer](/img/covers/ai/cover-agentic-rl.png)
+![Agentic RL Tool Optimizer](/img/covers/ai/cover-agentic-rl.webp)
 
 ## 项目要解决的问题
 

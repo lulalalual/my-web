@@ -3,7 +3,7 @@ const projects = () => projectRequest ||= fetch('/portfolio-assets/projects.json
   if (!response.ok) throw new Error('Project metadata unavailable');
   return response.json();
 }).then(items => {
-  if (!Array.isArray(items) || items.some(item => !/^[a-z][a-z0-9-]*$/.test(item.id) || !item.demo?.startsWith('/demos/'))) throw new Error('Invalid project metadata');
+  if (!Array.isArray(items) || items.some(item => !/^[a-z][a-z0-9-]*$/.test(item.id) || (item.demo && !item.demo.startsWith('/demos/')))) throw new Error('Invalid project metadata');
   return items;
 }).catch(error => {projectRequest = null; throw error;});
 
@@ -73,7 +73,7 @@ export function mountMedia(root) {
   let selected = shell?.dataset.projectId;
   async function activate(id, scroll = false) {
     const item = (await projects()).find(item => item.id === id);
-    if (!item || !live) return;
+    if (!item?.demo || !live) return;
     const changed = selected !== id;
     selected = id;
     session.hidden = false;

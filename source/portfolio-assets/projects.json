@@ -4,69 +4,238 @@
     "title": "计算机面试大师",
     "en": "APPLICATION / INTERVIEW MASTER",
     "type": "AI工程",
-    "status": "面试训练 · React / TypeScript",
-    "intro": "从简历出发，串联练习、模拟面试与复盘。",
+    "status": "React / TypeScript",
+    "intro": "React / TypeScript · 流式响应、Monaco 与 Worker 隔离执行。",
     "cover": "interview-cover",
     "tags": [
-      "AI 面试",
-      "简历解析",
-      "React / TS"
+      "React",
+      "TypeScript",
+      "SSE",
+      "Web Worker"
     ],
-    "role": "个人开发：界面、面试流程、模型代理与流式响应接入。",
-    "scope": "覆盖选岗、练习、模拟面试、报告与回放。站内使用本地模拟反馈。",
+    "role": "AI 协作开发；实现前端状态、流式接口与浏览器执行环境。",
+    "scope": "React 组件状态管理、简历结构化解析、Monaco 编辑器、白板与本地回放；公开版使用明确标识的本地模拟反馈。",
     "story": [
       [
-        "训练流程",
-        "以岗位、简历和项目经历组织问题，串联作答、追问、能力报告与历史回放。"
+        "流式接口",
+        "以模型代理接收流式响应，处理消息拼接、异常退出与会话状态；公开环境采用本地模拟响应，保留完整交互。"
       ],
       [
-        "功能实现",
-        "使用 React / TypeScript，支持简历解析、白板和代码练习。原工程接入模型代理与流式响应，站内提供本地模拟面试官。"
+        "浏览器运行环境",
+        "集成 Monaco 编辑器与 Pyodide，将 Python 执行放入独立 Worker；支持中断、输出回传及编辑器开合。"
       ],
       [
-        "质量改进",
-        "修复 C++ 简历解析、回放导出与挑战计时；Python 在独立 Worker 中执行。56 项回归测试及 TypeScript 检查通过。"
+        "状态与验证",
+        "保留本地记录、回放导出和计时逻辑；完成 56 项回归及 TypeScript 检查，验证 Python 实际执行与流式回复。"
       ]
     ],
     "links": [],
     "demo": "/demos/interview/?mode=demo",
     "demoNote": "本地模拟面试官 · 练习记录保存在此浏览器",
     "coverWidth": 1200,
-    "coverHeight": 800
+    "coverHeight": 800,
+    "featured": true,
+    "icon": "comments"
   },
   {
     "id": "defense",
     "title": "双人塔防",
     "en": "GAME / SDL + WEBASSEMBLY",
     "type": "游戏",
-    "status": "协同防守 · C++ / SDL",
-    "intro": "双人同屏防守，共享金币，配合建塔与施法。",
+    "status": "C++ / SDL2 / WebAssembly",
+    "intro": "C++ / SDL2 / WebAssembly · 双输入、状态机与浏览器移植。",
     "cover": "defense-cover",
     "tags": [
-      "双人协作",
-      "键盘 / 触控",
-      "四波关卡"
+      "C++",
+      "SDL2",
+      "WebAssembly",
+      "Emscripten"
     ],
     "role": "基于公开 C++ / SDL 学习工程，完成浏览器适配、修复与双人扩展。",
-    "scope": "支持同屏双人、三类塔与四波关卡，提供键盘、触控及暂停重开。",
+    "scope": "在原有实体、地图与波次系统上扩展两组独立输入、技能和能量状态，并适配浏览器主循环、键盘与触控。",
     "story": [
       [
-        "移植与扩展",
-        "编译为 WebAssembly，保留地图、敌人、塔、金币和四波关卡；为两个角色提供独立输入、技能与能量状态。"
+        "浏览器移植",
+        "使用 Emscripten 将 C++ / SDL 工程编译为 WebAssembly，复用原地图、实体资源与关卡逻辑，连接浏览器画布及输入事件。"
       ],
       [
-        "修复与验证",
-        "修复计时、波次、升级、坐标与失败判定，检查暂停、重开及离屏恢复。"
+        "双输入与生命周期",
+        "为两个角色拆分输入、技能与能量状态；在页面隐藏和离屏时暂停实际 WASM 主循环，处理暂停、重开和恢复。"
       ],
       [
-        "项目来源",
-        "基于 Village TD 公开教程工程开展学习、修复与双人扩展；原教程代码、美术与音效归原作者。"
+        "实现来源与验证",
+        "基于 Village TD 公开教程工程完成适配、修复与扩展；原代码、美术与音效归原作者。实测两位角色移动、全屏、波次及暂停恢复。"
       ]
     ],
     "links": [],
     "demo": "/demos/defense-original/",
     "demoNote": "四波防守 · 同屏双人 · 键盘与触控",
     "coverWidth": 1289,
-    "coverHeight": 727
+    "coverHeight": 727,
+    "featured": true,
+    "icon": "dice-d20"
+  },
+  {
+    "id": "crawler",
+    "title": "网页采集技能编排",
+    "icon": "link",
+    "type": "工程工具",
+    "featured": false,
+    "status": "JavaScript / Python / CDP",
+    "intro": "JavaScript / Python / CDP · 技能路由、DOM 提取与规则预检。",
+    "cover": "crawler-cover",
+    "coverWidth": 1200,
+    "coverHeight": 800,
+    "tags": [
+      "JavaScript",
+      "Python",
+      "CDP",
+      "localStorage"
+    ],
+    "role": "定义执行约束与质量规则，结合 AI 协作实现和维护辅助脚本。",
+    "scope": "三层技能职责、SPA 采集模板和四类启发式预检；以合成夹具保留实际验证记录。",
+    "visual": "crawler",
+    "story": [
+      [
+        "技能职责与路由",
+        "将工具选择、批量提取和本地浏览器执行拆成三个技能约定，按静态页面、动态列表与人工登录页面选择执行通道；路由由 Agent 读取规则后执行。"
+      ],
+      [
+        "DOM 提取与持久化",
+        "使用原生输入框 setter 和 input/change 事件，轮询列表标识后按字段白名单提取；以 Set 去重、逐页写入 localStorage、分段导出。"
+      ],
+      [
+        "规则预检",
+        "Python 将标题噪声、重复号码前缀、重复邮箱与来源集中度拆成独立函数，返回结构化告警；持久化快照与人工复核分别保留。"
+      ],
+      [
+        "合成夹具验证",
+        "三组各 12 行的合成数据通过 4 项断言。合法单来源样本仍会触发集中度提示，规则用于复核，不输出真实性或准确率保证。"
+      ]
+    ]
+  },
+  {
+    "id": "motion-factory",
+    "title": "Pixel Motion Factory",
+    "icon": "play",
+    "type": "工程工具",
+    "featured": false,
+    "status": "TypeScript / Node.js / FFmpeg",
+    "intro": "TypeScript / Node.js · DAG 调度、哈希审批与动效检索。",
+    "cover": "motion-factory-cover",
+    "coverWidth": 1200,
+    "coverHeight": 800,
+    "tags": [
+      "TypeScript",
+      "DAG",
+      "SHA-256",
+      "FFmpeg"
+    ],
+    "role": "定义流程、任务合同与验收边界，结合 AI 协作实现调度与画廊。",
+    "scope": "DAG 任务合同、审批哈希、缓存与恢复；站内保留原 Motion Gallery 界面和 18 段登记动效。",
+    "demo": "/demos/motion-gallery/",
+    "demoNote": "原 Motion Gallery · 动效实验",
+    "story": [
+      [
+        "任务图与恢复",
+        "以任务合同组织依赖、输入和输出，结合 SHA-256 绑定审批对象、缓存键与结果；支持恢复流程与可追溯记录。"
+      ],
+      [
+        "渲染适配",
+        "通过适配层连接 Remotion、HyperFrames 与 FFmpeg，分离任务调度、素材登记和具体渲染实现。"
+      ],
+      [
+        "动效检索与参数预览",
+        "原画廊提供关键词检索、六类筛选、逐帧定位、参数 SVG、双资产对比、收藏、评分与备注；18 段原视频随站同源提供。"
+      ],
+      [
+        "验证口径",
+        "当前画廊用于动效实验，素材登记状态保留为 UNVERIFIED；视频存在与技术检查不替代正式镜头的视觉验收。"
+      ]
+    ]
+  },
+  {
+    "id": "desktop-workbench",
+    "title": "个人工作台",
+    "icon": "cube",
+    "type": "桌面工具",
+    "featured": false,
+    "status": "Electron / JavaScript / IPC",
+    "intro": "Electron / JavaScript · IPC 文件访问、内嵌预览与单实例窗口。",
+    "cover": "workspace-cover",
+    "coverWidth": 1200,
+    "coverHeight": 800,
+    "tags": [
+      "Electron",
+      "JavaScript",
+      "IPC",
+      "Markdown"
+    ],
+    "role": "设计个人工作流，结合 AI 协作实现桌面窗口、文件桥接与预览。",
+    "scope": "HTML/CSS/JavaScript 界面，Electron main/preload 分层与 IPC；网页展示原界面脱敏截图。",
+    "screenshots": [
+      {
+        "src": "/portfolio-assets/screenshots/workbench-redacted-overview.webp",
+        "alt": "个人工作台原界面，私人数据已隐藏",
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "src": "/portfolio-assets/screenshots/workbench-redacted-progress.webp",
+        "alt": "原工作台进度卡片，采用匿名标签",
+        "width": 1280,
+        "height": 825
+      }
+    ],
+    "story": [
+      [
+        "主进程与桥接",
+        "Electron main 处理窗口与单实例生命周期，preload 向渲染层提供受控桥接，目录与文本读取通过 IPC 完成。"
+      ],
+      [
+        "内嵌预览",
+        "以 HTML、Markdown 和代码预览连接文件入口，保留桌面原界面的分区、任务与进度卡片。"
+      ],
+      [
+        "公开展示",
+        "保留原界面布局，仅隐藏私人任务、状态与本地路径；公开截图不连接本机文件系统与后台任务。"
+      ]
+    ]
+  },
+  {
+    "id": "evalops",
+    "title": "EvalOps RAG 实验台",
+    "icon": "chart-line",
+    "type": "工程工具",
+    "featured": false,
+    "status": "Python / FastAPI / TF-IDF",
+    "intro": "Python / FastAPI · 检索、规则评测与参数矩阵实验。",
+    "cover": "evalops-cover",
+    "coverWidth": 1200,
+    "coverHeight": 800,
+    "tags": [
+      "Python",
+      "FastAPI",
+      "TF-IDF",
+      "Evaluation"
+    ],
+    "role": "AI 协作实现检索、抽取式回答、规则评测和静态实验报告。",
+    "scope": "以本地小样本实验比较切片、top-k 与重排配置；站内展示原始 dashboard 与报告。",
+    "demo": "/demos/evalops/",
+    "demoNote": "原始离线报告 · 3 条合成样本 / 3 组配置",
+    "story": [
+      [
+        "检索与回答链路",
+        "以 Python/FastAPI 组织本地检索和抽取式回答，输出检索上下文与结果，便于独立检查各环节。"
+      ],
+      [
+        "参数矩阵与评测",
+        "比较切片长度、重叠、top-k 与重排配置，以规则指标汇总评分、上下文召回及复核队列。"
+      ],
+      [
+        "原始实验报告",
+        "现存报告包含 3 条合成样本与 3 组配置，保留原始表格和数值。Cost 为公式估算，Latency 为本地检索与抽取耗时；结果用于该小样本实验。"
+      ]
+    ]
   }
 ]

@@ -1,0 +1,67 @@
+{
+  "total_cases": 3,
+  "best_config": "tfidf_chunk45_top2",
+  "experiments": [
+    {
+      "config": {
+        "name": "tfidf_chunk45_top2",
+        "chunk_size": 45,
+        "overlap": 10,
+        "top_k": 2,
+        "retriever_backend": "tfidf",
+        "generator_backend": "extractive",
+        "use_rerank": false
+      },
+      "metrics": {
+        "pass_rate": 1.0,
+        "average_score": 0.8876,
+        "average_cost_usd": 1.6e-05,
+        "average_latency_ms": 0.379,
+        "average_context_recall": 0.9437,
+        "human_review_items": 0
+      },
+      "review_queue": []
+    },
+    {
+      "config": {
+        "name": "tfidf_chunk90_top4",
+        "chunk_size": 90,
+        "overlap": 20,
+        "top_k": 4,
+        "retriever_backend": "tfidf",
+        "generator_backend": "extractive",
+        "use_rerank": false
+      },
+      "metrics": {
+        "pass_rate": 1.0,
+        "average_score": 0.8626,
+        "average_cost_usd": 3.5e-05,
+        "average_latency_ms": 0.534,
+        "average_context_recall": 0.9924,
+        "human_review_items": 0
+      },
+      "review_queue": []
+    },
+    {
+      "config": {
+        "name": "vector_rerank_top4",
+        "chunk_size": 90,
+        "overlap": 20,
+        "top_k": 4,
+        "retriever_backend": "vector",
+        "generator_backend": "extractive",
+        "use_rerank": true
+      },
+      "metrics": {
+        "pass_rate": 1.0,
+        "average_score": 0.8626,
+        "average_cost_usd": 3.5e-05,
+        "average_latency_ms": 0.643,
+        "average_context_recall": 0.9924,
+        "human_review_items": 0
+      },
+      "review_queue": []
+    }
+  ],
+  "decision": "Promote the best config only if pass_rate holds and review_queue does not contain high-risk items."
+}

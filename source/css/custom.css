@@ -969,7 +969,7 @@ body.lula-ready #content-inner {
   transform: translateY(0) scale(1);
 }
 
-@media (min-width: 769px) {
+@media (min-width: 0px) {
   #nav {
     --menu-blue: #4655fa;
     --menu-border: #5565ff;
@@ -1031,7 +1031,7 @@ body.lula-ready #content-inner {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    justify-content: center;
+    justify-content: safe center;
     gap: 6px;
     box-sizing: border-box;
     width: max-content;
@@ -1039,13 +1039,17 @@ body.lula-ready #content-inner {
     min-height: 64px;
     padding: 8px 14px;
     margin: 0;
-    top: 50px;
+    top: 44px;
     left: calc(50% + var(--menu-shift, 0px));
     right: auto;
     z-index: 110;
     border: 1px solid var(--menu-border);
     border-radius: 999px;
     background: var(--menu-surface);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--menu-border) transparent;
     box-shadow: 0 8px 20px #4655fa0d;
     line-height: 1.5;
     opacity: 0;
@@ -1063,7 +1067,7 @@ body.lula-ready #content-inner {
     transition-delay: 0s;
   }
 
-  #page-header #nav .menus_items[data-menu-input="pointer"]:has(.menus_item:hover) .menus_item:not(:hover) > ul.menus_item_child,
+  #page-header #nav .menus_items[data-menu-input="pointer"] .menus_item:not(:hover) > ul.menus_item_child,
   #page-header #nav .menus_items:not([data-menu-input="pointer"]):has(.menus_item:focus-within) .menus_item:not(:focus-within) > ul.menus_item_child,
   #page-header #nav .menus_items .menus_item.menu-dismissed > ul.menus_item_child {
     opacity: 0;
@@ -1141,9 +1145,30 @@ body.lula-ready #content-inner {
   #page-header #nav .menus_item_child i.anzhiyufont { font-size: 18px !important; }
 }
 
-@media (min-width: 769px) and (hover: none) {
-  #nav .menus_items { display: none !important; }
-  #nav #toggle-menu { display: inline-block !important; }
+#page-header { --nav-height:60px; --nav-expanded-height:132px; }
+#page-header.not-top-img { height: var(--nav-height); }
+#page-header #nav { height: var(--nav-height); align-items: flex-start; top: 0 !important; }
+#page-header #nav-group { height: 60px; }
+#page-header #nav #menus .menus_items { display: flex !important; top: 0 !important; opacity: 1 !important; }
+#page-header #nav #page-name { display: none; }
+html { scroll-padding-top: 84px; }
+
+@media (max-width: 768px) {
+  #page-header { --nav-height:108px; --nav-expanded-height:170px; }
+  #page-header #nav #menus { top: 60px; height: 44px; padding: 0 10px; }
+  #page-header #nav #menus .menus_items { position: relative; width: 100%; height: 44px; margin: 0; justify-content: center; }
+  #page-header #nav .menus_items > .menus_item { position: static; padding: 0 2px; margin: 0; }
+  #page-header #nav .menus_items > .menus_item > a.site-page { min-height: 44px; gap: 6px; padding: 8px 12px; font-size: 16px; line-height: 28px; }
+  #page-header #nav .menus_items > .menus_item > a.site-page span { letter-spacing: .04em; }
+  #page-header #nav .menus_items .menus_item > ul.menus_item_child { left: 50%; top: 44px; width: calc(100vw - 32px); max-width: none; min-height: 54px; padding: 4px 6px; gap: 2px; border-radius: 18px; overflow-x: auto; overscroll-behavior-x: contain; justify-content: flex-start; scrollbar-width: thin; scrollbar-color: var(--menu-border) transparent; }
+  #page-header #nav .menus_items .menus_item_child > li > a.site-page,
+  #page-header #nav .menus_items .menus_item_child > li > a.site-page:is(:hover, :focus-visible) { padding: 8px 10px; gap: 6px; font-size: 15px; }
+  #page-header #nav .menus_item_child i.anzhiyufont { font-size: 18px !important; }
+  html, html.portfolio-view { scroll-padding-top: 128px; }
+}
+
+@media (max-width: 360px) {
+  #page-header #nav .menus_items > .menus_item > a.site-page { padding: 8px; gap: 4px; font-size: 15px; }
 }
 
 .about-contact { margin-top: 40px; scroll-margin-top: 84px; }
@@ -2132,3 +2157,21 @@ body.lula-ready #content-inner {
   }
 }
 :root #aside-content .author-info__name { font-family: var(--site-font) !important; }
+
+/* Menus participate in the page layout instead of covering project content. */
+#page-header #nav { position: relative !important; padding-top: 0 !important; padding-bottom: 0 !important; border: 0 !important; box-shadow: none !important; background: transparent !important; backdrop-filter: none; -webkit-backdrop-filter: none; }
+#page-header.post-bg #nav { border: 0 !important; box-shadow: none !important; }
+#page-header.not-top-img { background: var(--anzhiyu-background); transition: height .18s ease; }
+#page-header.not-top-img:has(#nav .menus_item:not(.menu-dismissed):hover),
+#page-header.not-top-img:has(#nav .menus_items:not([data-menu-input="pointer"]) .menus_item:not(.menu-dismissed):focus-within) { height: var(--nav-expanded-height); }
+@media (min-width:600px) and (max-width:768px) {
+  #page-header { --nav-height:60px; --nav-expanded-height:124px; }
+  #page-header #nav #menus { top:8px; }
+}
+@media (prefers-reduced-motion: reduce) { #page-header.not-top-img { transition: none; } }
+#recent-posts .recent-post-item { flex-direction: column !important; height: auto !important; }
+#recent-posts .recent-post-item .post_cover { width: 100% !important; height: auto !important; aspect-ratio: 16 / 9; flex: 0 0 auto !important; }
+#recent-posts .recent-post-item .post_cover a { display: block; width: 100%; height: 100% !important; }
+#recent-posts .recent-post-item .post_cover img { display: block; width: 100% !important; height: 100% !important; object-fit: cover !important; }
+#recent-posts .recent-post-item .recent-post-info { width: 100% !important; flex: 0 0 auto !important; }
+#page-header #nav-right { display: none !important; }

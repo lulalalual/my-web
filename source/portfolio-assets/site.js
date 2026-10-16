@@ -34,11 +34,12 @@ if (root) {
       target.classList.add('reveal-pending'); reveal.observe(target);
     });
   }
-  const ambient = root.querySelectorAll('.hero');
+  const ambient = root.querySelectorAll('.hero, .crawler-architecture');
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('is-in-view', entry.isIntersecting)));
     ambient.forEach(target => observer.observe(target));
   } else ambient.forEach(target => target.classList.add('is-in-view'));
+  document.addEventListener('visibilitychange', () => root.classList.toggle('page-hidden', document.hidden));
 
   const nav = root.querySelector('.section-nav');
   if (nav) {

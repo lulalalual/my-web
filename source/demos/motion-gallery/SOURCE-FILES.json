@@ -1,0 +1,36 @@
+{
+  "project": "Pixel Motion Factory",
+  "source_commit": null,
+  "files": [
+    {
+      "source_file": "apps/motion-gallery/index.html",
+      "bytes": 3171,
+      "sha256": "4dd72d29ae9531cba5d013b51a8db5fcd13bbdcd2c6670272a66ca6b49733400"
+    },
+    {
+      "source_file": "apps/motion-gallery/app.js",
+      "bytes": 20677,
+      "sha256": "3e2a37bd7e9772f3e17fc27aac4016809135d291b2a99c1384e43b56c195393c"
+    },
+    {
+      "source_file": "apps/motion-gallery/style.css",
+      "bytes": 13194,
+      "sha256": "060be75d30147a3abd72bd4056c999d71aff86078e848288cffeb93d2e341e95"
+    },
+    {
+      "source_file": "motion-library/verified/primitives.mjs",
+      "bytes": 13814,
+      "sha256": "54bcfc6382ecce7230de870ed1d341e571696e689e57a9938dbcec36b200e36d"
+    },
+    {
+      "source_file": "motion-library/search.ts",
+      "bytes": 4058,
+      "sha256": "02243cbec4126fff0442a31192c332fa20c35b8db1fd0134bd9b29f5f140793c"
+    },
+    {
+      "source_file": "motion-library/registry/assets.json",
+      "bytes": 33546,
+      "sha256": "a6397bcaabccc594ddaebe1ba4f678c420e8802792304655cf9c43d741ceb10a"
+    }
+  ]
+}

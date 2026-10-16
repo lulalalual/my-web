@@ -1,0 +1,1610 @@
+[
+  {
+    "asset": {
+      "id": "split-emphasis",
+      "title": "重点拆分",
+      "description": "原创可参数化知识表达组件：强调、关键词、拆解。",
+      "semantic_tags": [
+        "强调",
+        "关键词",
+        "拆解",
+        "emphasis",
+        "typography",
+        "keyword"
+      ],
+      "visual_category": "动态文字",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/split-emphasis.mp4",
+      "thumbnail_path": "motion-library/previews/split-emphasis.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:24:10.112Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "word-ladder",
+      "title": "词义阶梯",
+      "description": "原创可参数化知识表达组件：递进、层级、抽象到行动。",
+      "semantic_tags": [
+        "递进",
+        "层级",
+        "抽象到行动",
+        "progression",
+        "typography",
+        "steps"
+      ],
+      "visual_category": "动态文字",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/word-ladder.mp4",
+      "thumbnail_path": "motion-library/previews/word-ladder.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:24:39.011Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "assertion-contrast",
+      "title": "判断对照",
+      "description": "原创可参数化知识表达组件：误区、对比、观点冲突。",
+      "semantic_tags": [
+        "误区",
+        "对比",
+        "观点冲突",
+        "contrast",
+        "typography",
+        "claim"
+      ],
+      "visual_category": "动态文字",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/assertion-contrast.mp4",
+      "thumbnail_path": "motion-library/previews/assertion-contrast.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:25:06.528Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "scale-bars",
+      "title": "尺度比较",
+      "description": "原创可参数化知识表达组件：规模、差距、数值比较。",
+      "semantic_tags": [
+        "规模",
+        "差距",
+        "数值比较",
+        "scale",
+        "comparison",
+        "bars",
+        "magnitude"
+      ],
+      "visual_category": "尺度与比例",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/scale-bars.mp4",
+      "thumbnail_path": "motion-library/previews/scale-bars.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:25:45.132Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "asymmetry-balance",
+      "title": "不对称天平",
+      "description": "原创可参数化知识表达组件：不对称风险、损益、权重。",
+      "semantic_tags": [
+        "不对称风险",
+        "损益",
+        "权重",
+        "risk",
+        "asymmetry",
+        "balance",
+        "tradeoff"
+      ],
+      "visual_category": "尺度与比例",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/asymmetry-balance.mp4",
+      "thumbnail_path": "motion-library/previews/asymmetry-balance.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:26:12.602Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "ratio-blocks",
+      "title": "比例分割",
+      "description": "原创可参数化知识表达组件：占比、分配、结构。",
+      "semantic_tags": [
+        "占比",
+        "分配",
+        "结构",
+        "ratio",
+        "proportion",
+        "share"
+      ],
+      "visual_category": "尺度与比例",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/ratio-blocks.mp4",
+      "thumbnail_path": "motion-library/previews/ratio-blocks.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:26:39.712Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "probability-fan",
+      "title": "概率扇出",
+      "description": "原创可参数化知识表达组件：三个互斥分支的百分数概率，合计100%。",
+      "semantic_tags": [
+        "概率",
+        "分支",
+        "不确定性",
+        "probability",
+        "risk",
+        "branch",
+        "uncertainty"
+      ],
+      "visual_category": "曲线与阈值",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "unit": "percent",
+          "sum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/probability-fan.mp4",
+      "thumbnail_path": "motion-library/previews/probability-fan.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:40:31.487Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "payoff-curve",
+      "title": "收益曲线",
+      "description": "原创可参数化知识表达组件：收益、非线性、边际。",
+      "semantic_tags": [
+        "收益",
+        "非线性",
+        "边际",
+        "payoff",
+        "curve",
+        "nonlinear",
+        "return"
+      ],
+      "visual_category": "曲线与阈值",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/payoff-curve.mp4",
+      "thumbnail_path": "motion-library/previews/payoff-curve.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:27:34.938Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "threshold-crossing",
+      "title": "阈值跨越",
+      "description": "原创可参数化知识表达组件：临界点、触发、达标。",
+      "semantic_tags": [
+        "临界点",
+        "触发",
+        "达标",
+        "threshold",
+        "trigger",
+        "critical"
+      ],
+      "visual_category": "曲线与阈值",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/threshold-crossing.mp4",
+      "thumbnail_path": "motion-library/previews/threshold-crossing.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:28:04.441Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "causal-chain",
+      "title": "因果链",
+      "description": "原创可参数化知识表达组件：原因、机制、结果、影响。",
+      "semantic_tags": [
+        "原因",
+        "机制",
+        "结果",
+        "影响",
+        "cause",
+        "effect",
+        "mechanism",
+        "chain"
+      ],
+      "visual_category": "因果与反馈",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/causal-chain.mp4",
+      "thumbnail_path": "motion-library/previews/causal-chain.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:28:38.732Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "feedback-loop",
+      "title": "反馈环",
+      "description": "原创可参数化知识表达组件：反馈、迭代、循环。",
+      "semantic_tags": [
+        "反馈",
+        "迭代",
+        "循环",
+        "feedback",
+        "loop",
+        "iteration"
+      ],
+      "visual_category": "因果与反馈",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/feedback-loop.mp4",
+      "thumbnail_path": "motion-library/previews/feedback-loop.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:29:09.458Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "bottleneck-flow",
+      "title": "瓶颈流",
+      "description": "原创可参数化知识表达组件：瓶颈、吞吐、约束。",
+      "semantic_tags": [
+        "瓶颈",
+        "吞吐",
+        "约束",
+        "bottleneck",
+        "flow",
+        "constraint",
+        "capacity"
+      ],
+      "visual_category": "因果与反馈",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/bottleneck-flow.mp4",
+      "thumbnail_path": "motion-library/previews/bottleneck-flow.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:29:37.998Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "decision-tree",
+      "title": "决策树",
+      "description": "原创可参数化知识表达组件：选择、方案、后果。",
+      "semantic_tags": [
+        "选择",
+        "方案",
+        "后果",
+        "decision",
+        "tree",
+        "choice",
+        "outcome"
+      ],
+      "visual_category": "网络与决策",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/decision-tree.mp4",
+      "thumbnail_path": "motion-library/previews/decision-tree.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:30:07.023Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "network-spread",
+      "title": "网络扩散",
+      "description": "原创可参数化知识表达组件：传播、连接、扩散。",
+      "semantic_tags": [
+        "传播",
+        "连接",
+        "扩散",
+        "network",
+        "spread",
+        "diffusion"
+      ],
+      "visual_category": "网络与决策",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/network-spread.mp4",
+      "thumbnail_path": "motion-library/previews/network-spread.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:30:35.388Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "hub-spoke",
+      "title": "中心辐射",
+      "description": "原创可参数化知识表达组件：中心、辐射、关系。",
+      "semantic_tags": [
+        "中心",
+        "辐射",
+        "关系",
+        "hub",
+        "spoke",
+        "relations"
+      ],
+      "visual_category": "网络与决策",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/hub-spoke.mp4",
+      "thumbnail_path": "motion-library/previews/hub-spoke.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:31:04.381Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "event-timeline",
+      "title": "事件时间线",
+      "description": "原创可参数化知识表达组件：时间线、先后、转折。",
+      "semantic_tags": [
+        "时间线",
+        "先后",
+        "转折",
+        "timeline",
+        "history",
+        "event"
+      ],
+      "visual_category": "时间与流程",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/event-timeline.mp4",
+      "thumbnail_path": "motion-library/previews/event-timeline.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:31:31.641Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "staged-process",
+      "title": "分阶段流程",
+      "description": "原创可参数化知识表达组件：流程、步骤、阶段。",
+      "semantic_tags": [
+        "流程",
+        "步骤",
+        "阶段",
+        "process",
+        "stages",
+        "workflow"
+      ],
+      "visual_category": "时间与流程",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/staged-process.mp4",
+      "thumbnail_path": "motion-library/previews/staged-process.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:31:59.744Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  },
+  {
+    "asset": {
+      "id": "structure-transform",
+      "title": "结构转化",
+      "description": "原创可参数化知识表达组件：重组、归类、结构变化。",
+      "semantic_tags": [
+        "重组",
+        "归类",
+        "结构变化",
+        "transformation",
+        "structure",
+        "grouping"
+      ],
+      "visual_category": "时间与流程",
+      "engine": "HyperFrames / authored SVG",
+      "source_url": "local://motion-library/verified/primitives.mjs",
+      "source_commit": null,
+      "license": "Project-local original code",
+      "author": "Pixel Motion Factory",
+      "parameters_schema": {
+        "title": {
+          "type": "string",
+          "maxLength": 38
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 72
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 6
+        },
+        "value": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "recommended_duration": [
+        2,
+        6
+      ],
+      "supported_aspect_ratios": [
+        "16:9"
+      ],
+      "design_tokens": {
+        "themes": [
+          "warm-editorial",
+          "dark-technical"
+        ],
+        "subtitle_safe_bottom_px": 150
+      },
+      "preview_path": "motion-library/previews/structure-transform.mp4",
+      "thumbnail_path": "motion-library/previews/structure-transform.png",
+      "code_path": "motion-library/verified/primitives.mjs",
+      "validation_status": "UNVERIFIED",
+      "quality_score": null,
+      "version": "0.1.0"
+    },
+    "score": 0,
+    "reasons": [],
+    "video": true,
+    "thumbnail": true,
+    "qa": {
+      "technicalPassed": true,
+      "contrastWarnings": 0,
+      "reviewStatus": "technical_only; visual review pending",
+      "validatedAt": "2026-10-10T12:32:26.288Z",
+      "media": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "duration": 2
+      }
+    }
+  }
+]

@@ -11,7 +11,7 @@ tags:
   - Agent
   - LLM评测
   - 数据飞轮
-cover: /img/covers/ai/cover-evalops-rag.png
+cover: /img/covers/ai/cover-evalops-rag.webp
 description: 复盘 EvalOps RAG Flywheel：多 Agent 编排、RAG 评测、OpenAI-compatible/vLLM 适配、LLM-as-judge、实验矩阵和数据飞轮。
 ---
 <!-- knowledge-diagram:start -->
@@ -31,7 +31,7 @@ EvalOps RAG Flywheel 是一个 RAG 工作流与离线评测的本地原型。当
 
 > 验证范围：原型测试与 CLI 检查已通过，未验证生产问答质量。工具注册器的 permission/schema 字段目前没有强制执行；文中提到的上线、限权和模型评分属于后续目标。名为向量检索的本地后端采用词频余弦计算，没有据此宣称接入 FAISS 或完成模型评测。
 
-![EvalOps RAG Flywheel](/img/covers/ai/cover-evalops-rag.png)
+![EvalOps RAG Flywheel](/img/covers/ai/cover-evalops-rag.webp)
 
 ## 项目要解决的问题
 
