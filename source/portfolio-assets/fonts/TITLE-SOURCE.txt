@@ -1,3 +1,6 @@
-LXGW WenKai v1.522 Regular, subset for the four-character title.
-Source: https://github.com/lxgw/LxgwWenKai/releases/tag/v1.522
-License: SIL OFL 1.1 (LXGW-OFL.txt).
+Zhi Mang Xing (志莽行书), title-only webfont for 青阳寻雪.
+Source: https://fonts.google.com/specimen/Zhi+Mang+Xing
+Official source and license: https://github.com/google/fonts/tree/main/ofl/zhimangxing
+Webfont: Google Fonts CSS2, family=Zhi Mang Xing, text=青阳寻雪, version v19, obtained 2026-10-16.
+License: SIL OFL 1.1 (ZhiMangXing-OFL.txt).
+CSS family remains QingyangTitle to keep the existing title component interface stable.
