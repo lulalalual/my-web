@@ -8,7 +8,7 @@ The existing Hexo / AnZhiYu layout, navigation, project applications and article
 - Hero: quiet ambient drift, plus progressive native scroll depth on desktop.
 - Projects: image arrival and pointer driven depth. A shared, demand driven scheduler uses `1 - exp(-16 * dt)`, stops when settled and owns the transform without a competing CSS transition.
 - Experience: image settling; headings / contribution rules draw in; text remains readable from the initial state.
-- Navigation: reading progress, active section feedback; blog: shared hover, reveal and depth language.
+- Navigation: blue current/hover pill, a 200 ms horizontal submenu with keyboard focus and Escape dismissal; blog: shared hover, reveal and depth language. The compact homepage links to separate content pages rather than using a second sticky section bar.
 - Detail navigation: ordinary project pages, native article indices and article contents. There is no modal navigation or scroll lock.
 - Animation is enabled by default, without a manual toggle or stored opt-out. OS reduced motion remains an accessibility fallback. Hidden documents / offscreen applications pause rendering; touch devices retain every action without pointer tilt.
 

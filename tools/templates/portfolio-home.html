@@ -10,10 +10,9 @@ cover: /portfolio-assets/hero.webp
 <div><a class="skip-link portfolio-skip" href="#work">跳到项目</a>
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-scene"><img class="hero-photo" src="/portfolio-assets/hero.webp" alt="冰雪地貌的概念视觉" width="1920" height="1080" fetchpriority="high"></div>
-  <div class="hero-copy"><h1 id="hero-title">青阳寻雪</h1><div class="hero-actions"><a class="button primary" href="#work">项目精选 <span aria-hidden="true">↗</span></a><a class="text-link" href="#experience">工作经历 <span aria-hidden="true">↗</span></a></div></div>
+  <div class="hero-copy"><h1 id="hero-title">青阳寻雪</h1><div class="hero-actions"><a class="button primary" href="#work">项目精选 <span aria-hidden="true">↗</span></a><a class="text-link" href="/experience/">工作经历 <span aria-hidden="true">↗</span></a></div></div>
 </section>
-<nav class="section-nav" aria-label="本页导览"><a href="#work"><i class="anzhiyufont anzhiyu-icon-folder-open" aria-hidden="true"></i>项目</a><a href="#experience"><i class="anzhiyufont anzhiyu-icon-file-lines" aria-hidden="true"></i>经历</a><a href="#opensource"><i class="anzhiyufont anzhiyu-icon-github" aria-hidden="true"></i>开源</a><a href="#journal"><i class="anzhiyufont anzhiyu-icon-book-open" aria-hidden="true"></i>博客</a><a href="#contact"><i class="anzhiyufont anzhiyu-icon-envelope" aria-hidden="true"></i>联系</a></nav>
-
+<nav class="portfolio-paths" aria-label="探索内容"><a href="/experience/"><i class="anzhiyufont anzhiyu-icon-file-lines" aria-hidden="true"></i><strong>工作经历</strong><span>需求设计、知识组织与 AI 培训</span></a><a href="/practice/"><i class="anzhiyufont anzhiyu-icon-shapes" aria-hidden="true"></i><strong>方案实践</strong><span>流程图解与工程实验</span></a><a href="/opensource/"><i class="anzhiyufont anzhiyu-icon-github" aria-hidden="true"></i><strong>开源贡献</strong><span>Dify · LlamaIndex · Ragas</span></a><a href="/blog/"><i class="anzhiyufont anzhiyu-icon-book-open" aria-hidden="true"></i><strong>博客</strong><span>产品实践与工程笔记</span></a></nav>
 <section class="work-section section-wrap" id="work" aria-labelledby="work-title">
   <div class="section-heading" data-reveal><h2 id="work-title">精选项目</h2></div>
   <div class="work-grid">{{PROJECT_CARDS}}</div>
@@ -28,26 +27,5 @@ cover: /portfolio-assets/hero.webp
   <noscript><p>进入完整应用：<a href="/demos/interview/?mode=demo">计算机面试大师</a> · <a href="/demos/defense-original/">双人塔防</a></p></noscript>
 </section>
 
-<section class="experience-section section-wrap" id="experience" aria-labelledby="experience-title">
-  <div class="section-heading"><h2 id="experience-title">工作经历</h2><p>AI 产品经理 / FDE 实习 · 2026.06—2026.10</p></div>
-  <div class="experience-grid">
-    <article><figure class="experience-visual"><img src="/portfolio-assets/product-cover.webp" srcset="/portfolio-assets/responsive/product-cover-480.webp 480w, /portfolio-assets/responsive/product-cover-800.webp 800w" sizes="(max-width:760px) 88px, 150px" alt="需求设计插画" width="1200" height="800" loading="lazy" decoding="async"></figure><h3>需求与规则设计</h3><p>设计通用面试、简历优化与就业核查规则，覆盖入口、异常、报告和人工复核。</p><p>完成 PRD、交互规则与 176 条八维题库交付。</p></article>
-    <article><figure class="experience-visual"><img src="/portfolio-assets/rag-cover.webp" srcset="/portfolio-assets/responsive/rag-cover-480.webp 480w, /portfolio-assets/responsive/rag-cover-800.webp 800w" sizes="(max-width:760px) 88px, 150px" alt="检索验收的概念插画" width="1200" height="800" loading="lazy" decoding="async"></figure><h3>知识库与数据接入</h3><p>整理 49 份知识正文，构建 8,054 条离线检索测试，保留版本与拒识记录。</p><p>梳理 API 与 30 万级 CRM 的字段、分页和异常处理。</p></article>
-    <article><figure class="experience-visual"><img src="/portfolio-assets/intern-cover.webp" srcset="/portfolio-assets/responsive/intern-cover-480.webp 480w, /portfolio-assets/responsive/intern-cover-800.webp 800w" sizes="(max-width:760px) 88px, 150px" alt="岗位训练场景插画" width="1200" height="800" loading="lazy" decoding="async"></figure><h3>模拟实习原型</h3><p>围绕选岗、六阶段任务、群聊 / 私聊及复盘，设计 AI 参与的岗位训练。</p><p>完成需求方案、岗位内容包与全栈交互原型。</p></article>
-    <article><figure class="experience-visual"><img src="/portfolio-assets/training-cover.webp" srcset="/portfolio-assets/responsive/training-cover-480.webp 480w, /portfolio-assets/responsive/training-cover-800.webp 800w" sizes="(max-width:760px) 88px, 150px" alt="AI 方法分享的概念插画" width="1200" height="800" loading="lazy" decoding="async"></figure><h3>AI 培训主讲</h3><p>讲授 AI 原理、上下文与 Agent / Skill / MCP，结合知识库、网页和 PPT 等任务演示。</p><p>沉淀讲义、操作案例与结果检查方法。</p></article>
-  </div>
-  <div class="experience-links"><a class="text-link" href="/experience/">经历详情 ↗</a></div>
-  <div class="background-grid" id="about"><div><time>2025.10—2026.03</time><h3>C++ 后端开发实习</h3><p>设备数据上报、字段解析与 Kafka 推送。</p></div></div>
-</section>
-
-<section class="section-wrap explanation-section" id="explanations" aria-labelledby="explanation-title">
-  <div class="section-heading" data-reveal><h2 id="explanation-title">方案与实践</h2></div>
-  <div class="demo-shell diagram-shell" data-embed><div class="embed-status" role="status"><span class="loading-mark" aria-hidden="true"></span><span data-embed-message>正在载入图解…</span><button type="button" data-embed-retry hidden>重试</button></div><iframe title="工作与项目流程图解" data-src="/portfolio-assets/diagrams/" data-auto-height allowfullscreen></iframe><noscript><a href="/portfolio-assets/diagrams/">阅读流程图解 →</a></noscript></div>
-</section>
-
-<section class="oss-review section-wrap" id="opensource" aria-labelledby="opensource-title"><div class="section-heading" data-reveal><h2 id="opensource-title">开源贡献</h2></div><div class="oss-grid">{{OSS_CARDS}}</div></section>
-
-<section class="journal-section section-wrap" id="journal" aria-labelledby="journal-title"><div class="journal-heading"><h2 id="journal-title">博客</h2><a class="text-link" href="/blog/">全部文章 ↗</a></div><div class="journal-list">{{JOURNAL}}</div></section>
-
-<section class="contact-section section-wrap" id="contact" aria-labelledby="contact-title"><h2 id="contact-title">联系</h2><div class="contact-bottom"><a href="mailto:wang.196617@qq.com">wang.196617@qq.com</a><button id="copy-email" data-email="wang.196617@qq.com">复制邮箱</button><a class="text-link" href="https://github.com/lulalalual" target="_blank" rel="noopener">GitHub ↗</a></div><span id="copy-status" role="status" aria-live="polite"></span></section>
+<div class="home-contact"><a href="mailto:wang.196617@qq.com">wang.196617@qq.com</a><a href="/about/#contact">联系 ↗</a></div>
 </div>

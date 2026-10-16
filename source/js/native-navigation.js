@@ -5,6 +5,63 @@
       reload: function () { window.location.reload(); }
     };
   }
+  function mountNativeMenus() {
+    var nav = document.querySelector('#nav .menus_items');
+    if (!nav || nav.dataset.nativeMenus) return;
+    nav.dataset.nativeMenus = 'ready';
+    nav.addEventListener('pointermove', function () { nav.dataset.menuInput = 'pointer'; }, {passive:true});
+    nav.addEventListener('keydown', function () { nav.dataset.menuInput = 'keyboard'; });
+    var groups = Array.from(nav.querySelectorAll(':scope > .menus_item'));
+    var path = location.pathname;
+    var current = /^\/categories\//.test(path) ? '专栏'
+      : /^\/(about|comments)\//.test(path) ? '关于'
+      : path === '/' || /^\/(work|projects|experience|practice|opensource)\//.test(path) ? '作品' : '文章';
+    function fit(group) {
+      var panel = group.querySelector(':scope > .menus_item_child');
+      if (!panel) return;
+      group.style.setProperty('--menu-shift', '0px');
+      var rect = panel.getBoundingClientRect();
+      if (!rect.width) return;
+      var limit = document.documentElement.clientWidth - 16;
+      var shift = rect.left < 16 ? 16 - rect.left : rect.right > limit ? limit - rect.right : 0;
+      group.style.setProperty('--menu-shift', shift + 'px');
+    }
+    groups.forEach(function (group) {
+      var link = group.querySelector(':scope > a.site-page');
+      if (!link) return;
+      if (link.textContent.trim() === current) {
+        group.classList.add('is-current');
+        link.setAttribute('aria-current', 'true');
+      }
+      group.addEventListener('pointerenter', function () {
+        nav.dataset.menuInput = 'pointer';
+        group.classList.remove('menu-dismissed');
+        fit(group);
+      });
+      group.addEventListener('focusin', function (event) {
+        nav.dataset.menuInput = 'keyboard';
+        if (!group.contains(event.relatedTarget)) group.classList.remove('menu-dismissed');
+        fit(group);
+      });
+      group.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape') return;
+        group.classList.add('menu-dismissed');
+        link.focus({preventScroll:true});
+        event.preventDefault();
+        event.stopPropagation();
+      });
+    });
+    var scheduled = false;
+    function fitAll() {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(function () { groups.forEach(fit); scheduled = false; });
+    }
+    window.addEventListener('resize', fitAll, {passive:true});
+    window.addEventListener('pageshow', fitAll);
+    if (document.fonts) document.fonts.ready.then(fitAll);
+    fitAll();
+  }
   function fitDiagrams() {
     var article = document.querySelector('#post #article-container');
     if (article && !document.querySelector('#post .reading-breadcrumb')) {
@@ -47,6 +104,12 @@
       fit();
     });
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fitDiagrams);
-  else fitDiagrams();
+  function openLinkedExperience() {
+    var target = document.getElementById(location.hash.slice(1));
+    if (target && target.matches('details[name="work-topic"]')) target.open = true;
+  }
+  window.addEventListener('hashchange', openLinkedExperience);
+  function mount() { mountNativeMenus(); fitDiagrams(); openLinkedExperience(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);
+  else mount();
 })();

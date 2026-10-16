@@ -1,5 +1,12 @@
 import {mountMedia} from './portfolio-media.js';
 
+const legacyRoutes = {'#experience':'/experience/', '#explanations':'/practice/', '#opensource':'/opensource/', '#journal':'/blog/', '#contact':'/about/#contact', '#about':'/experience/#backend-development'};
+function redirectLegacySection() {
+  if (location.pathname === '/' && legacyRoutes[location.hash]) location.replace(legacyRoutes[location.hash]);
+}
+redirectLegacySection();
+window.addEventListener('hashchange', redirectLegacySection);
+
 const root = document.getElementById('portfolio-root');
 if (root) {
   document.documentElement.classList.add('portfolio-view', 'js');
@@ -68,14 +75,14 @@ if (root) {
       if (section) {select(section.id); section.setAttribute('tabindex', '-1'); section.focus({preventScroll: true});}
     });
   }
-  const copy = root.querySelector('#copy-email');
-  copy?.addEventListener('click', async () => {
-    const status = root.querySelector('#copy-status');
+  mountMedia(root);
+}
+const copy = document.querySelector('#copy-email');
+copy?.addEventListener('click', async () => {
+    const status = document.querySelector('#copy-status');
     try {
       await navigator.clipboard.writeText(copy.dataset.email);
       if (status) status.textContent = '邮箱已复制';
       copy.classList.add('copied');
     } catch {if (status) status.textContent = '可点击邮箱地址，使用邮件应用联系。';}
-  });
-  mountMedia(root);
-}
+});

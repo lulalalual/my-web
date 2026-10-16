@@ -39,6 +39,14 @@ if (!projects.length) throw new Error('At least one project is required');
 for (const [token, value] of Object.entries({PROJECT_CARDS: cards, OSS_CARDS: oss, JOURNAL: articles, FIRST_PROJECT_ID: projects[0].id, FIRST_TITLE: escape(projects[0].title), FIRST_NOTE: escape(projects[0].demoNote || projects[0].scope), FIRST_DEMO: escape(projects[0].demo)})) home = home.replaceAll(`{{${token}}}`, value);
 if (/\{\{[A-Z_]+\}\}/.test(home)) throw new Error('Unresolved portfolio template');
 await writeFile(path.join(source, 'index.html'), home);
+async function writeSectionPage(slug, title, body) {
+  const directory = path.join(source, slug);
+  await mkdir(directory, {recursive: true});
+  const header = `---\ntitle: ${title}\nlayout: portfolio\naside: false\ncomments: false\ntop_img: false\ntype: portfolio\ncover: /portfolio-assets/hero.webp\n---\n`;
+  await writeFile(path.join(directory, 'index.html'), `${header}<div class="case-page section-wrap"><a class="back-link" href="/">← 首页</a><h1>${escape(title)}</h1>${body}</div>`);
+}
+await writeSectionPage('opensource', '开源贡献', `<div class="oss-grid">${oss}</div>`);
+await writeSectionPage('practice', '方案与实践', `<section id="explanations" class="practice-player" aria-label="流程图解"><div class="demo-shell diagram-shell" data-embed><div class="embed-status" role="status"><span class="loading-mark" aria-hidden="true"></span><span data-embed-message>正在载入图解…</span><button type="button" data-embed-retry hidden>重试</button></div><iframe title="工作与项目流程图解" data-src="/portfolio-assets/diagrams/" data-auto-height allowfullscreen></iframe><noscript><a href="/portfolio-assets/diagrams/">进入流程图解 →</a></noscript></div></section>`);
 for (const item of projects) {
   const directory = path.join(source, 'work', item.id);
   await mkdir(directory, {recursive: true});

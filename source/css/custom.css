@@ -969,6 +969,188 @@ body.lula-ready #content-inner {
   transform: translateY(0) scale(1);
 }
 
+@media (min-width: 769px) {
+  #nav {
+    --menu-blue: #4655fa;
+    --menu-border: #5565ff;
+    --menu-surface: #fff;
+    --menu-ink: #4c4e55;
+    --menu-hover: #eef0ff;
+  }
+
+  [data-theme="dark"] #nav,
+  #page-header.post-bg #nav {
+    --menu-border: #8190ff;
+    --menu-surface: #171c28;
+    --menu-ink: #eef1fa;
+    --menu-hover: #293249;
+  }
+
+  #page-header #nav .menus_items > .menus_item > a.site-page {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 44px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    color: var(--menu-ink) !important;
+    background: transparent;
+    font-size: 18px;
+    line-height: 28px;
+    box-shadow: none;
+    transform: none;
+  }
+
+  #page-header #nav .menus_items > .menus_item > a.site-page span {
+    color: inherit !important;
+    letter-spacing: .1em;
+  }
+
+  #page-header #nav .menus_items > .menus_item.is-current > a.site-page,
+  #page-header #nav .menus_items > .menus_item:is(:hover, :focus-within) > a.site-page {
+    background: var(--menu-blue) !important;
+    color: #fff !important;
+    box-shadow: 0 5px 14px #4655fa16;
+  }
+
+  #page-header #nav:has(.menus_item:is(:hover, :focus-within)) .menus_item.is-current:not(:hover):not(:focus-within) > a.site-page {
+    background: transparent !important;
+    color: var(--menu-ink) !important;
+    box-shadow: none;
+  }
+
+  #page-header #nav .menus_items[data-menu-input="pointer"]:has(.menus_item:hover) .menus_item:not(:hover) > a.site-page,
+  #page-header #nav .menus_items:not([data-menu-input="pointer"]):has(.menus_item:focus-within) .menus_item:not(:focus-within) > a.site-page {
+    background: transparent !important;
+    color: var(--menu-ink) !important;
+    box-shadow: none;
+  }
+
+  #page-header #nav .menus_items .menus_item > ul.menus_item_child {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-sizing: border-box;
+    width: max-content;
+    max-width: calc(100vw - 32px);
+    min-height: 64px;
+    padding: 8px 14px;
+    margin: 0;
+    top: 50px;
+    left: calc(50% + var(--menu-shift, 0px));
+    right: auto;
+    z-index: 110;
+    border: 1px solid var(--menu-border);
+    border-radius: 999px;
+    background: var(--menu-surface);
+    box-shadow: 0 8px 20px #4655fa0d;
+    line-height: 1.5;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate(-50%, -6px);
+    transition: opacity .18s ease, transform .2s var(--lula-silk-ease), visibility 0s .18s;
+  }
+
+  #page-header #nav .menus_item:is(:hover, :focus-within) > ul.menus_item_child {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+    transition-delay: 0s;
+  }
+
+  #page-header #nav .menus_items[data-menu-input="pointer"]:has(.menus_item:hover) .menus_item:not(:hover) > ul.menus_item_child,
+  #page-header #nav .menus_items:not([data-menu-input="pointer"]):has(.menus_item:focus-within) .menus_item:not(:focus-within) > ul.menus_item_child,
+  #page-header #nav .menus_items .menus_item.menu-dismissed > ul.menus_item_child {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate(-50%, -6px);
+  }
+
+  #page-header #nav .menus_items .menus_item > ul.menus_item_child::before {
+    top: -12px;
+    height: 16px;
+  }
+
+  #page-header #nav .menus_items .menus_item > ul.menus_item_child::after {
+    content: none;
+  }
+
+  #page-header #nav .menus_item_child > li {
+    flex: 0 0 auto;
+    border-radius: 999px;
+    background: transparent;
+  }
+
+  #page-header #nav .menus_items .menus_item_child > li > a.site-page {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: auto;
+    min-height: 44px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    color: var(--menu-ink) !important;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 28px;
+    white-space: nowrap;
+    box-shadow: none;
+    transform: none !important;
+    transition: color .18s ease, background-color .18s ease;
+  }
+
+  #page-header #nav .menus_items .menus_item_child > li > a.site-page:is(:hover, :focus-visible) {
+    background: var(--menu-hover) !important;
+    color: var(--menu-blue) !important;
+    padding: 8px 14px;
+  }
+
+  [data-theme="dark"] #page-header #nav .menus_items .menus_item_child > li > a.site-page:is(:hover, :focus-visible),
+  #page-header.post-bg #nav .menus_items .menus_item_child > li > a.site-page:is(:hover, :focus-visible) {
+    color: #fff !important;
+  }
+
+  #page-header #nav .menus_item_child i.anzhiyufont {
+    font-size: 22px !important;
+    line-height: 1;
+  }
+
+  #page-header #nav .menus_items a.site-page:focus-visible {
+    outline: 2px solid var(--menu-border);
+    outline-offset: 3px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1050px) {
+  #page-header #nav .menus_items .menus_item > ul.menus_item_child {
+    gap: 4px;
+    padding: 8px;
+  }
+  #page-header #nav .menus_items .menus_item_child > li > a.site-page,
+  #page-header #nav .menus_items .menus_item_child > li > a.site-page:is(:hover, :focus-visible) {
+    gap: 5px;
+    padding: 8px 6px;
+    font-size: 16px;
+  }
+  #page-header #nav .menus_item_child i.anzhiyufont { font-size: 18px !important; }
+}
+
+@media (min-width: 769px) and (hover: none) {
+  #nav .menus_items { display: none !important; }
+  #nav #toggle-menu { display: inline-block !important; }
+}
+
+.about-contact { margin-top: 40px; scroll-margin-top: 84px; }
+.about-contact .contact-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
+.contact-copy { min-height: 44px; padding: 8px 18px; border: 1px solid var(--anzhiyu-card-border); border-radius: 999px; background: var(--anzhiyu-card-bg); color: var(--anzhiyu-fontcolor); font: inherit; cursor: pointer; }
+.contact-copy:focus-visible { outline: 2px solid #5565ff; outline-offset: 3px; }
+
 @media (max-width: 768px) {
   #content-inner {
     padding: 0 0.75rem;

@@ -6,8 +6,28 @@
   --motion-spring: cubic-bezier(.16,1,.3,1);
 }
 @font-face { font-family:QingyangTitle; src:url('/portfolio-assets/fonts/qingyang-title.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+html.portfolio-view { scroll-padding-top:84px; }
+#portfolio-root .hero { min-height:clamp(360px,45svh,480px); padding-top:44px; padding-bottom:54px; }
+#portfolio-root .portfolio-paths { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px; margin:18px 0 0; }
+#portfolio-root .portfolio-paths a { display:grid; grid-template-columns:24px minmax(0,1fr); gap:4px 10px; min-height:88px; padding:16px 0 18px; border-bottom:1px solid var(--line); transition:border-color .18s,color .18s; }
+#portfolio-root .portfolio-paths i { grid-row:1/3; padding-top:3px; font-size:20px; color:var(--accent); }
+#portfolio-root .portfolio-paths strong { font-size:18px; line-height:1.5; color:var(--ink); }
+#portfolio-root .portfolio-paths span { font-size:14px; line-height:1.7; color:var(--muted); }
+#portfolio-root .portfolio-paths a:is(:hover,:focus-visible) { border-color:var(--accent); color:var(--accent); }
+#portfolio-root .portfolio-paths a:is(:hover,:focus-visible) strong { color:var(--accent); }
+#portfolio-root .work-section.section-wrap { padding-top:42px; padding-bottom:36px; }
+#portfolio-root .home-contact { display:flex; justify-content:space-between; gap:20px; padding:20px 0 30px; color:var(--muted); font-size:15px; }
+#portfolio-root .home-contact a { min-height:44px; display:inline-flex; align-items:center; }
+#portfolio-root .practice-player { margin-top:28px; }
+#portfolio-root .case-page>.oss-grid { margin-top:30px; }
 #portfolio-root .hero h1 { font-family:QingyangTitle,'Noto Serif SC',serif; font-weight:400; font-size:clamp(62px,8.6vw,116px); line-height:1.35; letter-spacing:.04em; text-shadow:0 2px 20px #e9d5ae18; }
-@media(max-width:760px) { #portfolio-root .hero h1 { font-size:clamp(52px,15vw,72px); letter-spacing:.04em; } }
+@media(max-width:760px) {
+  #portfolio-root .hero h1 { font-size:clamp(52px,15vw,72px); letter-spacing:.04em; }
+  #portfolio-root .hero { min-height:clamp(350px,52svh,460px); padding-top:36px; padding-bottom:48px; }
+  #portfolio-root .portfolio-paths { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 18px; }
+  #portfolio-root .portfolio-paths strong { font-size:17px; }
+  #portfolio-root .portfolio-paths a { min-height:96px; }
+}
 
 /* The native blog and portfolio share timing; text keeps its finished state. */
 #content-inner { animation:none!important; will-change:auto; }

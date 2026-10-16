@@ -11,6 +11,8 @@ const routes = [
   "/",
   "/blog/",
   "/experience/",
+  "/practice/",
+  "/opensource/",
   "/work/interview/",
   "/work/defense/",
   "/demos/interview/?mode=demo",

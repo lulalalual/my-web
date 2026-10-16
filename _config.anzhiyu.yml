@@ -1,10 +1,11 @@
 menu:
   作品 || anzhiyu-icon-folder-open:
     精选项目: /#work || anzhiyu-icon-folder-open
-    计算机面试大师: /work/interview/ || anzhiyu-icon-comments
+    面试大师: /work/interview/ || anzhiyu-icon-comments
     双人塔防: /work/defense/ || anzhiyu-icon-dice-d20
     工作经历: /experience/ || anzhiyu-icon-file-lines
-    开源贡献: /#opensource || anzhiyu-icon-github
+    方案实践: /practice/ || anzhiyu-icon-shapes
+    开源贡献: /opensource/ || anzhiyu-icon-github
   专栏 || anzhiyu-icon-book-open:
     C++ 语法: /categories/cpp-syntax/ || anzhiyu-icon-keyboard
     数据结构与算法: /categories/算法笔记/ || anzhiyu-icon-shapes
@@ -18,6 +19,7 @@ menu:
     标签: /tags/ || anzhiyu-icon-tags
   关于 || anzhiyu-icon-circle-info:
     关于本站: /about/ || anzhiyu-icon-circle-info
+    联系方式: /about/#contact || anzhiyu-icon-envelope
     GitHub: https://github.com/lulalalual || anzhiyu-icon-github
 
 nav:
