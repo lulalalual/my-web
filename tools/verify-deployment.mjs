@@ -9,6 +9,15 @@ const normalizedBaseUrl = baseUrl.replace(/\/$/, "");
 
 const routes = [
   "/",
+  "/blog/",
+  "/experience/",
+  "/work/interview/",
+  "/work/defense/",
+  "/demos/interview/?mode=demo",
+  "/demos/defense-original/",
+  "/portfolio-assets/diagrams/",
+  "/portfolio-assets/knowledge/",
+  "/posts/cpp-stl/",
   "/archives/",
   "/categories/",
   "/tags/",
@@ -32,6 +41,24 @@ for (const route of routes) {
   if (!acceptable) {
     failures.push({ route, status: response.status });
   }
+}
+
+for (const [path, mime] of [
+  ['/portfolio-assets/motion.css', 'text/css'],
+  ['/portfolio-assets/site.js', 'javascript'],
+  ['/portfolio-assets/projects.json', 'application/json'],
+  ['/demos/defense-original/game.wasm', 'application/wasm'],
+  ['/demos/interview/pyodide/pyodide.asm.wasm', 'application/wasm'],
+]) {
+  const response = await fetch(normalizedBaseUrl + path, {method:'HEAD'});
+  const type = response.headers.get('content-type') || '';
+  console.log(`${response.status} ${path} ${type}`);
+  if (!response.ok || !type.includes(mime)) failures.push({route:path, status:response.status});
+}
+
+const homepage = await fetch(normalizedBaseUrl + '/').then(response => response.text());
+if (!homepage.includes('青阳寻雪') || !homepage.includes('/portfolio-assets/motion.css') || homepage.includes('motion-toggle') || homepage.includes('/portfolio-assets/resume.pdf')) {
+  failures.push({route:'homepage identity / motion / privacy', status:'content mismatch'});
 }
 
 if (failures.length > 0) {

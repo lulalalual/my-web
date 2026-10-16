@@ -1,0 +1,4 @@
+© 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'.
+Noto Sans SC, variable weight 100-900. Web subsets retain original font notices.
+Source: https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/Variable/TTF/Subset/NotoSansSC-VF.ttf
+License: SIL Open Font License 1.1 (OFL.txt).

@@ -1,25 +1,27 @@
 menu:
-  专栏:
+  作品集:
+    精选作品: /#work || anzhiyu-icon-folder
+    工作经历: /#experience || anzhiyu-icon-paper-plane
+    开源实践: /#opensource || anzhiyu-icon-github
+  博客:
+    全部文章: /blog/ || anzhiyu-icon-book
     计算机八股文: /categories/计算机八股文笔记/ || anzhiyu-icon-book
     算法笔记: /categories/算法笔记/ || anzhiyu-icon-shapes
     C++ 语法: /categories/cpp-syntax/ || anzhiyu-icon-code
     分布式系统: /tags/分布式/ || anzhiyu-icon-network-wired
     游戏开发: /categories/游戏开发/ || anzhiyu-icon-gamepad
-    项目合集: /projects/ || anzhiyu-icon-folder
-  文章:
     隧道: /archives/ || anzhiyu-icon-box-archive
     分类: /categories/ || anzhiyu-icon-shapes
     标签: /tags/ || anzhiyu-icon-tags
-  互动:
-    留言板: /comments/ || anzhiyu-icon-envelope
-  我的:
+  关于:
+    关于我: /#about || anzhiyu-icon-paper-plane
     关于本站: /about/ || anzhiyu-icon-paper-plane
     GitHub: https://github.com/lulalalual || anzhiyu-icon-github
 
 nav:
   enable: false
   travelling: false
-  clock: true
+  clock: false
 
 social:
   Github: https://github.com/lulalalual || anzhiyu-icon-github
@@ -27,7 +29,7 @@ social:
 favicon: /favicon.svg
 
 avatar:
-  img: /img/avatar.jpg
+  img: /portfolio-assets/avatar.webp
   effect: true
 
 disable_top_img: false
@@ -85,14 +87,8 @@ related_post:
   date_type: created
 
 reward:
-  enable: true
-  QR_code:
-    - img: /img/reward-wechat.jpg
-      link:
-      text: 微信
-    - img: /img/reward-alipay.jpg
-      link:
-      text: 支付宝
+  enable: false
+  QR_code: []
 
 noticeOutdate:
   enable: false
@@ -111,21 +107,21 @@ footer:
   owner:
     enable: true
     since: 2024
-  custom_text: 青阳寻雪：技术、项目、复盘和持续学习。
+  custom_text: ''
   runtime:
     enable: false
     launch_time: 04/25/2026 00:00:00
   bdageitem:
-    enable: true
+    enable: false
     list:
       - link: https://hexo.io/
-        shields: https://npm.elemecdn.com/anzhiyu-blog@2.1.5/img/badge/Frame-Hexo.svg
+        shields: /portfolio-assets/badge-hexo.svg
         message: 博客框架为 Hexo
       - link: https://docs.anheyu.com/
-        shields: https://npm.elemecdn.com/anzhiyu-theme-static@1.0.9/img/Theme-AnZhiYu-2E67D3.svg
+        shields: /portfolio-assets/badge-theme.svg
         message: 本站使用 AnZhiYu 主题
       - link: https://github.com/lulalalual/my-web
-        shields: https://img.shields.io/badge/Source-GitHub-24292f?style=flat&logo=github
+        shields: /portfolio-assets/badge-source.svg
         message: 内容由 GitHub 托管
   footerBar:
     enable: true
@@ -138,7 +134,7 @@ footer:
       - link: /projects/
         text: 项目合集
     subTitle:
-      enable: true
+      enable: false
       effect: true
       loop: true
       source: false
@@ -179,12 +175,12 @@ display_mode: dark
 font:
   global-font-size: 16px
   code-font-size:
-  font-family: '"LXGW WenKai Screen", "PingFang SC", "Microsoft YaHei", sans-serif'
+  font-family: '"Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif'
   code-font-family: 'JetBrains Mono, Fira Code, Consolas, Menlo, monospace'
 
 blog_title_font:
   font_link:
-  font-family: '"PingFang SC", "Microsoft YaHei", sans-serif'
+  font-family: '"Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif'
 
 subtitle:
   enable: true
@@ -195,8 +191,8 @@ subtitle:
   loop: true
   source: false
   sub:
-    - 青阳寻雪：用代码拆解问题，用文章沉淀经验。
-    - C++、分布式、AI 面试平台和游戏开发复盘。
+    - 从需求到实现，记录产品与工程之间的思考。
+    - AI 产品、交互实践与技术复盘。
 
 preloader:
   enable: false
@@ -215,11 +211,11 @@ aside:
     category: true
   card_author:
     enable: true
-    description: <div style="line-height:1.55;text-align:justify;color:rgba(255,255,255,.88)">这里是 <b style="color:#fff">青阳寻雪</b> 的技术档案：C++、分布式、算法、AI 开发、游戏开发和面试复盘。目标不是堆资料，而是把踩坑、结构和取舍写清楚。</div>
+    description: <div style="line-height:1.55;color:rgba(255,255,255,.88)"><b style="color:#fff">青阳寻雪</b></div>
     name_link: /
   card_announcement:
     enable: true
-    content: 青阳寻雪的项目档案馆：AI 面试训练、SDL2 塔防、Muduo 通信平台、Raft KV 存储。
+    content: 项目与经历在首页，思考与复盘留在博客。
   card_weixin:
     enable: false
   card_recent_post:
@@ -285,7 +281,7 @@ note:
   light_bg_offset: 0
 
 pjax:
-  enable: true
+  enable: false
   exclude:
 
 snackbar:
@@ -294,7 +290,10 @@ snackbar:
   bg_light: "#3b70fc"
   bg_dark: "#1f1f1f"
 
-instantpage: true
+instantpage: false
+
+aplayerInject:
+  enable: false
 
 lazyload:
   enable: false
@@ -368,9 +367,16 @@ rightClickMenu:
 
 inject:
   head:
+    - <link rel="preload" href="/portfolio-assets/fonts/noto-sans-sc-core.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    - <link rel="stylesheet" href="/portfolio-assets/fonts/site-font.css">
     - <link rel="stylesheet" href="/css/custom.css">
+    - <link rel="stylesheet" href="/portfolio-assets/site.css">
+    - <link rel="stylesheet" href="/portfolio-assets/theme-bridge.css">
+    - <link rel="stylesheet" href="/portfolio-assets/motion.css">
+    - <script src="/js/native-navigation.js"></script>
   bottom:
     - <script src="/js/lula-motion.js"></script>
+    - <script type="module" src="/portfolio-assets/site.js"></script>
 
 CDN:
   internal_provider: local
@@ -378,3 +384,6 @@ CDN:
   version: true
   custom_format:
   option:
+    waterfall: /vendor/theme/waterfall.js
+    ali_iconfont_css: /vendor/theme/ali_iconfont_css.css
+    typed: /vendor/theme/typed.umd.js

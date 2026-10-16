@@ -1,4 +1,12 @@
 (function () {
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var heroVisible = true;
+  var heroObserver;
+  function motionAllowed() {
+    if (document.hidden || reducedMotion.matches || document.documentElement.classList.contains('no-motion')) return false;
+    return true;
+  }
+  function starfieldAllowed() { return heroVisible && motionAllowed(); }
   function ensureProgress() {
     var progress = document.querySelector(".lula-pjax-progress");
     if (progress) return progress;
@@ -11,10 +19,9 @@
 
   function requestFrame(callback) {
     if ("requestAnimationFrame" in window) {
-      window.requestAnimationFrame(callback);
-      return;
+      return window.requestAnimationFrame(callback);
     }
-    window.setTimeout(callback, 16);
+    return window.setTimeout(callback, 16);
   }
 
   function cancelFrame(handle) {
@@ -84,6 +91,7 @@
   }
 
   function mountStarfield() {
+    if (!motionAllowed()) return;
     var state = window.__lulaStarfield;
     if (state && state.canvas && state.canvas.isConnected) {
       state.resize();
@@ -115,7 +123,7 @@
     }
 
     function createStars() {
-      var starCount = Math.max(90, Math.min(180, Math.round((width * height) / 18000)));
+      var starCount = width < 760 ? 42 : Math.max(70, Math.min(120, Math.round((width * height) / 18000)));
       stars = Array.from({ length: starCount }, function () {
         return {
           x: randomBetween(0, width),
@@ -132,7 +140,7 @@
     }
 
     function resize() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 760 ? 1.5 : 2);
       width = Math.max(window.innerWidth || document.documentElement.clientWidth || 0, 1);
       height = Math.max(window.innerHeight || document.documentElement.clientHeight || 0, 1);
       canvas.width = Math.round(width * dpr);
@@ -143,12 +151,15 @@
     }
 
     function draw(time) {
+      raf = 0;
+      if (!starfieldAllowed()) return;
       if (!width || !height) {
         raf = window.requestAnimationFrame(draw);
         return;
       }
 
-      var delta = lastTime ? Math.min(34, time - lastTime) : 16;
+      if (lastTime && time - lastTime < (width < 760 ? 41 : 32)) {raf = window.requestAnimationFrame(draw); return;}
+      var delta = lastTime ? Math.min(67, time - lastTime) : 16;
       lastTime = time;
 
       ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -196,17 +207,23 @@
 
     function onVisibilityChange() {
       lastTime = 0;
+      if (raf) cancelFrame(raf);
+      raf = starfieldAllowed() ? window.requestAnimationFrame(draw) : 0;
     }
 
     resize();
-    raf = window.requestAnimationFrame(draw);
+    raf = starfieldAllowed() ? window.requestAnimationFrame(draw) : 0;
 
     window.addEventListener("resize", onResize, { passive: true });
     document.addEventListener("visibilitychange", onVisibilityChange);
+    document.addEventListener('portfolio:motion', onVisibilityChange);
+    reducedMotion.addEventListener('change', onVisibilityChange);
 
     window.__lulaStarfield = {
       canvas: canvas,
       resize: resize,
+      sync: onVisibilityChange,
+      get running() { return !!raf; },
       destroy: function () {
         if (raf) {
           cancelFrame(raf);
@@ -214,67 +231,70 @@
         }
         window.removeEventListener("resize", onResize);
         document.removeEventListener("visibilitychange", onVisibilityChange);
+        document.removeEventListener('portfolio:motion', onVisibilityChange);
+        reducedMotion.removeEventListener('change', onVisibilityChange);
       }
     };
   }
 
+  var tiltQueue = new Set();
+  var tiltFrame = 0;
+  var tiltLast = 0;
+  function paintTilt(now) {
+    tiltFrame = 0;
+    var dt = Math.min((now - (tiltLast || now - 16.67)) / 1000, 0.05);
+    tiltLast = now;
+    var alpha = 1 - Math.exp(-16 * dt);
+    tiltQueue.forEach(function (state) {
+      if (!motionAllowed() || !state.card.isConnected) {resetTilt(state); return;}
+      state.x += (state.tx - state.x) * alpha;
+      state.y += (state.ty - state.y) * alpha;
+      if (Math.abs(state.tx - state.x) < 0.015) state.x = state.tx;
+      if (Math.abs(state.ty - state.y) < 0.015) state.y = state.ty;
+      state.card.style.setProperty('--tilt-x', state.x.toFixed(3) + 'deg');
+      state.card.style.setProperty('--tilt-y', state.y.toFixed(3) + 'deg');
+      if (state.x === state.tx && state.y === state.ty) {
+        tiltQueue.delete(state);
+        state.card.classList.remove('motion-tracking');
+      }
+    });
+    if (tiltQueue.size) tiltFrame = requestFrame(paintTilt);
+    else tiltLast = 0;
+  }
+  function resetTilt(state) {
+    tiltQueue.delete(state);
+    state.x = state.y = state.tx = state.ty = 0;
+    state.card.style.setProperty('--tilt-x', '0deg');
+    state.card.style.setProperty('--tilt-y', '0deg');
+    state.card.classList.remove('motion-tracking');
+  }
+  function scheduleTilt(state) {
+    tiltQueue.add(state);
+    state.card.classList.add('motion-tracking');
+    if (!tiltFrame) tiltFrame = requestFrame(paintTilt);
+  }
   function mountTilt() {
-    if (!window.matchMedia || window.matchMedia("(pointer: coarse)").matches) return;
-
-    var cards = document.querySelectorAll("#recent-posts > .recent-post-item:not([data-lula-tilt]), .card-widget:not([data-lula-tilt]), .lula-project-card:not([data-lula-tilt]), .lula-column-card:not([data-lula-tilt])");
+    if (!window.matchMedia || window.matchMedia('(pointer: coarse)').matches || reducedMotion.matches) return;
+    var cards = document.querySelectorAll('#recent-posts > .recent-post-item:not([data-lula-tilt]), .card-widget:not([data-lula-tilt]), .lula-project-card:not([data-lula-tilt]), .lula-column-card:not([data-lula-tilt]), #portfolio-root .work-card:not([data-lula-tilt])');
     cards.forEach(function (card) {
-      var raf = 0;
-      var targetX = 0;
-      var targetY = 0;
-      var currentX = 0;
-      var currentY = 0;
-      var isHovering = false;
-
-      card.setAttribute("data-lula-tilt", "true");
-
-      function render() {
-        currentX += (targetX - currentX) * 0.08;
-        currentY += (targetY - currentY) * 0.08;
-
-        if (Math.abs(targetX - currentX) < 0.03) currentX = targetX;
-        if (Math.abs(targetY - currentY) < 0.03) currentY = targetY;
-
-        card.style.setProperty("--tilt-x", currentX.toFixed(2) + "deg");
-        card.style.setProperty("--tilt-y", currentY.toFixed(2) + "deg");
-
-        if (!isHovering && currentX === 0 && currentY === 0) {
-          raf = 0;
-          return;
-        }
-
-        raf = window.requestAnimationFrame(render);
-      }
-
-      function schedule() {
-        if (raf) return;
-        raf = window.requestAnimationFrame(render);
-      }
-
-      card.addEventListener("pointerenter", function () {
-        isHovering = true;
-        schedule();
-      }, { passive: true });
-
-      card.addEventListener("pointermove", function (event) {
-        var rect = card.getBoundingClientRect();
-        var px = (event.clientX - rect.left) / rect.width - 0.5;
-        var py = (event.clientY - rect.top) / rect.height - 0.5;
-        targetX = Math.max(-4.4, Math.min(4.4, py * -5.2));
-        targetY = Math.max(-5.8, Math.min(5.8, px * 6.4));
-        schedule();
-      }, { passive: true });
-
-      card.addEventListener("pointerleave", function () {
-        isHovering = false;
-        targetX = 0;
-        targetY = 0;
-        schedule();
-      }, { passive: true });
+      var state = {card:card, x:0, y:0, tx:0, ty:0, rect:null};
+      card.setAttribute('data-lula-tilt', 'true');
+      card.addEventListener('pointerenter', function () {state.rect = card.getBoundingClientRect();}, {passive:true});
+      card.addEventListener('pointermove', function (event) {
+        if (!motionAllowed() || event.pointerType === 'touch') return;
+        var rect = state.rect || card.getBoundingClientRect();
+        state.tx = Math.max(-2.5, Math.min(2.5, ((event.clientY - rect.top) / rect.height - 0.5) * -4));
+        state.ty = Math.max(-3, Math.min(3, ((event.clientX - rect.left) / rect.width - 0.5) * 5));
+        scheduleTilt(state);
+      }, {passive:true});
+      function leave() {state.rect = null; state.tx = state.ty = 0; scheduleTilt(state);}
+      card.addEventListener('pointerleave', leave, {passive:true});
+      card.addEventListener('pointercancel', leave, {passive:true});
+      document.addEventListener('portfolio:motion', function () {resetTilt(state);});
+      document.addEventListener('visibilitychange', function () {if (document.hidden) resetTilt(state);});
+      window.addEventListener('blur', function () {resetTilt(state);});
+      window.addEventListener('scroll', function () {state.rect = null;}, {passive:true});
+      reducedMotion.addEventListener('change', function () {resetTilt(state);});
     });
   }
 
@@ -311,7 +331,14 @@
 
   function run() {
     requestFrame(mountPageTransition);
-    mountStarfield();
+    if (heroObserver) heroObserver.disconnect();
+    var hero = document.querySelector('#portfolio-root .hero');
+    heroVisible = !hero || hero.getBoundingClientRect().bottom > 0;
+    if (hero && 'IntersectionObserver' in window) {
+      heroObserver = new IntersectionObserver(function (entries) {heroVisible = entries[0].isIntersecting; document.documentElement.classList.toggle('hero-out-of-view', !heroVisible); if (window.__lulaStarfield) window.__lulaStarfield.sync();});
+      heroObserver.observe(hero);
+    }
+    syncMotion();
     mountReveal();
     mountHeader();
     mountTilt();
@@ -319,6 +346,15 @@
   }
 
   document.addEventListener("DOMContentLoaded", run);
+  function syncMotion() {
+    document.documentElement.classList.toggle('no-motion', reducedMotion.matches);
+    document.documentElement.classList.toggle('motion-paused', document.hidden);
+    if (window.__lulaStarfield) window.__lulaStarfield.sync();
+    else mountStarfield();
+  }
+  document.addEventListener('visibilitychange', syncMotion);
+  document.addEventListener('portfolio:motion', syncMotion);
+  reducedMotion.addEventListener('change', function () { syncMotion(); if (!reducedMotion.matches) mountTilt(); });
   document.addEventListener("pjax:send", function () {
     var progress = ensureProgress();
     progress.classList.add("is-active");

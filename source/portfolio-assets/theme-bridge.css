@@ -1,0 +1,14 @@
+#content-inner.layout:has(> #portfolio-root){display:block;width:100%;max-width:1320px;margin:0 auto;padding:0 24px}
+#content-inner.layout>#portfolio-root{width:100%;margin:0;padding:0;border:0;background:transparent}
+body:has(#portfolio-root) #home_top,body:has(#portfolio-root) #an_music_bg{display:none!important}
+body:has(#portfolio-root) .lula-starfield-canvas{display:block!important;opacity:.4}
+.portfolio-skip{position:fixed;left:18px;top:-100px;z-index:150;background:var(--anzhiyu-main);color:var(--anzhiyu-background);border-radius:8px;padding:12px 18px;font-size:14px}
+.portfolio-skip:focus{top:12px}
+html.no-motion #web_bg,html.no-motion #web_bg:before,html.no-motion #web_bg:after{animation:none!important}
+html.no-motion [data-lula-tilt]{transform:none!important}
+@media(max-width:760px){#content-inner.layout:has(> #portfolio-root){padding:0 16px}body:has(#portfolio-root) #nav{backdrop-filter:none}}
+@media(prefers-reduced-motion:reduce){#web_bg,#web_bg:before,#web_bg:after{animation:none!important}.lula-reveal{opacity:1;transform:none;transition:none}[data-lula-tilt]{transform:none!important}}
+
+html.portfolio-view.no-motion{scroll-behavior:auto}
+html.portfolio-view.hero-out-of-view #web_bg:before,html.portfolio-view.hero-out-of-view #web_bg:after{animation-play-state:paused}
+html.portfolio-view #web_bg:after{animation:none;filter:none;inset:0;transform:none;will-change:auto;opacity:.35}

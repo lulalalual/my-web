@@ -1,0 +1,83 @@
+:root {
+  --motion-fast: 180ms;
+  --motion-panel: 320ms;
+  --motion-enter: 480ms;
+  --motion-ease: cubic-bezier(.16,1,.3,1);
+  --motion-spring: linear(0,.32 8%,.79 20%,1.03 30%,1.01 46%,1);
+}
+
+/* The native blog and portfolio share timing; text keeps its finished state. */
+#content-inner { animation:none!important; will-change:auto; }
+body.lula-ready #content-inner { will-change:auto; transform:none; }
+#web_bg { animation:none; will-change:auto; }
+#web_bg::before { animation:none; will-change:auto; }
+#web_bg::after { animation:none!important; filter:none!important; inset:0!important; will-change:auto!important; }
+.lula-reveal { translate:0 10px; transform:none; will-change:auto; transition:opacity var(--motion-enter) var(--motion-ease),translate var(--motion-enter) var(--motion-ease); }
+.lula-reveal.is-visible { translate:none; }
+[data-lula-tilt] {
+  transform:perspective(1100px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg))!important;
+  transition-property:background-color,border-color,color,opacity,translate!important;
+  will-change:auto;
+}
+[data-lula-tilt].motion-tracking { will-change:transform; }
+#portfolio-root .hero-scene { position:absolute; inset:-18px; z-index:-2; pointer-events:none; }
+#portfolio-root .hero-scene .hero-photo { z-index:auto; }
+#portfolio-root .hero-actions { animation:actions-enter 650ms var(--motion-ease) both; }
+#portfolio-root .hero.is-in-view .hero-photo { animation:hero-drift 16s ease-in-out infinite alternate; }
+#portfolio-root .hero:not(.is-in-view) .hero-photo { animation-play-state:paused; }
+#portfolio-root .hero-actions a>span,
+#portfolio-root .journal-entry>span:last-child { display:inline-block; transition:transform var(--motion-panel) var(--motion-spring); }
+#portfolio-root .hero-actions a:hover>span,
+#portfolio-root .hero-actions a:focus-visible>span { transform:translate(3px,-3px); }
+#portfolio-root .button { transition:background-color var(--motion-fast),border-color var(--motion-fast),translate var(--motion-fast) var(--motion-ease); }
+#portfolio-root .button:active { translate:0 1px; }
+#portfolio-root .section-nav::after { content:""; position:absolute; bottom:0; left:12px; right:12px; height:2px; border-radius:2px; background:var(--accent); transform:scaleX(var(--reading-progress,0)); transform-origin:left; pointer-events:none; }
+#portfolio-root .section-nav a { transition:color var(--motion-fast),background-color var(--motion-fast); }
+#portfolio-root .section-nav a:active { scale:.97; }
+#portfolio-root .reveal-pending { opacity:1; translate:none; transition:none; }
+#portfolio-root .work-card.reveal-pending { transition:border-color var(--motion-fast); }
+#portfolio-root .work-card .work-visual img { transition:transform 650ms var(--motion-ease),opacity var(--motion-enter); }
+#portfolio-root .work-card.reveal-pending:not(.revealed) .work-visual img { transform:translateX(-14px) scale(1.04); opacity:.55; }
+#portfolio-root .work-card.reveal-pending:nth-child(even):not(.revealed) .work-visual img { transform:translateX(14px) scale(1.04); }
+#portfolio-root .work-card.revealed .work-visual img { transition-delay:var(--reveal-delay,0ms); }
+#portfolio-root .work-card:hover { box-shadow:none; }
+#portfolio-root .experience-visual { overflow:hidden; }
+#portfolio-root .experience-visual img { transition:transform 700ms var(--motion-ease); }
+#portfolio-root .experience-visual.reveal-pending:not(.revealed) img { transform:scale(1.12); }
+#portfolio-root .section-heading { position:relative; }
+#portfolio-root .section-heading h2::after { content:""; display:block; width:42px; height:2px; margin-top:14px; background:var(--accent); transform:scaleX(1); transform-origin:left; transition:transform 650ms var(--motion-ease); }
+#portfolio-root .section-heading.reveal-pending:not(.revealed) h2::after { transform:scaleX(0); }
+#portfolio-root .oss-grid article { position:relative; }
+#portfolio-root .oss-grid article::before { content:""; position:absolute; left:0; right:0; top:0; height:1px; background:var(--accent); transform:scaleX(1); transform-origin:left; transition:transform 700ms var(--motion-ease) var(--reveal-delay,0ms); }
+#portfolio-root .oss-grid article.reveal-pending:not(.revealed)::before { transform:scaleX(0); }
+#portfolio-root .journal-entry { position:relative; }
+#portfolio-root .journal-entry::after { content:""; position:absolute; bottom:-1px; left:0; right:0; height:1px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform var(--motion-panel) var(--motion-ease); }
+#portfolio-root .journal-entry:is(:hover,:focus-visible)::after { transform:scaleX(1); }
+#portfolio-root .journal-entry:is(:hover,:focus-visible)>span:last-child { transform:translate(4px,-3px); }
+#portfolio-root dialog[open] { transition:none; }
+#portfolio-root .demo-shell[data-state="ready"] iframe { animation:media-enter var(--motion-panel) var(--motion-ease); }
+#portfolio-root #copy-email.copied { animation:copy-confirm var(--motion-panel) var(--motion-spring); }
+@keyframes actions-enter { from { translate:0 10px; } to { translate:0 0; } }
+@keyframes media-enter { from { opacity:.5; } to { opacity:1; } }
+@keyframes copy-confirm { 50% { scale:1.035; } }
+@keyframes hero-depth { to { transform:translateY(32px); } }
+@supports (animation-timeline:view()) {
+  @media(min-width:761px) and (prefers-reduced-motion:no-preference) {
+    #portfolio-root .hero-scene { animation:hero-depth linear both; animation-timeline:view(); animation-range:exit 0% exit 100%; }
+  }
+}
+@media(max-width:760px) {
+  #portfolio-root .hero.is-in-view .hero-photo { animation:hero-drift 20s ease-in-out infinite alternate!important; }
+  #portfolio-root .hero-scene { inset:-10px; }
+  #portfolio-root .work-card.reveal-pending:not(.revealed) .work-visual img { transform:scale(1.025); opacity:.8; }
+}
+html.motion-paused #portfolio-root *,html.motion-paused #web_bg * { animation-play-state:paused!important; }
+@media(prefers-reduced-motion:reduce) {
+  .lula-reveal { opacity:1; translate:none; transition:none; }
+  [data-lula-tilt] { transform:none!important; }
+  #portfolio-root *,#portfolio-root *::before,#portfolio-root *::after { animation:none!important; transition:none!important; }
+  #portfolio-root .hero.is-in-view .hero-photo { animation:none!important; }
+  #portfolio-root .hero-scene { transform:none; }
+  #portfolio-root .reveal-pending .work-visual img,#portfolio-root .experience-visual img { transform:none!important; opacity:1!important; }
+  #portfolio-root .section-heading h2::after,#portfolio-root .oss-grid article::before { transform:none!important; }
+}

@@ -13,6 +13,18 @@ tags:
 cover: /img/covers/ai/cover-sql-basic.webp
 description: 用人话讲 SQL 基础：建表、增删改查、过滤、排序、分组、连接和约束。
 ---
+<!-- knowledge-diagram:start -->
+## 图解速览
+
+四类 SQL 任务：定义结构、维护记录、筛选汇总与关联查询。
+
+<iframe class="knowledge-diagram" title="SQL 操作的四类任务" src="/portfolio-assets/knowledge/?compact=1&amp;topic=sql-basic" loading="lazy" style="width:100%;height:820px;border:0;border-radius:16px"></iframe>
+
+<!-- knowledge-diagram:end -->
+
+
+
+
 
 ## 学习路线
 
@@ -49,11 +61,11 @@ SQL（Structured Query Language，结构化查询语言）可以理解为用于�
 
 ### 1. 书写规则
 
-- **不区分大小写**：关键字（如 `SELECT`、`CREATE`）、表名、字段名均不区分大小写（建议关键字大写，自定义名称小写，增强可读性）。
+- **不区分大小写**：关键字（如 `SELECT`、`CREATE`）与列名通常不区分大小写；MySQL 库名和表名还取决于操作系统及 `lower_case_table_names`（建议关键字大写，自定义名称小写，增强可读性）。
 
 - 当我们需要标识符，如列别名）时，**字符串用单引号**：字符串常量必须用单引号 `' '` 包裹（双引号在部分数据库中就会派上用场。
 
-- **语句以分号结束**：每条 SQL 语句以 `。` 作为结束符（部分工具如 MySQL 客户端可省略，但建议显式添加）。
+- **语句以分号结束**：SQL 示例以英文分号 `;` 结束；MySQL 命令行客户端通常等待该分隔符后提交语句。
 
 - **注释方式**：
     - 单行注释：`-- 注释内容`（注意 `--` 后必须有空格）或 `# 注释内容`（MySQL 特有）。
@@ -208,7 +220,7 @@ DROP INDEX 索引名 ON 表名;
 INSERT INTO 表名 (字段1, 字段2, ...)
 VALUES (值1, 值2, ...);
 
--- 2. 全字段插入单行数据（需按表结构顺序传值，含默认值字段可省略）
+-- 2. 全字段插入单行数据（需按表结构顺序提供对应值；默认值位置写 DEFAULT，省略列时应显式列出其余列名）
 INSERT INTO 表名
 VALUES (值1, 值2, ...);
 
@@ -503,7 +515,7 @@ COMMIT;  -- 确认无误后提交
 |读未提交（Read Uncommitted）|✅ 可能|✅ 可能|✅ 可能|无锁|
 |读已提交（Read Committed）|❌ 避免|✅ 可能|✅ 可能|行级锁（提交后释放）|
 |可重复读（Repeatable Read）|❌ 避免|❌ 避免|✅ 可能（MySQL 默认避免）|MVCC（多版本并发控制）|
-|串行化（Serializable）|❌ 避免|❌ 避免|❌ 避免|表级锁（完全串行）|
+|串行化（Serializable）|❌ 避免|❌ 避免|❌ 避免|InnoDB 基于索引记录和范围加锁；显式事务中的普通 SELECT 可转换为 FOR SHARE|
 
 **查看/设置隔离级别**（MySQL）：
 ```sql
@@ -561,7 +573,7 @@ SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
 |**CEIL/FLOOR**|`CEIL(x)` / `FLOOR(x)`|向上取整（≥x的最小整数）/向下取整（≤x的最大整数）|`CEIL(3.2)` → `4`；`FLOOR(3.9)` → `3`|
 |**MOD**|`MOD(x, y)` 或 `x % y`|返回 x 除以 y 的余数|`MOD(10, 3)` → `1`；`10 % 3` → `1`|
 |**RAND**|`RAND()`|返回 0~1 之间的随机浮点数（可指定种子：`RAND(seed)`）|`RAND()` → `0.82647...`（每次不同）|
-|**POWER**|`POWER(x, y)` 或 `x^y`|返回 x 的 y 次方|`POWER(2, 3)` → `8`|
+|**POWER**|`POWER(x, y)` 或 `POW(x, y)`|返回 x 的 y 次方|`POWER(2, 3)` → `8`|
 |**SQRT**|`SQRT(x)`|返回 x 的平方根（x ≥ 0）|`SQRT(16)` → `4`|
 |**TRUNCATE**|`TRUNCATE(x, d)`|截断小数（保留 d 位，不四舍五入）|`TRUNCATE(3.1415, 2)` → `3.14`|
 
@@ -671,10 +683,10 @@ SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
 |:--|:--|:--|:--|
 |**主键约束**|唯一标识表中**一条记录**（非空且唯一），一个表只能有一个主键。|列级：`id INT PRIMARY KEY`  <br>表级：`PRIMARY KEY (id)`  <br>复合主键：`PRIMARY KEY (id, class_id)`|主键字段建议用 `INT/BIGINT` + `AUTO_INCREMENT`（自增），避免手动赋值冲突。|
 |**外键约束**|关联两张表，保证**从表数据必须引用主表存在的数据**（参照完整性）。|表级：`FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE ON UPDATE RESTRICT`|主表关联字段必须是主键或唯一键；MySQL 5.6+ 需启用外键支持（`InnoDB` 引擎）。|
-|**唯一约束**|保证字段值**唯一**（允许 NULL，但 NULL 仅可出现一次，视数据库而定）。|列级：`username VARCHAR(50) UNIQUE`  <br>表级：`UNIQUE (username, email)`（复合唯一）|与主键区别：唯一约束可允许多个 NULL，主键不允许 NULL。|
+|**唯一约束**|保证字段值**唯一**（MySQL 可空列允许多个 NULL，其他数据库规则需另查）。|列级：`username VARCHAR(50) UNIQUE`  <br>表级：`UNIQUE (username, email)`（复合唯一）|与主键区别：唯一约束可允许多个 NULL，主键不允许 NULL。|
 |**非空约束**|保证字段值**不为 NULL**。|列级：`name VARCHAR(50) NOT NULL`|未设置默认值时，插入数据必须显式传值，否则报错。|
 |**检查约束**|保证字段值满足指定条件（如年龄范围、性别枚举）。|MySQL 8.0+：`age TINYINT CHECK (age >= 0 AND age <= 150)`  <br>低版本用触发器模拟|低版本（如 5.7）忽略 `CHECK` 约束，需通过应用层或触发器实现。|
-|**默认约束**|未显式赋值时，自动使用默认值。|列级：`gender ENUM('男','女') DEFAULT '未知'`  <br>数值：`score INT DEFAULT 0`|默认值需与字段类型兼容（如字符串默认值用单引号）。|
+|**默认约束**|未显式赋值时，自动使用默认值。|列级：`gender ENUM('男','女','未知') DEFAULT '未知'`  <br>数值：`score INT DEFAULT 0`|默认值需与字段类型兼容（如字符串默认值用单引号）。|
 |**自增约束**|整数主键自动递增（从1开始，步长1），避免手动维护ID。|列级：`id INT PRIMARY KEY AUTO_INCREMENT`|仅适用于整数类型主键，删除记录后自增ID不回滚（如删除id=3，下条记录仍为4）。|
 
 ### 2. 约束使用示例
@@ -711,7 +723,7 @@ ALTER TABLE students DROP FOREIGN KEY fk_class;
 -- 添加唯一约束
 ALTER TABLE students ADD UNIQUE (id_card);
 
--- 删除唯一约束（需知道约束名，默认格式为 表名_字段名_unique）
+-- 删除唯一约束（先用 SHOW INDEX 或 SHOW CREATE TABLE 核对真实索引名；未命名时通常取首个索引列名并消歧）
 ALTER TABLE students DROP INDEX id_card;
 ```
 
@@ -838,7 +850,7 @@ WHERE EXISTS (  -- EXISTS：子查询返回结果则条件成立
 
 |类型|说明|语法示例|
 |:--|:--|:--|
-|**UNION**|合并结果并**去重**（默认排序）|`SELECT name FROM students UNION SELECT name FROM teachers;`|
+|**UNION**|合并结果并**去重**（不保证顺序；排序须显式 ORDER BY）|`SELECT name FROM students UNION SELECT name FROM teachers;`|
 |**UNION ALL**|合并结果**不去重**（效率更高）|`SELECT name FROM students UNION ALL SELECT name FROM teachers;`|
 
 **示例**（合并学生和老师的姓名）：
@@ -898,7 +910,7 @@ SELECT 'teacher' AS type, name FROM teachers;
 
 ### 1. 原子性（Atomicity）
 
-- **问题场景**：若事务中某步操作失败（如插入数据时违反唯一约束），需撤销已执行的所有操作。
+- **问题场景**：业务要求一组操作全部成功或全部撤销。唯一键冲突等错误默认往往只撤销当前语句，应用需要判断是否执行 `ROLLBACK` 撤销整个事务，不能假定每种错误都会自动整笔回滚。
 
 - **实现**：InnoDB 通过 **undo log** 记录事务执行前的原始数据。若事务失败，通过 undo log 逆向执行（如 insert 回滚为 delete，update 回滚为旧值）恢复数据。
 
@@ -954,11 +966,11 @@ SQL 标准定义了4种隔离级别，从低到高隔离性增强，并发性能
 |**读未提交（Read Uncommitted）**|✅ 可能|✅ 可能|✅ 可能|无锁，直接读取最新数据（含未提交）|❌|
 |**读已提交（Read Committed）**|❌ 避免|✅ 可能|✅ 可能|行级锁（提交后释放），MVCC 快照读（每次读生成新快照）|❌（Oracle默认）|
 |**可重复读（Repeatable Read）**|❌ 避免|❌ 避免|❌ 避免（InnoDB 通过间隙锁进一步避免）|MVCC 快照读（事务内共用一个快照）+ 行锁/间隙锁|✅（MySQL默认）|
-|**串行化（Serializable）**|❌ 避免|❌ 避免|❌ 避免|表级锁（完全串行执行，无并发）|❌|
+|**串行化（Serializable）**|❌ 避免|❌ 避免|❌ 避免|InnoDB 基于索引记录和范围加锁；不冲突的事务仍可并发|❌|
 
 #### （1）MySQL 默认隔离级别：可重复读（Repeatable Read）
 
-- **实现原理**：InnoDB 通过 **MVCC** 保证“可重复读”——事务启动时生成一个**一致性读视图（快照）**，后续查询均基于此快照，不受其他事务提交的影响。
+- **实现原理**：InnoDB 通过 **MVCC** 保证“可重复读”——通常在事务内第一次一致性读时建立**读视图（快照）**，后续一致性读复用它；`WITH CONSISTENT SNAPSHOT` 可显式提前建立，锁定读与本事务自己的写入需另行分析。
 
 - **幻读的特殊处理**：InnoDB 在“可重复读”级别下，通过 **间隙锁（Gap Lock）** 锁定查询范围的间隙（如 `WHERE id > 10` 锁定 id>10 的间隙），阻止其他事务插入新行，从而避免幻读。
 
@@ -982,7 +994,7 @@ SET GLOBAL TRANSACTION ISOLATION LEVEL REPEATABLE READ;
 
 ## 五、把它落到代码里：事务的控制语句
 
-MySQL 通过以下语句显式控制事务（默认自动提交模式下，需先关闭自动提交）：
+MySQL 可直接用 `START TRANSACTION` 开启一次显式事务，无需预先关闭自动提交；`SET autocommit=0` 则改变当前会话的自动提交模式：
 ### 1. 基本控制语句
 
 |语句|作用|示例|
@@ -1005,12 +1017,12 @@ MySQL 通过以下语句显式控制事务（默认自动提交模式下，需�
 **保存点示例**（转账场景，部分回滚）：
 ```sql
 START TRANSACTION;
-UPDATE accounts SET balance = balance - 100 WHERE id = 1;  -- A账户扣100
-SAVEPOINT sp1;  -- 设置保存点sp1（此时A已扣钱，B未加钱）
-UPDATE accounts SET balance = balance + 100 WHERE id = 2;  -- B账户加100
--- 若发现B账户异常，回滚到sp1（仅撤销B的加钱操作，保留A的扣钱？不，实际应调整逻辑，此处仅为示例）
-ROLLBACK TO sp1;  -- 回滚到sp1，B的加钱操作被撤销，A的扣钱操作仍保留（需业务层处理）
-COMMIT;  -- 最终提交（此时A已扣钱，B未加钱，需人工介入）
+SAVEPOINT sp1;  -- 在转账的两条更新之前设置保存点
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+-- 假设业务检查发现异常：一起撤销本次扣款和入账
+ROLLBACK TO sp1;
+COMMIT;  -- 本次转账两条更新均未保留；实际业务还需校验余额、行数等
 ```
 
 ## 六、事务的实现原理（InnoDB 引擎）
@@ -1042,7 +1054,7 @@ InnoDB 通过 **日志（redo/undo log）** 和 **MVCC** 实现事务的 ACID �
 - **核心概念**：
     - **隐藏字段**：每行数据含 `DB_TRX_ID`（最后修改事务ID）、`DB_ROLL_PTR`（指向 undo log 中旧版本的指针）。
 
-    - 当我们需要判断数据版本可见性（仅可见“已提交且事务ID小于当前事务ID”的版本）时，**ReadView（读视图）**：事务启动时生成的“快照”，包含当前活跃事务ID列表，就会派上用场。
+    - **ReadView（读视图）**结合快照边界和当时活跃的事务 ID 集合判断版本可见性，不能只比较事务 ID 大小；本事务先前的写入也可见。RR 通常在第一次一致性读时建立读视图。
 
 
 ## 七、事务的使用场景与注意事项

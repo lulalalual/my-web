@@ -1,0 +1,12 @@
+*.js text eol=lf
+*.cjs text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.yml text eol=lf
+source/demos/interview/assets/** -diff
+source/demos/interview/monaco/** -diff
+source/demos/interview/pyodide/** -diff
+source/demos/defense-original/game.js -diff
+source/portfolio-assets/**/vendor/** -diff
+source/vendor/** -diff

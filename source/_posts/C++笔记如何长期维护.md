@@ -12,6 +12,18 @@ tags:
 cover: /img/covers/ai/cover-cpp-maintain.webp
 description: 讲清楚怎样维护 C++ 笔记：少堆概念，多写问题、例子、边界和复盘。
 ---
+<!-- knowledge-diagram:start -->
+## 图解速览
+
+从具体问题出发，用例子、边界与持续修订组织学习笔记。
+
+<iframe class="knowledge-diagram" title="把知识写成可用笔记" src="/portfolio-assets/knowledge/?compact=1&amp;topic=cpp-notes-maintenance" loading="lazy" style="width:100%;height:820px;border:0;border-radius:16px"></iframe>
+
+<!-- knowledge-diagram:end -->
+
+
+
+
 
 技术笔记不是把资料搬进仓库，也不是把课堂上的定义原封不动复制一遍。真正能长期使用的笔记，应该像一位老师在旁边带你复盘：先告诉你这个知识点为什么出现，再说明它解决什么问题，最后给出代码、场景和容易踩坑的地方。
 

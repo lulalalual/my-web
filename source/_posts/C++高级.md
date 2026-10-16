@@ -14,6 +14,18 @@ tags:
 cover: /img/covers/ai/cover-cpp-advanced.webp
 description: 用人话讲现代 C++：智能指针管资源，移动语义提性能，lambda 和模板让接口更灵活。
 ---
+<!-- knowledge-diagram:start -->
+## 图解速览
+
+资源管理与调用机制相互配合；std::move 只做转换，移动由具体操作决定。
+
+<iframe class="knowledge-diagram" title="现代 C++ 的资源与调用" src="/portfolio-assets/knowledge/?compact=1&amp;topic=cpp-advanced" loading="lazy" style="width:100%;height:820px;border:0;border-radius:16px"></iframe>
+
+<!-- knowledge-diagram:end -->
+
+
+
+
 
 ## 学习路线
 
@@ -43,7 +55,7 @@ if (!a) {
 
 ## 完整讲解
 
-下面进入完整讲解，知识点、表格和代码例子都会按完整脉络展开。
+下面按主题展开。代码以 C++17 为主要基线，C++11/14/20 差异单独标注；各代码块是独立教学示例，不能直接拼接成一个程序，也不代表已上线项目。
 
 # 移动语义与完美转发
 
@@ -55,7 +67,7 @@ if (!a) {
 
 - **右值引用（`T&&`）**：绑定到临时对象（右值），允许“窃取”其资源。
 
-- **移动构造函数**：`ClassName(ClassName&& other)`，接管资源并置空源对象。
+- **移动构造函数**：`ClassName(ClassName&& other)`，按类的实现转移状态；源对象是否置空取决于该类型的约定。
 
 - **移动赋值运算符**：`ClassName& operator=(ClassName&& other)`，转移资源并清理原对象。
 
@@ -79,7 +91,7 @@ if (!a) {
     };
     ```
 
-- **`std::move`的作用**：将左值强制转换为右值引用，触发移动语义。
+- **`std::move`的作用**：将表达式转换为将亡值；它本身不移动资源，后续重载选择可能移动，也可能拷贝。
 
     ```cpp
     MyString s1("Hello");
@@ -98,9 +110,9 @@ if (!a) {
 
 ##### **4. 注意事项**
 
-- **移动后对象状态**：源对象处于有效但未定义状态，不可再依赖其原始数据。
+- **移动后对象状态**：标准库类型在无额外约定时通常处于有效但未指定状态，仍可析构、赋值或执行满足前置条件的操作；自定义类型依其契约。
 
-- **`noexcept`标记**：移动构造函数/赋值运算符应标记为`noexcept`，确保容器操作（如扩容）优先选择移动。
+- **`noexcept`标记**：只有实现确实不抛出异常时才标记 `noexcept`；vector 扩容会结合可拷贝性和移动异常保证选择策略。
 
 - **避免滥用**：对内置类型（如`int`）使用`std::move`无意义，可能误导代码阅读。
 
@@ -158,9 +170,9 @@ if (!a) {
 
 ##### **4. 注意事项**
 
-- **必须配合万能引用**：`std::forward`仅对`T&&`参数有效，普通左值/右值无法触发完美转发。
+- **保留类型推导信息**：常见包装器使用转发引用 `T&&` 与 `std::forward<T>`。并非所有 `T&&` 都是转发引用，`std::forward` 也不只允许出现在这种形参上。
 
-- **避免中间变量**：转发链中若参数被赋值给左值变量，后续无法恢复右值属性。
+- **避免中间变量**：具名表达式是左值；若使用衰减的 auto 副本，原引用信息可能丢失。直接转发原参数，或保留正确类型信息后再 forward。
 
     ```cpp
     template<typename T>
@@ -170,7 +182,7 @@ if (!a) {
     }
     ```
 
-- **`noexcept`与异常安全**：完美转发需确保参数传递过程中不抛出异常。
+- **`noexcept`与异常安全**：完美转发允许被调用方抛出异常；包装器是否 noexcept 应由实际调用表达式的异常保证决定。
 
 
 ---
@@ -180,7 +192,7 @@ if (!a) {
 1. **移动语义优化资源转移**：
     - 通过移动构造函数/赋值运算符实现资源“窃取”，减少拷贝开销。
 
-    - 举个更具体的例子，，`std::vector`的扩容操作通过移动元素而非复制。
+    - 举个更具体的例子，，`std::vector` 扩容可能移动或复制元素，取决于元素类型与异常保证。
 
 2. **完美转发支持泛型编程**：
     - 在模板中保持参数的原始值类别，启用移动语义。
@@ -193,14 +205,15 @@ if (!a) {
     std::vector<std::string> createVector() {
         std::string s = "Hello";
         return {s, s + " World"};
-        // 调用移动构造函数（NRVO失败时）
+        // initializer_list 的元素为 const，构造 vector 元素时通常需要复制；这不是 NRVO 示例。
     }
 
     // 完美转发 + 移动语义
     template<typename T>
     void process(T&& arg) {
-        std::vector<std::string> v = {std::forward<T>(arg)};
-        // 移动arg到vector
+        std::vector<std::string> v;
+        v.emplace_back(std::forward<T>(arg));
+        // 按实参值类别构造元素：左值通常复制，兼容的右值可移动。
     }
     ```
 
@@ -214,7 +227,7 @@ if (!a) {
 |**核心目标**|高效资源转移（避免拷贝）|保持参数原始值类别（左值/右值）|
 |**关键工具**|`std::move`、移动构造函数/赋值运算符|`std::forward`、万能引用（`T&&`）|
 |**典型场景**|容器操作、智能指针、工厂函数|泛型包装器、线程池、模板函数参数传递|
-|**注意事项**|移动后对象不可用，需标记`noexcept`|避免中间变量，配合万能引用使用|
+|**注意事项**|移动后按类型契约使用；确实不抛异常才标 noexcept|避免中间变量，配合万能引用使用|
 
 **最佳实践**：
 1. 优先使用移动语义处理临时对象，减少拷贝开销。
@@ -228,14 +241,14 @@ if (!a) {
 
 **示例代码对比**：
 ```cpp
-// 未使用移动语义和完美转发（低效）
+// 三种独立接口写法，成本取决于调用与函数内部操作
 void process(std::string str) {
-    // 拷贝传入的字符串
+    // 左值实参通常复制；右值可移动或直接构造形参。
 }
 
-// 使用移动语义（高效）
+// 接收右值引用
 void process(std::string&& str) {
-    // 移动传入的字符串
+    // 这里只绑定引用；函数体尚未执行资源移动。
 }
 
 // 使用完美转发（通用高效）
@@ -253,12 +266,12 @@ void process(T&& str) {
 
 ##### **1. 左值（Lvalue）：有身份、可修改（或不可修改）的持久对象**
 
-- **定义**：指**有明确内存地址**、**生存期较长**（非临时）的表达式，可理解为“可被取地址的对象”。
+- **定义**：指标识对象或函数的表达式，属于泛左值；不能仅凭名字、生存期或能否取地址分类，例如位域也是左值。
 
 - **特征**：
-    - 有名字（如变量名、函数返回的引用）；
+    - 常见例子有变量名、解引用以及返回左值引用的调用；不要求对象必须有名字；
 
-    - 可取地址（`&x`合法）；
+    - 通常可取地址，但位域等有例外；
 
     - 可作为赋值操作的左操作数（非const左值）。
 
@@ -272,21 +285,21 @@ void process(T&& str) {
     ```
 
 
-##### **2. 右值（Rvalue）：无身份、临时的“值”**
+##### **2. 右值（Rvalue）：纯右值与将亡值**
 
-- **定义**：指**临时生成**、**生存期短暂**（表达式结束后销毁）的表达式，不可取地址。
+- **定义**：指纯右值或将亡值的统称。将亡值仍标识对象，纯右值也可能直接初始化目标对象；不能据此断言对象都在表达式末尾销毁。
 
 - **特征**：
-    - 通常可以理解为字面量（如`42`、`"hello"`）、临时对象（如函数返回的非引用类型）、表达式计算结果（如`a+b`）。
+    - 通常可以理解为数值字面量（如 `42`；字符串字面量是左值）、临时对象（如函数返回的非引用类型）、表达式计算结果（如`a+b`）。
 
     - 不可取地址（`&(a+b)`非法）；
 
-    - 实际写代码时要避免作为赋值操作的左操作数（除非被`const`修饰的特殊情况）。
+    - 内置赋值要求可修改左值；类类型右值是否可调用赋值成员函数，还取决于运算符的定义与引用限定。
 
 - **示例**：
     ```cpp
     42;               // 字面量是右值
-    "hello";          // 字符串字面量是右值（C风格字符串指针除外）
+    "hello";          // 字符串字面量是 const char[6] 类型的左值
     func() + 1;        // 表达式结果是右值（临时值）
     std::string("tmp"); // 临时对象是右值
     ```
@@ -302,14 +315,14 @@ C++11进一步细分右值为：
 
 #### **二、左值引用（Lvalue Reference：`T&`）**
 
-左值引用可以理解为C++98就有的传统引用，**必须绑定到左值**，本质是给已有对象起“别名”。
+左值引用可以理解为C++98就有的传统引用，**非 const 左值引用通常绑定兼容的非 const 左值；const 左值引用还可绑定右值**，本质是给已有对象起“别名”。
 
 ##### **1. 定义与特性**
 
 - **语法**：`类型& 引用名 = 左值对象。`
 
 - **核心特性**：
-    - **绑定对象**：只能绑定到**左值**（非const左值引用）或**const左值**（const左值引用可绑定const左值）；
+    - **绑定对象**：非 const 左值引用绑定兼容的非 const 左值；const 左值引用可绑定兼容的 const/非 const 左值以及右值；
 
     - **不可重绑定**：一旦绑定对象，无法再绑定其他对象（区别于指针）；
 
@@ -321,7 +334,7 @@ C++11进一步细分右值为：
 |**类型**|**语法**|**绑定对象**|**可修改性**|**典型场景**|
 |:--|:--|:--|:--|:--|
 |**非const左值引用**|`T&`|非const左值（如普通变量、非const成员）|可修改原对象|函数参数（避免拷贝，修改实参）|
-|**const左值引用**|`const T&`|左值（const或非const）、const右值、纯右值|不可修改原对象|函数参数（接受任意类型，避免拷贝）|
+|**const左值引用**|`const T&`|左值（const或非const）、const右值、纯右值|不可修改原对象|函数参数（接受兼容类型的左值/右值，避免不必要的拷贝）|
 
 ##### **3. 示例代码**
 
@@ -372,12 +385,12 @@ int a = 20;
 int&& rref3 = std::move(a);
 // 正确：std::move将左值a转为右值引用（将亡值），rref3绑定a的资源
 rref3 = 30;
-// 修改rref3即修改a（a变为30，因为资源被“窃取”后原对象仍可修改，但状态不确定）
+// rref3 是 a 的别名，赋值后 a 确定等于30；这里只绑定引用，没有移动资源。
 
 // 右值引用本身是左值（有名字）
 auto func(int&& x) -> int&& {
     x = 40;              // x是左值（右值引用变量），可修改
-    return std::move(x); // 需显式转为右值返回（否则返回左值引用）
+    return std::move(x); // 需显式转为右值返回（直接 return x 无法绑定到声明的 int&& 返回类型，会编译失败）
 }
 ```
 
@@ -386,8 +399,8 @@ auto func(int&& x) -> int&& {
 |**对比维度**|**左值引用（`T&`/`const T&`）**|**右值引用（`T&&`）**|
 |:--|:--|:--|
 |**绑定对象**|左值（`const T&`可绑定右值）|右值（纯右值、将亡值）|
-|**本质**|对象的“别名”（持久引用）|临时对象的“资源接管者”（短期引用）|
-|**是否可修改原对象**|非const可修改，const不可修改|可修改（但原对象状态不确定）|
+|**本质**|对象的“别名”（持久引用）|对象的别名；资源是否转移取决于后续操作|
+|**是否可修改原对象**|非const可修改，const不可修改|非 const 时可修改所引用对象；状态依实际操作而定|
 |**典型用途**|函数参数（避免拷贝）、返回值（别名）|移动语义（资源转移）、完美转发|
 |**自身值类别**|左值（有名字，可取地址）|左值（变量本身），需用`std::move`转为右值|
 
@@ -395,13 +408,13 @@ auto func(int&& x) -> int&& {
 
 ##### **1. const左值引用的“万能绑定”**
 
-`const T&`可以理解为唯一能同时绑定**左值、const左值、右值**的引用类型，因此常被用作函数参数以接受任意类型输入（避免拷贝）：
+`const T&` 常用于接收兼容类型的左值和右值；它不是唯一能接受两类实参的接口，转发引用经推导和折叠也可以做到。
 ```cpp
 void print(const std::string& s) { // 可接受左值、右值字符串
     std::cout << s << std::endl;
 }
 
-print("hello");       // 右值字符串字面量（绑定const string&）
+print("hello");       // 数组左值先转换成临时 string，再绑定 const string&
 std::string s = "world";
 print(s);             // 左值s（绑定const string&）
 ```
@@ -422,20 +435,20 @@ int main() {
 
 ##### **3. 避免“右值引用绑定左值”的误用**
 
-非const右值引用（`T&&`）**绝对不能绑定左值**，否则编译报错。只有`const T&&`（极少用）可绑定const右值，但实际中几乎不用，直接用`const T&`即可。
+当 T 是已确定的普通类型时，T&& 不能直接绑定左值；在 T 由函数模板推导、且形参满足转发引用条件时，传入左值会推导并折叠成左值引用。const T&& 不是转发引用。
 
 #### **六、这一节收束**
 
-- **左值**：有身份、可寻址的持久对象（如变量名），用`T&`（非const）或`const T&`（const）引用；
+- **左值**：标识对象或函数的表达式，不以生命周期长短定义（如变量名），用`T&`（非const）或`const T&`（const）引用；
 
-- **右值**：临时、无身份的“值”（如字面量、临时对象），用`T&&`引用（右值引用）；
+- **右值**：纯右值与将亡值的统称（字符串字面量是左值），用`T&&`引用（右值引用）；
 
 - **核心用途**：左值引用避免拷贝（如函数参数），右值引用实现移动语义（资源转移）和完美转发（保持值类别）；
 
-- **关键记忆点**：右值引用变量本身可以理解为左值，需用`std::move`转为右值。`const T&`可绑定任意类型（左值/右值）。
+- **关键记忆点**：右值引用变量本身可以理解为左值，需用`std::move`转为右值。`const T&` 可绑定兼容类型的左值与右值。
 
 
-**小细节**：区分“左值/右值”看可以理解为否能取地址，区分“左值引用/右值引用”看绑定对象类型，右值引用是实现移动语义的基础。
+**小细节**：区分“左值/右值”应按表达式的标准分类规则，而不是单靠能否取地址，区分“左值引用/右值引用”看绑定对象类型，右值引用是实现移动语义的基础。
 
 
 # 智能指针
@@ -456,7 +469,7 @@ int main() {
 
     - 可自定义**删除器**（Deleter），管理非内存资源（如文件句柄、网络连接）；
 
-    - 线程安全（引用计数的增减可以理解为原子操作，但对象本身的访问需额外同步）。
+    - 共享控制块的不同 shared_ptr 实例可并发修改其各自所有权；并发修改同一个 shared_ptr 实例需同步，所指对象的数据也需单独同步。
 
 
 **基本用法**：
@@ -519,7 +532,7 @@ if (wp.expired()) { // 检查对象是否已销毁
 
 - **独占性**：不可复制（拷贝构造/赋值被禁用），只能**移动**（通过`std::move`转移所有权）；
 
-- **轻量高效**：大小与裸指针相同（无引用计数开销）；
+- **轻量高效**：默认删除器常可优化到与裸指针同大小；带状态的删除器或不同实现可能更大；
 
 - **支持数组**：`unique_ptr<T[]>`自动调用`delete[]`释放数组；
 
@@ -624,7 +637,7 @@ int main() {
 ### **六、关键注意事项**
 
 1. **优先用`make_shared`/`make_unique`**：
-    - 避免显式`new`，效率更高（一次性分配对象+控制块内存），且异常安全（防止内存泄漏）。
+    - 避免显式 new；make_shared 通常合并对象与控制块分配，make_unique 没有控制块。实际效率依类型和分配方式，二者均提供 RAII 异常安全。
 
 2. **避免混合使用智能指针与裸指针**：
     - 裸指针可能导致重复释放（如`delete sp.get()`），应完全通过智能指针管理。
@@ -666,7 +679,7 @@ int main() {
 
 - **直接构造 `shared_ptr`**：需**两次独立内存分配**——先 `new T(...)` 分配对象，再 `shared_ptr` 构造函数分配控制块。
 
-- **`make_shared`**：**一次内存分配**同时分配对象和控制块（连续内存块），减少内存碎片和分配开销。
+- **`make_shared`**：通常合并对象和控制块的分配（标准对减少分配次数给出推荐实践，不宜当成所有布局的强制字节规则），减少内存碎片和分配开销。
 
 
 **示例对比**：
@@ -680,19 +693,19 @@ auto sp2 = make_shared<int>(10); // 推荐写法
 
 ##### **2. 异常安全（避免内存泄漏）**
 
-若用 `new` 构造 `shared_ptr` 时发生异常，可能导致内存泄漏。举个更具体的例子，：
+直接写 shared_ptr<T>(new T(...)) 也有异常安全保证：控制块构造失败会删除传入对象，成功后抛出异常则由栈展开释放。下面两个独立示例都不会因此泄漏：
 ```cpp
 void func() {
-    // 危险：若 new int(10) 成功，但 shared_ptr 构造前抛出异常（如内存不足），则 int(10) 泄漏
+    // 控制块构造失败时，shared_ptr 构造函数负责 delete 传入指针。
     shared_ptr<int> sp(new int(10));
-    throw runtime_error("异常"); // 此时 sp 未构造完成，int(10) 无人管理
+    throw runtime_error("异常"); // sp 已构造完成，异常栈展开会销毁 sp 并释放对象。
 }
 ```
 
 `make_shared` 通过**单一函数调用**完成对象和控制块分配，避免中间状态，确保异常发生时内存不泄漏：
 ```cpp
 void func() {
-    auto sp = make_shared<int>(10); // 原子操作：分配+构造，异常时自动释放
+    auto sp = make_shared<int>(10); // 分配或构造失败时自动清理；这不是线程原子操作
     throw runtime_error("异常"); // sp 已构造完成，引用计数=1，异常后自动释放对象
 }
 ```
@@ -708,7 +721,7 @@ void func() {
 // 繁琐：显式 new + 类型重复
 shared_ptr<string> sp(new string("hello"));
 
-// 简洁：自动推导类型（C++14 起支持 auto）
+// 简洁：自动推导类型（C++11 起支持 auto）
 auto sp = make_shared<string>("hello");
 ```
 
@@ -726,31 +739,31 @@ shared_ptr<int> sp(new int[5], [](int* p) { delete[] p; });
 
 ##### **2. 数组支持有限**
 
-- **C++17 及之前**：`make_shared` 不支持动态数组（如 `make_shared<int[]>(5)` 非法），需用 `shared_ptr<T[]>` 配合 `new[]` 和删除器。
+- **C++17 及之前**：`make_shared` 不支持动态数组（如 `make_shared<int[]>(5)` 非法），C++17 可用 shared_ptr<T[]> 配合 new[]，默认正确 delete[]；更早版本的数组管理要显式提供匹配删除器。
 
 - **C++20 起**：支持 `make_shared<T[]>(n)` 创建数组，但仍无法自定义删除器（默认用 `delete[]`）。
 
 
 ##### **3. 内存释放延迟（罕见场景）**
 
-`make_shared` 分配的对象和控制块在同一内存块，当**引用计数归零**时，对象被销毁（调用析构函数），但**控制块需等待所有 `weak_ptr` 过期后才释放**（因为 `weak_ptr` 需访问控制块检查对象是否存在）。若长期存在 `weak_ptr`，对象占用的内存可能延迟释放（即使对象已销毁）。
+`make_shared` 分配的对象和控制块在同一内存块，当**引用计数归零**时，对象被销毁（调用析构函数），但**控制块需等待最后一个 weak_ptr 被销毁或 reset 后才可释放**（因为 `weak_ptr` 需访问控制块检查对象是否存在）。若长期存在 `weak_ptr`，对象占用的内存可能延迟释放（即使对象已销毁）。
 
 **示例**：
 ```cpp
 auto sp = make_shared<int>(10); // 对象+控制块连续分配
 weak_ptr<int> wp = sp;
 sp.reset(); // 引用计数=0，对象销毁，但控制块因 wp 存在暂不释放
-// 此时 int(10) 占用的内存已释放（对象销毁），但控制块内存仍被占用（直到 wp 过期）
+// int 对象生命周期已结束；合并分配的整块存储仍可能保留到 wp 被销毁/reset。
 ```
 
-**直接构造 `shared_ptr`**：对象和控制块独立分配，对象销毁后可立即释放对象内存（控制块需等 `weak_ptr` 过期），内存释放更及时。
+**直接构造 `shared_ptr`**：对象和控制块独立分配，对象销毁后可立即释放对象内存（控制块需等最后一个 weak_ptr 被销毁或 reset），内存释放更及时。
 
 #### **四、`make_shared` 与直接构造 `shared_ptr` 的对比**
 
 |**对比维度**|`make_shared<T>(args...)`|`shared_ptr<T>(new T(args...))`|
 |:--|:--|:--|
-|**内存分配次数**|1次（对象+控制块连续）|2次（对象、控制块独立）|
-|**异常安全**|安全（原子操作，无中间状态）|不安全（可能泄漏 `new` 分配的对象）|
+|**内存分配次数**|常见实现合并分配|普通 new 表达式加独立控制块通常两次|
+|**异常安全**|异常时正确清理，不表示线程原子性|该直接构造表达式也有异常安全保证|
 |**性能**|更高（少一次分配+缓存局部性好）|较低（多一次分配+内存碎片）|
 |**自定义删除器**|不支持|支持（构造函数第二个参数）|
 |**数组支持**|C++20 前不支持，C++20 支持 `make_shared<T[]>(n)`（默认 `delete[]`）|支持（需显式 `new T[n]` + 删除器 `delete[]`）|
@@ -762,14 +775,14 @@ sp.reset(); // 引用计数=0，对象销毁，但控制块因 wp 存在暂不�
 
 2. **避免混合使用 `new` 和 `make_shared`**：同一对象的管理逻辑统一，减少错误。
 
-3. **C++14 起用 `auto` 简化类型**：`auto sp = make_shared<T>(args...)` 比显式写 `shared_ptr<T>` 更简洁。
+3. **C++11 起用 `auto` 简化类型**：`auto sp = make_shared<T>(args...)` 比显式写 `shared_ptr<T>` 更简洁。
 
-4. **数组场景特殊处理**：C++20 前用 `shared_ptr<T[]>` + `new T[n]` + 删除器 `delete[]`；C++20 起可用 `make_shared<T[]>(n)`（默认 `delete[]`）。
+4. **数组场景特殊处理**：C++17 可用 `shared_ptr<T[]>(new T[n])` 默认正确 delete[]；更早版本需匹配的自定义删除器；C++20 起可用 `make_shared<T[]>(n)`（默认 `delete[]`）。
 
 
 #### **六、这一节收束**
 
-`make_shared`可以理解为创建 `shared_ptr` 的**首选方式**，通过**一次内存分配、异常安全、性能优化**解决了直接构造 `shared_ptr` 的痛点。仅在需自定义删除器或处理数组（C++20 前）时，才考虑用 `shared_ptr<T>(new T(...))`。
+`make_shared`可以理解为创建 `shared_ptr` 的**首选方式**，通常减少分配并简化所有权构造；直接构造本身也有异常安全保证。是否使用工厂函数还要考虑删除器、构造可访问性、数组版本和弱引用保留的存储成本。
 
 
 
@@ -779,11 +792,11 @@ sp.reset(); // 引用计数=0，对象销毁，但控制块因 wp 存在暂不�
 
 智能指针的**删除器**可以理解为**资源释放逻辑的自定义函数/函数对象**，用于替代默认的`delete`操作。在智能指针管理的对象生命周期结束（如`shared_ptr`引用计数归零、`unique_ptr`析构或`reset`）时，删除器被调用以释放资源的时候，重点是看清触发条件和后续影响。
 
-**默认删除器**：`shared_ptr`和`unique_ptr`默认使用`delete`（单个对象）或`delete[]`（数组对象，仅`unique_ptr<T[]>`），但实际场景中需管理非内存资源（如文件句柄、网络连接、动态数组等），必须通过自定义删除器实现。
+**默认删除器**：`shared_ptr`和`unique_ptr`默认使用`delete`（单个对象）或`delete[]`（unique_ptr<T[]> 以及 C++17 起的 shared_ptr<T[]> 数组形式），但实际场景中需管理非内存资源（如文件句柄、网络连接、动态数组等），必须通过自定义删除器实现。
 
 ### **二、`shared_ptr`的删除器**
 
-`shared_ptr`的删除器在**构造时指定**，存储在控制块中，类型为智能指针的一部分（但不影响引用计数）。删除器可以可以理解为**函数指针、函数对象（仿函数）、lambda表达式**。
+`shared_ptr`的删除器在**构造时指定**，存储在控制块中，删除器类型被类型擦除，不是 shared_ptr<T> 模板类型的一部分。删除器可以可以理解为**函数指针、函数对象（仿函数）、lambda表达式**。
 
 #### **1. 语法格式**
 
@@ -831,6 +844,7 @@ int main() {
         if (f) fclose(f);
         cout << "文件关闭" << endl;
     });
+    if (!sp) return 1; // fopen 可能失败
     fprintf(sp.get(), "hello"); // 使用文件句柄
     // 离开作用域时，删除器调用fclose（输出“文件关闭”）
     return 0;
@@ -856,19 +870,19 @@ int main() {
 
 #### **3. 注意事项**
 
-- **删除器类型影响`shared_ptr`类型**：不同的删除器会导致`shared_ptr`类型不同，无法直接赋值（需显式转换，极少用）。
+- **删除器类型不改变 shared_ptr<T> 类型**：下面两个变量都是 shared_ptr<int>，可以直接复制赋值；赋值后共享源指针的控制块。
 
     ```cpp
     auto del1 = [](int* p) { delete p; };
     auto del2 = [](int* p) { delete p; }; // 即使逻辑相同，类型也不同（lambda无捕获时可能为函数指针，有捕获时为不同仿函数类型）
     shared_ptr<int> sp1(new int(10), del1);
     shared_ptr<int> sp2(new int(20), del2);
-    // sp1 = sp2; // 编译报错：删除器类型不同
+    sp1 = sp2; // 正确：先释放原所有权，再共享 sp2 的控制块与删除器。
     ```
 
 - **无法通过`make_shared`指定删除器**：`make_shared`仅支持默认删除器，需自定义删除器时必须用`shared_ptr`构造函数。
 
-- **删除器调用时机**：当`shared_ptr`引用计数归零且所有`weak_ptr`过期后，删除器被调用（控制块内存延迟释放，见前文“内存释放延迟”）。
+- **删除器调用时机**：当最后一个强所有者释放时调用删除器；残留 weak_ptr 只延长控制块的存储生命周期（控制块内存延迟释放，见前文“内存释放延迟”）。
 
 
 ### **三、`unique_ptr`的删除器**
@@ -881,7 +895,7 @@ int main() {
 template <class T, class Deleter = default_delete<T>>
 class unique_ptr; // 单个对象版本
 
-template <class T, class Deleter = default_delete<T[]>>
+template <class T, class Deleter>
 class unique_ptr<T[], Deleter>; // 数组版本（默认用delete[]）
 ```
 
@@ -970,7 +984,7 @@ unique_ptr<int, void(*)(int*)> up(new int(10), [](int* p) { delete p; });
 |:--|:--|:--|
 |**类型位置**|构造时指定，非模板参数（类型擦除）|模板参数（编译时确定）|
 |**性能**|轻微开销（类型擦除）|无额外开销（编译时确定）|
-|**灵活性**|可动态更换删除器（但极少见）|不可更换，移动时转移|
+|**灵活性**|已有控制块的删除器不能直接替换；可 reset 建立新所有权|删除器类型固定，状态是否可赋值依删除器类型|
 |**与`make_shared`兼容**|不兼容（需显式`new`构造）|不兼容（需显式`new`构造）|
 |**适用场景**|多模块共享资源，需灵活指定删除器|独占资源，追求极致性能，删除器固定|
 
@@ -980,11 +994,11 @@ unique_ptr<int, void(*)(int*)> up(new int(10), [](int* p) { delete p; });
 
 2. 当我们需要多模块共享非内存资源（如文件、网络句柄），注意`make_shared`无法指定删除器时，**`shared_ptr`删除器**：就会派上用场。
 
-3. 当我们需要独占资源，利用模板参数固定删除器类型以提升性能（如`unique_ptr<FILE, decltype(file_deleter)*>`）时，**`unique_ptr`删除器**：就会派上用场。
+3. 当我们需要独占资源，利用模板参数固定删除器类型以提升性能（如`unique_ptr<FILE, decltype(file_deleter)>`）时，**`unique_ptr`删除器**：就会派上用场。
 
 4. **避免资源泄漏**：确保删除器能正确处理`nullptr`（如`if (p) delete p`）。
 
-5. **数组管理**：`unique_ptr<T[]>`默认用`delete[]`，`shared_ptr`需显式指定`delete[]`删除器。
+5. **数组管理**：`unique_ptr<T[]>`默认用`delete[]`，C++17 起 shared_ptr<T[]> 也默认匹配 delete[]；shared_ptr<T> 接 new T[n] 才需匹配的自定义删除器。
 
 
 ### **六、这一节收束**
@@ -1010,16 +1024,16 @@ unique_ptr<int, void(*)(int*)> up(new int(10), [](int* p) { delete p; });
 #### **2. 对比示例**
 
 ```cpp
-class BigData { // 假设含1MB动态内存的大对象
+#include <vector>
+class BigData {
 public:
-    BigData() { data = new int[1024*1024]; } // 构造开销大
-    BigData(const BigData& other) { /* 深拷贝1MB数据，耗时 */ } // 拷贝构造开销大
-    ~BigData() { delete[] data; }
+    BigData() : data(1024 * 1024) {}
 private:
-    int* data;
+    // vector 负责正确复制和释放；sizeof(int)==4 时元素存储约4 MiB。
+    std::vector<int> data;
 };
 
-// 按值传递：每次调用拷贝1MB数据，严重性能损耗
+// 本例左值按值传递会复制 vector 中的元素；成本应实测。
 void processByValue(BigData obj) { /* 使用obj */ }
 
 // 按const引用传递：无拷贝，仅传地址
@@ -1063,6 +1077,8 @@ public:
     { cout << "拷贝构造\n"; }
     Point(Point&& other) noexcept : x(other.x), y(other.y)
     { cout << "移动构造\n"; }
+    Point& operator=(const Point&) = default;
+    Point& operator=(Point&&) = default;
 private:
     int x, y;
 };
@@ -1128,16 +1144,22 @@ int main() {
 
 #### **3. 注意事项**
 
-- **初始化方式等价于直接构造**：`T obj = func()。` 与 `T obj(func())。` 效果相同，编译器均优先优化为直接构造。
+- **同类型纯右值初始化在 C++17 下可直接构造**：`T obj = func()。` 与 `T obj(func())。` 效果相同，编译器均优先优化为直接构造。
 
-- **避免“先定义后赋值”**：尤其对无默认构造函数的对象，赋值方式会编译报错（如`unique_ptr`无默认构造）。
+- **避免“先定义后赋值”**：尤其对无默认构造函数的对象，赋值方式会编译报错（普通默认删除器的 unique_ptr 有默认构造，初始为空；某些自定义删除器配置另有约束）。
 
 
 ### **四、三条规则协同优化示例**
 
 结合三条规则，实现一个高效的对象创建与传递流程：
 ```cpp
-class BigData { /* 大对象，含动态内存 */ };
+#include <vector>
+class BigData {
+public:
+    explicit BigData(int size) : data(size) {}
+private:
+    std::vector<int> data;
+};
 
 // 规则2：返回临时对象（RVO优化）
 BigData createBigData(int size) {
@@ -1194,7 +1216,7 @@ obj.print(); // this指向obj的地址（非临时对象）
 ##### **2. 临时对象调用方法**
 
 临时对象（匿名对象）也可调用成员函数，但需注意：
-- 临时对象的生命周期通常为**完整表达式结束**（除非绑定到`const`引用延长生命周期）；
+- 临时对象的生命周期通常到完整表达式结束；满足规则的 const 左值引用或右值引用绑定可延长生命周期，函数形参等情形另有边界；
 
 - 若成员函数返回临时对象，可能引发链式调用的临时对象管理问题。
 
@@ -1213,8 +1235,7 @@ private:
 };
 
 // 临时对象调用方法
-MyClass().print(); // 输出：随机值（未初始化？不，这里构造函数传参了？哦，上面构造函数是int x，所以MyClass()会报错！修正：
-// 正确示例：MyClass(10).print(); // 输出10（临时对象调用print，表达式结束后销毁）
+MyClass(10).print(); // 输出10；本例没有无参构造函数。
 (MyClass(10).add(MyClass(20))).print(); // 链式调用：临时对象相加后返回新临时对象，调用print后销毁
 ```
 
@@ -1242,7 +1263,7 @@ private:
 };
 
 // 显式生成临时对象
-Point p1 = Point(1, 2); // 直接构造临时对象并拷贝给p1（可能被优化）
+Point p1 = Point(1, 2); // C++17 起同类型纯右值直接初始化 p1，不发生这次复制。
 Point p2 = static_cast<Point>(3);
 // 显式转换生成临时对象（假设Point有单参构造函数）
 
@@ -1294,7 +1315,7 @@ int main() {
 Point p = Point(1, 2); // 优化后：直接在p的内存位置构造Point(1,2)，无临时对象
 ```
 
-等价于 `Point p(1, 2)。`（更高效）。
+C++17 下与 `Point p(1, 2);` 都可直接初始化，不应声称后者必然更快。
 
 ##### **2. 函数返回临时对象：`return T(...)` → 直接构造调用处对象（RVO/NRVO）**
 
@@ -1323,13 +1344,13 @@ int main() {
 
 **C++17规定**：对纯右值（如`return Point(x,y)`）的返回值优化成为强制要求（必须省略拷贝）。
 
-##### **3. 临时对象参与表达式：`a = T(...)` → 直接构造目标对象**
+##### **3. 已有对象的赋值不属于上述初始化拷贝省略**
 
-当我们需要赋值或初始化时，编译器可能优化为直接构造目标对象：时，当临时对象就会派上用场。
+赋值给已存在的对象仍执行赋值语义，不能用 RVO 将它解释成重新构造。优化必须保留可观察行为。
 
 ```cpp
 Point p;
-p = Point(5, 6); // 优化前：生成临时对象→拷贝赋值给p；优化后：直接用(5,6)构造p的内容（或直接移动赋值）
+p = Point(5, 6); // 构造右侧结果，再调用可用的移动/拷贝赋值；不是 RVO 重新构造 p。
 ```
 
 #### **四、对象在函数调用过程中的优化**
@@ -1350,7 +1371,7 @@ p = Point(5, 6); // 优化前：生成临时对象→拷贝赋值给p；优化�
 void func(Point p) {} // 按值传递
 
 int main() {
-    func(Point(1, 2)); // 临时对象作为参数：可能触发移动构造（若Point定义了移动构造函数）
+    func(Point(1, 2)); // C++17 起此同类型纯右值直接构造形参，不需要这次移动。
     Point p(3, 4);
     func(p); // 具名对象作为参数：拷贝构造（除非用std::move转为右值）
     func(std::move(p)); // 显式转为右值：移动构造（p的资源被“窃取”）
@@ -1377,7 +1398,8 @@ C++标准允许编译器在以下情况省略拷贝/移动构造（视为“优�
 ```cpp
 class BigData {
 public:
-    BigData(BigData&& other) noexcept { /* 窃取other的资源 */ } // 移动构造
+    BigData() = default;
+    BigData(BigData&& other) noexcept = default; // 省略成员的概念示例
 };
 
 BigData createBigData() {
@@ -1409,7 +1431,7 @@ BigData createBigData() {
 
 #### **一、C++98 旧绑定器：`bind1st` 与 `bind2nd`**
 
-`bind1st` 和 `bind2nd`可以理解为C++98 引入的**二元函数参数绑定器**，用于将二元函数对象（接受两个参数的可调用对象）的**第一个**或**第二个**参数固定为指定值，生成一个新的**一元函数对象**（只接受一个参数）。二者均定义在 `<functional>` 头文件中，现已被 C++11 的 `std::bind` 取代（因功能有限），但需理解其原理以兼容旧代码。
+`bind1st` 和 `bind2nd`可以理解为C++98 引入的**二元函数参数绑定器**，用于将二元函数对象（接受两个参数的可调用对象）的**第一个**或**第二个**参数固定为指定值，生成一个新的**一元函数对象**（只接受一个参数）。二者均定义在 `<functional>` 头文件中，C++11 弃用、C++17 移除；本节旧接口示例按 C++14 或更早标准阅读，现代代码可用 lambda/std::bind（因功能有限），但需理解其原理以兼容旧代码。
 
 ##### **1. 核心功能**
 
@@ -1461,13 +1483,11 @@ int main() {
     // 二元函数：greater<int>()（a > b），需绑定第二个参数 b=5（即 a > 5）
     int cnt = count_if(v.begin(), v.end(), bind2nd(greater<int>(), 5));
     // 等价于：count_if(v.begin(), v.end(), [](int x) { return x > 5; });
-    // 结果：cnt=2（元素9）
+    // 结果：cnt=1（元素9）
 
-    // 需求：统计 v 中 <3 的元素个数（绑定第一个参数 a=3，即 3 > b → b < 3）
-    cnt = count_if(v.begin(), v.end(), bind1st(less<int>(), 3));
-    // 等价于：count_if(v.begin(), v.end(), [](int x) { return 3 < x; }); → 统计 >3 的元素？注意：less<int>() 是 a < b，bind1st 绑定 a=3，即 3 < b → b > 3
-    // 正确用法：统计 <3 应绑定 greater<int>() 的第二个参数？或调整逻辑
-    // 修正：用 bind2nd(less<int>(), 3) → a < 3（正确统计 <3 的元素：1,1 → cnt=2）
+    // 统计 <3：固定 less 的第二个参数为3，即 x < 3。
+    cnt = count_if(v.begin(), v.end(), bind2nd(less<int>(), 3));
+    // 两个1满足条件，cnt=2。
     return 0;
 }
 ```
@@ -1500,7 +1520,7 @@ int main() {
 
 ##### **2. 底层实现原理**
 
-`std::bind` 通过**类型擦除**（Type Erasure）生成一个匿名函数对象（仿函数），内部存储原可调用对象和绑定的参数（值或占位符）。调用时，根据占位符替换为实际传入的参数，再调用原函数。
+`std::bind` 返回具有未指定具体类型的函数对象，并不以类型擦除统一为 std::function，内部存储原可调用对象和绑定的参数（值或占位符）。调用时，根据占位符替换为实际传入的参数，再调用原函数。
 
 ##### **3. 使用示例（对比 `bind1st`/`bind2nd`）**
 
@@ -1532,7 +1552,7 @@ int main() {
 
 #### **三、`std::function`：通用函数对象封装器（源自 Boost.Function）**
 
-`std::function`可以理解为C++11 从 Boost 引入的**多态函数封装器**，可存储、复制和调用**任何可调用对象**（函数、函数对象、lambda、成员函数等），提供统一的调用接口。
+`std::function`可以理解为C++11 从 Boost 引入的**多态函数封装器**，可存储、复制和调用**满足可复制构造且与目标签名可调用兼容的对象**（函数、函数对象、lambda 等；不能直接存储仅可移动的捕获），提供统一的调用接口。
 
 ##### **1. 核心作用**
 
@@ -1540,7 +1560,7 @@ int main() {
 
 - **延迟调用**：存储可调用对象，在需要时调用；
 
-- **作为回调接口**：函数参数或类成员，接受任意可调用对象。
+- **作为回调接口**：函数参数或类成员，接受满足相应调用与存储约束的可调用对象。
 
 
 ##### **2. 语法与示例**
@@ -1574,7 +1594,7 @@ int main() {
         int divide(int a, int b) { return a / b; }
     };
     Divider d;
-    function<int(int, int)> f4 = bind(&Divider::divide, &d, _1, _2);
+    function<int(int, int)> f4 = bind(&Divider::divide, &d, placeholders::_1, placeholders::_2);
     cout << f4(10, 2) << endl; // 5
     return 0;
 }
@@ -1607,12 +1627,12 @@ struct AnonymousFunctor {
         return x + y; // 函数体与 lambda 一致
     }
 };
-AnonymousFunctor lambda; // 匿名对象，与 lambda 变量等价
+AnonymousFunctor equivalentLambda; // 演示相似调用接口，避免与上面的变量重名。
 ```
 
 ##### **3. 捕获列表的底层实现**
 
-- **值捕获 `[=var]`**：函数对象构造函数中拷贝 `var` 的值，存储为成员变量；
+- **值捕获 `[var]`**：函数对象构造函数中拷贝 `var` 的值，存储为成员变量；
 
 - **引用捕获 `[&var]`**：函数对象存储 `var` 的引用（需注意生命周期）；
 
@@ -1633,7 +1653,7 @@ struct AnonymousFunctor {
     // operator()：lambda 体
     int operator()(int x) const { return a_ + b_ref_ + x; }
 };
-AnonymousFunctor lambda(a, b); // 匿名对象，与 lambda 变量等价
+AnonymousFunctor equivalentLambda(a, b); // 演示捕获存储模型，避免重名。
 ```
 
 #### **五、这一节收束：绑定器、函数对象与 lambda 的关系**
@@ -1641,8 +1661,8 @@ AnonymousFunctor lambda(a, b); // 匿名对象，与 lambda 变量等价
 |**组件**|**核心作用**|**底层实现**|**C++ 版本**|**现状**|
 |:--|:--|:--|:--|:--|
 |`bind1st`/`bind2nd`|绑定二元函数的第1/2个参数为固定值|继承 `unary_function` 的重载 `operator()`|C++98|已弃用（用 `std::bind` 替代）|
-|`std::bind`|通用参数绑定（任意函数/对象，调整顺序）|类型擦除的匿名函数对象|C++11|推荐（灵活强大）|
-|`std::function`|封装任意可调用对象（统一接口）|类型擦除的多态函数包装器|C++11|广泛使用（回调、延迟调用）|
+|`std::bind`|通用参数绑定（任意函数/对象，调整顺序）|未指定具体类型的函数对象，无须类型擦除|C++11|推荐（灵活强大）|
+|`std::function`|封装满足相应调用与存储约束的可调用对象（统一接口）|类型擦除的多态函数包装器|C++11|广泛使用（回调、延迟调用）|
 |Lambda 表达式|简洁定义匿名函数对象|编译器自动生成匿名函数对象（仿函数）|C++11|首选（语法简洁，底层同函数对象）|
 
 **核心结论**：
@@ -1678,9 +1698,9 @@ Lambda 表达式可以理解为C++11 引入的**匿名函数对象**（闭包）
 
 - **`mutable`（可选）**：允许修改值捕获的变量（默认 `const` 成员函数，不可改）；
 
-- **`noexcept`（可选，C++17）**：声明 lambda 不抛出异常；
+- **`noexcept`（可选，C++11 起）**：声明 lambda 不抛出异常；
 
-- **`-> return-type`（可选）**：显式指定返回类型（C++11 需显式，C++14 起可自动推导）；
+- **`-> return-type`（可选）**：显式指定返回类型（C++11 的简单 return 表达式已可推导，C++14 扩展推导规则）；
 
 - **`body`（函数体）**：实现具体逻辑。
 
@@ -1790,7 +1810,7 @@ Lambda 表达式可以理解为C++11 引入的**匿名函数对象**（闭包）
 
 - 与普通函数参数类似，支持任意类型（一般会包含`auto`，C++14 泛型 lambda），这些部分要放在同一个场景里一起理解。
 
-- 无参数时可省略 `()`（仅当无捕获列表或捕获列表非空但无参数时？不，`[](){}` 可简写为 `[]{}`）。
+- 普通无参 lambda 可省略 ()，如 []{}；本节 C++17 基线中出现 mutable/noexcept 等说明符时仍写出 ()。
 
 - **示例**：
     ```cpp
@@ -1803,7 +1823,7 @@ Lambda 表达式可以理解为C++11 引入的**匿名函数对象**（闭包）
 
 - **C++11**：必须显式指定（若函数体仅含 `return` 语句，可省略，编译器自动推导）；
 
-- **C++14 起**：支持自动推导返回类型（无需 `-> return-type`），复杂逻辑（多返回路径）仍需显式指定。
+- **C++14 起**：支持自动推导返回类型（无需 `-> return-type`），多条 return 推导出同一类型时仍可省略；类型不一致而需要转换时可显式指定。
 
 - **示例**：
     ```cpp
@@ -1811,7 +1831,7 @@ Lambda 表达式可以理解为C++11 引入的**匿名函数对象**（闭包）
     auto add = [](int a, int b) -> int { return a + b; };
     // C++14：自动推导返回类型
     auto multiply = [](int a, int b) { return a * b; };
-    // 多返回路径：需显式指定
+    // 多返回路径：此处显式指定，也可在 C++14 起由相同返回类型推导。
     auto max = [](int a, int b) -> int {
         if (a > b) return a;
         else return b;
@@ -1823,7 +1843,7 @@ Lambda 表达式可以理解为C++11 引入的**匿名函数对象**（闭包）
 
 ##### **1. `mutable` 关键字**
 
-- **作用**：允许修改**值捕获**的变量（默认 lambda 的 `operator()`可以理解为`const` 成员函数，值捕获的变量为 `const`）。
+- **作用**：允许修改**值捕获**的变量（默认 lambda 的 `operator()`可以理解为`const` 成员函数，不能通过默认 const 调用运算符修改值捕获成员；这不等于其存储成员声明必为 const）。
 
 - **注意**：仅修改拷贝，不影响原变量。
 
@@ -1838,7 +1858,7 @@ Lambda 表达式可以理解为C++11 引入的**匿名函数对象**（闭包）
 
 ##### **2. `constexpr` Lambda（C++17）**
 
-- 若 lambda 满足 `constexpr` 函数要求（无动态内存分配、无虚函数等），可声明为 `constexpr`，在编译期执行。
+- 若 lambda 满足 `constexpr` 函数要求（约束随标准版本变化；C++17 常量求值不能执行动态分配，后续标准有所放宽），可声明为 `constexpr`，在编译期执行。
 
 - **示例**：
     ```cpp
@@ -1861,7 +1881,7 @@ Lambda 表达式可以理解为C++11 引入的**匿名函数对象**（闭包）
 
 ##### **4. 作为函数指针转换（无捕获时）**
 
-- 无捕获列表的 lambda 可隐式转换为**函数指针**（类型 `Ret(*)(Args...)`）。
+- 没有捕获的 lambda（仍有空 [] 捕获列表） 可隐式转换为**函数指针**（类型 `Ret(*)(Args...)`）。
 
 - **示例**：
     ```cpp
@@ -1896,12 +1916,12 @@ Lambda 表达式可以理解为C++11 引入的**匿名函数对象**（闭包）
 - **示例**：
     ```cpp
     using Callback = function<void(int)>;
-    void asyncTask(Callback cb) {
+    void callbackTask(Callback cb) {
         int result = 42;
         cb(result); // 任务完成后调用回调
     }
     int main() {
-        asyncTask([](int res) { cout << "Result: " << res << endl; }); // 输出 Result: 42
+        callbackTask([](int res) { cout << "Result: " << res << endl; }); // 输出 Result: 42
     }
     ```
 
@@ -1972,9 +1992,9 @@ Lambda 表达式可以理解为C++11 引入的**匿名函数对象**（闭包）
 
 |**C++ 版本**|**扩展特性**|**说明**|
 |:--|:--|:--|
-|C++11|基础语法（捕获列表、参数、返回类型）|支持值/引用/隐式捕获，`mutable`，`noexcept`（C++11 无，C++17 加）|
+|C++11|基础语法（捕获列表、参数、返回类型）|支持值/引用/隐式捕获，`mutable`，`noexcept`（C++11 已支持）|
 |C++14|泛型 lambda（`auto` 参数）、初始化捕获（移动捕获）|支持 `[](auto x){}` 和 `[p = move(ptr)]`|
-|C++17|`constexpr` lambda、`noexcept` 说明符、捕获 `*this`（C++17 后）|编译期执行、异常说明、按值捕获当前对象副本|
+|C++17|`constexpr` lambda、noexcept 成为函数类型一部分、捕获 `*this`|编译期执行、异常说明、按值捕获当前对象副本|
 |C++20|模板 lambda（`template<class T>`）、`concept` 约束|显式模板参数、概念约束（如 `requires`）|
 
 #### **九、这一节收束**
@@ -2033,7 +2053,8 @@ char* add<char*>(char* a, char* b) {
 
 int main() {
     int x = add(1, 2);          // 调用通用模板：3
-    char* s1 = add("Hello, ", "World!"); // 调用完全特例化："Hello, World!"
+    char left[] = "Hello, ", right[] = "World!";
+    char* s1 = add(left, right); // 调用完全特例化："Hello, World!"
     cout << s1 << endl;         // 输出：Hello, World!
     delete[] s1;                // 手动释放内存（特例化中new的）
     return 0;
@@ -2055,7 +2076,7 @@ using namespace std;
 template <typename T, size_t N>
 class Array {
 private:
-    T data[N];
+    T data[N]{};
 public:
     void print() const {
         cout << "Generic Array: ";
@@ -2085,8 +2106,8 @@ public:
 };
 
 int main() {
-    Array<int, 3> int_arr; // 通用模板实例化（需手动初始化元素，此处省略）
-    int_arr.print();       // 输出：Generic Array: [元素值]
+    Array<int, 3> int_arr; // 通用模板实例化，成员已值初始化为0
+    int_arr.print();       // 输出：Generic Array: 0 0 0
 
     Array<bool, 10> bool_arr; // 完全特例化版本
     bool_arr.set(2, true);
@@ -2100,7 +2121,7 @@ int main() {
 
 **定义**：为类模板的**部分参数**指定类型（剩余参数保持泛型），生成一个针对特定参数组合的专用类模板。
 
-**适用范围**：**仅类模板支持**（函数模板无部分特例化，需用重载或SFINAE替代）。
+**适用范围**：类模板支持，C++14 起变量模板也支持；函数模板不支持，可用重载或约束等替代。
 
 #### **1. 类模板的部分特例化语法**
 
@@ -2145,7 +2166,7 @@ int main() {
 
 #### **3. 部分特例化的匹配规则**
 
-- **最特化原则**：当多个特例化版本都能匹配时，编译器选择**参数限制最多**的版本（如 `T*` 比 `T` 更特化）。
+- **最特化原则**：当多个特例化版本都能匹配时，编译器按部分排序规则选择唯一最特化的版本；无法唯一决定时会产生歧义，不能简单数参数限制（如 `T*` 比 `T` 更特化）。
 
 - **优先级**：完全特例化 > 部分特例化 > 通用模板。
 
@@ -2200,7 +2221,7 @@ int main() {
 }
 ```
 
-**自定义类模板的 CTAD**：需定义 **deduction guide** （推演指引）。
+**自定义类模板的 CTAD**：编译器可从构造函数生成隐式推演指引；需要额外规则时再显式定义 deduction guide。
 
 ```cpp
 template <typename T>
@@ -2223,7 +2244,7 @@ int main() {
 
 #### **3. 实参推演的限制**
 
-- **无法推演返回类型**：函数模板的返回类型需显式指定或通过 `decltype` 推导（如 `auto add(T a, T b) -> decltype(a+b)`）。
+- **不能仅由调用结果的期望类型推导模板参数**；这不妨碍 C++14 起的 auto 函数返回类型推导，也可使用尾置 decltype。
 
 - **数组与函数指针退化**：数组实参退化为指针（如 `template <typename T> void f(T a)` 中，`int arr[5]` 推演 `T=int*`）。
 
@@ -2237,7 +2258,7 @@ int main() {
 |**维度**|**完全特例化**|**部分特例化**|
 |:--|:--|:--|
 |**参数指定**|所有模板参数均为具体类型|部分参数为具体类型，剩余泛型|
-|**适用范围**|函数模板、类模板|仅类模板|
+|**适用范围**|函数模板、类模板（变量模板另有支持）|类模板，以及 C++14 起的变量模板|
 |**语法**|`template <> class/class<T1,T2> {...}`|`template <typename T> class<T1_fixed, T> {...}`|
 |**本质**|独立的专用实现|泛型模板的子集实现|
 
@@ -2264,22 +2285,22 @@ int main() {
 - **核心原则**：通用模板保证复用性，特例化优化特殊性；实参推演优先自动推断，失败时显式指定。
 
 
-**实习生必记**：完全特例化所有参数都确定，部分特例化仅类模板支持；实参推演让代码简洁，歧义时显式指定 `<类型>`！
+**实习生必记**：完全特例化所有参数都确定，部分特例化支持类模板及 C++14 起变量模板，不支持函数模板；实参推演让代码简洁，歧义时显式指定 `<类型>`！
 # function函数对象
 
 #### **一、`std::function` 核心定位**
 
-`std::function`可以理解为C++11 从 Boost.Function 引入的**通用函数对象封装器**（polymorphic function wrapper），属于**函数对象（Functor）** 的一种。它能**存储、复制、调用任何可调用对象**（函数、lambda、函数对象、成员函数、绑定表达式等），只要其**签名与 `std::function` 模板参数匹配**。
+`std::function`可以理解为C++11 从 Boost.Function 引入的**通用函数对象封装器**（polymorphic function wrapper），属于**函数对象（Functor）** 的一种。它能**存储、复制、调用可复制构造且满足目标调用约束的对象**（函数、lambda、函数对象、成员函数、绑定表达式等），只要其**签名与 `std::function` 模板参数匹配**。
 
 **核心价值**：提供**运行时多态**的可调用对象接口，统一不同类型可调用对象的存储和调用方式，简化回调、策略模式等场景的代码。
 
 ### **二、`std::function` 实现原理：类型擦除（Type Erasure）**
 
-`std::function` 的底层通过**类型擦除**技术实现“存储任意可调用对象”。核心思想可以理解为：**用一个通用的基类接口隐藏具体可调用对象的类型差异，通过派生类存储具体对象并实现调用逻辑**。
+`std::function` 的底层通过**类型擦除**技术实现“统一存储满足复制和调用约束的目标”。核心思想可以理解为：**用一个通用的基类接口隐藏具体可调用对象的类型差异，通过派生类存储具体对象并实现调用逻辑**。
 
 #### **1. 简化版实现模型**
 
-以下可以理解为`std::function` 的伪代码简化实现，揭示类型擦除的核心逻辑：
+以下只演示一种类型擦除模型，不是标准库的规定实现；省略空状态、拷贝/移动、分配优化及调用约束，不能作为完整 function 替代品直接使用。复制此裸指针外壳会重复释放，实际使用 std::function。
 ```cpp
 // 1. 基类：定义统一调用接口（类型擦除的“抽象层”）
 template <typename Ret, typename... Args>
@@ -2315,7 +2336,7 @@ private:
     FunctionBase<Ret, Args...>* impl;
     // 基类指针：指向具体存储的可调用对象
 public:
-    // 构造函数：用模板接收任意可调用对象，创建派生类实例（FunctionImpl）
+    // 构造函数：用模板接收满足相应调用与存储约束的可调用对象，创建派生类实例（FunctionImpl）
     template <typename Callable>
     function(Callable&& c)
         : impl(new FunctionImpl<std::decay_t<Callable>,
@@ -2346,9 +2367,9 @@ public:
 #### **3. 性能与内存开销**
 
 - **类型擦除代价**：
-    - **虚函数调用开销**：每次调用 `std::function` 会触发一次虚函数调用（比直接调用函数/lambda慢）。
+    - **虚函数调用开销**：调用可能经间接函数指针或其他派发机制，不要求每次使用虚函数；开销应结合实现与优化测量。
 
-    - **额外内存开销**：需存储派生类对象（可能一般会包含`Callable` 的大小 + 基类指针 overhead），通常比原始函数指针大（如 GCC 中 `std::function` 大小为 2 个指针，32 位系统 8 字节，64 位 16 字节），这些部分要放在同一个场景里一起理解。
+    - **额外内存开销**：具体布局和小对象缓冲由实现决定，标准不规定固定指针数或字节数；可对目标平台实际 sizeof 测量。
 
 - **优化**：编译器可能对简单可调用对象（如无捕获 lambda）做特化，减少开销（接近函数指针）。
 
@@ -2366,8 +2387,8 @@ public:
 #include <thread>
 #include <chrono>
 
-// 异步任务：执行耗时操作后调用回调
-void async_task(int delay_ms, std::function<void(int)> callback) {
+// 同步示例：当前线程等待后执行回调；没有创建异步任务。
+void callback_task(int delay_ms, std::function<void(int)> callback) {
     std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms)); // 模拟耗时
     callback(delay_ms); // 调用回调，传递结果
 }
@@ -2386,13 +2407,13 @@ struct CallbackObj {
 
 int main() {
     // 1. 用普通函数作为回调
-    async_task(1000, print_result);
+    callback_task(1000, print_result);
 
     // 2. 用函数对象作为回调
-    async_task(2000, CallbackObj());
+    callback_task(2000, CallbackObj());
 
     // 3. 用 lambda 作为回调（最常用）
-    async_task(1500, [](int ms) {
+    callback_task(1500, [](int ms) {
         std::cout << "Task finished in " << ms << "ms (lambda)\n";
     });
 
@@ -2403,7 +2424,7 @@ int main() {
         }
     };
     TaskHandler handler;
-    async_task(500, std::bind(&TaskHandler::on_complete, &handler, std::placeholders::_1));
+    callback_task(500, std::bind(&TaskHandler::on_complete, &handler, std::placeholders::_1));
 
     return 0;
 }
@@ -2452,30 +2473,34 @@ int main() {
 
 #### **3. 事件系统（观察者模式）**
 
-用 `std::function` 存储事件监听器，支持多观察者订阅同一事件。
+用 std::function 存储监听器；本例只支持单线程，触发时取共享监听器快照，因此回调内新增订阅从下次事件生效。
 
 ```cpp
 #include <iostream>
 #include <functional>
 #include <vector>
 #include <map>
+#include <memory>
+#include <string>
+#include <utility>
 using namespace std;
 
 // 事件系统：管理事件类型与监听器
 class EventSystem {
 private:
-    map<string, vector<function<void(int)>>> listeners; // 事件类型→监听器列表
+    map<string, vector<shared_ptr<function<void(int)>>>> listeners; // 事件类型→监听器列表
 public:
     // 订阅事件：注册监听器（std::function）
     void subscribe(const string& event, function<void(int)> listener) {
-        listeners[event].push_back(listener);
+        listeners[event].push_back(make_shared<function<void(int)>>(move(listener)));
     }
 
     // 触发事件：调用所有监听器
     void trigger(const string& event, int data) {
         if (listeners.count(event)) {
-            for (auto& listener : listeners[event]) {
-                listener(data); // 调用每个监听器
+            auto snapshot = listeners[event]; // 本次只派发触发时已订阅的监听器
+            for (auto& listener : snapshot) {
+                (*listener)(data); // 回调内新增订阅不使当前遍历失效
             }
         }
     }
@@ -2544,7 +2569,7 @@ int result = add_func(2, 3); // 5
     if (f) { ... } // 检查是否为空（C++11 起支持）
     ```
 
-- **可复制/可移动**：`std::function` 满足 CopyConstructible 和 MoveConstructible，复制时会拷贝内部可调用对象（深拷贝，若为 lambda 有捕获则可能复制捕获的变量）。
+- **可复制/可移动**：`std::function` 满足 CopyConstructible 和 MoveConstructible，复制时会拷贝内部可调用对象（按目标对象自身复制语义；引用捕获仍引用原对象，不保证深拷贝）。
 
 - **与函数指针的转换**：无捕获的 lambda 可隐式转换为函数指针，进而存储于 `std::function`：
     ```cpp
@@ -2555,13 +2580,13 @@ int result = add_func(2, 3); // 5
 
 #### **4. 注意事项**
 
-- **性能敏感场景慎用**：类型擦除的虚函数调用和内存开销可能高于直接调用函数/lambda，高频调用场景（如内层循环）建议用模板或函数指针。
+- **性能敏感场景慎用**：类型擦除的间接调用和可能的分配开销可能高于直接调用函数/lambda，高频调用场景（如内层循环）建议用模板或函数指针。
 
 - **避免存储大型对象**：若可调用对象捕获了大对象（如大数组），`std::function` 的复制会导致额外拷贝开销，建议用引用捕获或移动语义。
 
-- **明确签名匹配**：`std::function` 的模板参数必须与可调用对象的签名完全一致（返回值、参数类型、const 限定），否则编译报错。
+- **明确签名匹配**：`std::function` 的模板参数要求目标可按该参数列表调用且结果符合返回类型约束，允许相应的隐式转换，不要求签名逐字一致，否则编译报错。
 
-- **与 `auto` 的区别**：`auto` 在编译期确定类型（如 `auto f = [](int x) { ... }` 的类型可以理解为lambda 的匿名类型），`std::function` 在运行期确定类型（统一为 `function<...>`），前者性能更好，后者更灵活。
+- **与 `auto` 的区别**：`auto` 在编译期确定类型（如 `auto f = [](int x) { ... }` 的类型可以理解为lambda 的匿名类型），std::function<R(Args...)> 自身的类型也在编译期确定，只是可在运行期替换不同类型的目标对象，前者性能更好，后者更灵活。
 
 
 #### **5. 与 `std::bind` 的协同**
@@ -2577,7 +2602,7 @@ f(); // 5
 
 ### **五、这一节收束**
 
-`std::function`可以理解为C++ 函数式编程的核心工具，通过**类型擦除**实现对任意可调用对象的统一封装，核心价值在于**运行时多态的灵活性**。其底层依赖基类接口和派生类存储具体对象，通过虚函数调用实现转发。
+`std::function`可以理解为C++ 函数式编程的核心工具，通过**类型擦除**实现对满足相应调用与存储约束的可调用对象的统一封装，核心价值在于**运行时多态的灵活性**。抽象基类只是上面的讲解模型，标准并不要求其内部必须用继承和虚函数。
 
 **适用场景**：回调、策略模式、事件系统、任务队列等需要动态切换可调用对象的场景；**不适用场景**：性能敏感的底层代码（优先用模板或函数指针）。
 
@@ -2595,12 +2620,12 @@ f(); // 5
 
 - **同步机制**：用互斥锁（`std::mutex`）和条件变量（`std::condition_variable`）保证线程安全；
 
-- **任务提交接口**：用 `std::function` 和 `std::bind` 接收任意可调用对象（函数、成员函数、lambda等）。
+- **任务提交接口**：用 `std::function` 和 `std::bind` 接收满足相应调用与存储约束的可调用对象（函数、成员函数、lambda等）。
 
 
 #### **二、`std::function`：任务队列的统一容器**
 
-`std::function`可以理解为C++11 引入的**通用函数封装器**，可存储任意可调用对象（函数、lambda、函数对象、`std::bind` 结果等），只要签名匹配 `void()`（无参无返回值，或统一返回值类型）。
+`std::function`可以理解为C++11 引入的**通用函数封装器**，可存储满足相应调用与存储约束的可调用对象（函数、lambda、函数对象、`std::bind` 结果等），只要签名匹配 `void()`（无参无返回值，或统一返回值类型）。
 
 **线程池中作用**：作为任务队列的元素类型，统一存储不同类型的任务。
 
@@ -2615,7 +2640,7 @@ queue<function<void()>> task_queue;
 
 #### **三、`std::bind`：灵活绑定任务参数**
 
-当我们需要将**任意可调用对象**（函数、成员函数、lambda）与其参数绑定，生成新的可调用对象（适配 `std::function<void()>` 签名）时，`std::bind`就会派上用场。
+当我们需要将**满足相应调用与存储约束的可调用对象**（函数、成员函数、lambda）与其参数绑定，生成新的可调用对象（适配 `std::function<void()>` 签名）时，`std::bind`就会派上用场。
 
 **核心用途**：
 - 绑定函数的部分参数，生成无参/单参可调用对象；
@@ -2638,6 +2663,10 @@ queue<function<void()>> task_queue;
 #include <condition_variable>
 #include <functional>
 #include <future>
+#include <type_traits>
+#include <utility>
+#include <memory>
+#include <stdexcept>
 using namespace std;
 
 class ThreadPool {
@@ -2648,7 +2677,7 @@ public:
 
     // 提交任务到线程池（返回 future 获取结果）
     template <typename F, typename... Args>
-    auto submit(F&& f, Args&&... args) -> future<decltype(f(args...))>;
+    auto submit(F&& f, Args&&... args) -> future<invoke_result_t<decay_t<F>&, decay_t<Args>&...>>;
 
 private:
     // 工作线程函数：循环取任务执行
@@ -2669,9 +2698,15 @@ private:
 
 ```cpp
 ThreadPool::ThreadPool(size_t num_threads) : stop(false) {
-    for (size_t i = 0; i < num_threads; ++i) {
-        // 创建工作线程，绑定 worker_thread 成员函数（无参）
-        workers.emplace_back(bind(&ThreadPool::worker_thread, this));
+    if (num_threads == 0) throw invalid_argument("ThreadPool needs a worker");
+    try {
+        for (size_t i = 0; i < num_threads; ++i)
+            workers.emplace_back(&ThreadPool::worker_thread, this);
+    } catch (...) {
+        { lock_guard<mutex> lock(mtx); stop = true; }
+        cv.notify_all();
+        for (auto& worker : workers) if (worker.joinable()) worker.join();
+        throw;
     }
 }
 ```
@@ -2706,14 +2741,14 @@ void ThreadPool::worker_thread() {
 
 ```cpp
 template <typename F, typename... Args>
-auto ThreadPool::submit(F&& f, Args&&... args) -> future<decltype(f(args...))> {
-    using ReturnType = decltype(f(args...)); // 推导返回值类型
+auto ThreadPool::submit(F&& f, Args&&... args) -> future<invoke_result_t<decay_t<F>&, decay_t<Args>&...>> {
+    using ReturnType = invoke_result_t<decay_t<F>&, decay_t<Args>&...>; // 推导返回值类型
 
     // 1. 用 bind 绑定函数和参数，生成无参可调用对象
     auto bound_task = bind(forward<F>(f), forward<Args>(args)...);
 
     // 2. 包装为 packaged_task（关联 future）
-    auto task = make_shared<packaged_task<ReturnType()>>(bound_task);
+    auto task = make_shared<packaged_task<ReturnType()>>(move(bound_task));
 
     // 3. 提取 future（供调用者获取结果）
     future<ReturnType> res = task->get_future();
@@ -2731,7 +2766,9 @@ auto ThreadPool::submit(F&& f, Args&&... args) -> future<decltype(f(args...))> {
 }
 ```
 
-##### **5. 析构函数：优雅停止线程池**
+##### **5. 析构函数：等待队列任务处理后停止**
+
+本教学池不支持任务取消、队列限流或超时；阻塞任务会阻塞析构。调用方必须保证对象生命周期，不得在本池工作线程中析构自身，也不能在析构期间并发使用它。
 
 ```cpp
 ThreadPool::~ThreadPool() {
@@ -2824,7 +2861,7 @@ int main() {
 
 ##### **1. `std::bind` 参数转发**
 
-- 使用 `std::forward` 完美转发参数，保持左值/右值特性：
+- forward 保留构造绑定对象时的值类别；std::bind 会衰减存储普通参数，调用时通常以左值提供它们。要引用外部对象请显式 std::ref；此接口不支持把仅可移动的值参数在执行时自动再次 move：
     ```cpp
     auto bound_task = bind(forward<F>(f), forward<Args>(args)...);
     ```
@@ -2874,12 +2911,12 @@ try {
 
 用 `shared_ptr` 管理 `packaged_task`，确保任务在执行期间不被销毁：
 ```cpp
-auto task = make_shared<packaged_task<ReturnType()>>(bound_task);
+auto task = make_shared<packaged_task<ReturnType()>>(move(bound_task));
 ```
 
 #### **八、这一节收束**
 
-- **`std::function`**：作为任务队列的统一容器，存储任意可调用对象；
+- **`std::function`**：作为任务队列的统一容器，存储满足相应调用与存储约束的可调用对象；
 
 - **`std::bind`**：灵活绑定函数/成员函数与参数，适配任务队列签名；
 
@@ -2905,13 +2942,13 @@ auto task = make_shared<packaged_task<ReturnType()>>(bound_task);
         // 推导为匿名函数类型
         ```
 
-    - 当我们需要函数参数、数组声明时，**限制**：不能就会派上用场。
+    - C++11 的普通函数形参不能直接用 auto；C++14 泛型 lambda 和 C++20 缩写函数模板另有支持。数组类型也需按对应语法声明。
 
 2. **`nullptr` 关键字**。
 
     - **功能**：替代 `NULL` 或 `0`，表示空指针，避免重载歧义。
 
-    - **类型**：`std::nullptr_t`，仅可隐式转换为指针类型。
+    - **类型**：`std::nullptr_t`，可隐式转换为指针和成员指针类型；转换为 bool 有相应的显式/直接初始化规则。
 
 3. **范围 `for` 循环**。
 
@@ -2979,7 +3016,7 @@ auto task = make_shared<packaged_task<ReturnType()>>(bound_task);
 
     - **`std::forward_list`**：单向链表，内存占用更低。
 
-    - **`std::unordered_map`/`set`**：哈希表实现，查找效率 O(1)。
+    - **`std::unordered_map`/`set`**：哈希关联容器，平均查找 O(1)，最坏可 O(n)。
 
 2. **算法增强**。
 
@@ -3000,7 +3037,7 @@ auto task = make_shared<packaged_task<ReturnType()>>(bound_task);
 
     - **`std::condition_variable`**：线程间同步，等待条件满足。
 
-    - **`std::atomic`**：原子操作，无锁编程（如 `atomic<int> counter`）。
+    - **`std::atomic`**：原子操作，是否无锁依类型和实现（如 `atomic<int> counter`）。
 
 2. **线程安全容器**。
 
@@ -3023,7 +3060,7 @@ auto task = make_shared<packaged_task<ReturnType()>>(bound_task);
 
 2. **`std::function` 与 `std::bind`**。
 
-    - **`std::function`**：统一存储任意可调用对象（函数、Lambda、成员函数）。
+    - **`std::function`**：统一存储满足相应调用与存储约束的可调用对象（函数、Lambda、成员函数）。
 
     - **`std::bind`**：绑定函数参数，生成新可调用对象（适配固定参数）。
 
@@ -3070,7 +3107,7 @@ C++11 通过以下核心改进显著提升开发效率与代码安全性：
 在多线程环境中，多个线程同时访问或修改同一对象时，可能引发以下问题：
 1. **数据竞争（Data Race）**。
 
-    - **定义**：多个线程同时读写同一内存位置，且至少有一个线程执行写操作。
+    - **定义**：不同线程的冲突访问至少一方为写，且并非都为原子访问、也没有适当的 happens-before 排序；不是只看墙钟时间是否重叠。
 
     - **后果**：未定义行为（程序崩溃、数据损坏、结果错误）。
 
@@ -3129,9 +3166,12 @@ C++11 通过以下核心改进显著提升开发效率与代码安全性：
     ```cpp
     #include <memory>
     #include <thread>
+    #include <mutex>
+    std::mutex object_mutex;
 
     void thread_func(std::weak_ptr<int> wp) {
         if (auto sp = wp.lock()) { // 检查对象是否存活
+            std::lock_guard<std::mutex> lock(object_mutex);
             *sp = 42;
         } else {
             // 对象已销毁
@@ -3140,6 +3180,7 @@ C++11 通过以下核心改进显著提升开发效率与代码安全性：
 
     int main() {
         auto sp = std::make_shared<int>(10);
+        std::weak_ptr<int> wp = sp;
         std::thread t1(thread_func, wp);
         std::thread t2(thread_func, wp);
         t1.join(); t2.join();
@@ -3156,7 +3197,7 @@ C++11 通过以下核心改进显著提升开发效率与代码安全性：
     - 适用于单线程或明确所有权转移的多线程场景。
 
 - **线程安全**：
-    - 移动操作可以理解为线程安全的（无数据竞争）。
+    - 通过线程启动等建立同步后，可转移独占所有权；并发访问同一个 unique_ptr 对象仍需要同步。
 
     - 但需确保移动后原指针不再被访问。
 
@@ -3173,10 +3214,10 @@ C++11 通过以下核心改进显著提升开发效率与代码安全性：
 
 ##### **3. 原子操作与智能指针结合**
 
-- **`std::atomic<std::shared_ptr<T>>`**：
+- **`std::atomic<std::shared_ptr<T>>`（C++20 起的特化）**：
     - 原子化 `shared_ptr` 的读写操作，避免数据竞争。
 
-    - **适用场景**：需要原子更新指针的场景（如无锁队列）。
+    - **适用场景**：需要原子更新共享指针的场景；该原子特化不保证无锁，也不自动同步所指对象的数据。
 
 - **示例**：
     ```cpp
@@ -3242,7 +3283,7 @@ C++11 通过以下核心改进显著提升开发效率与代码安全性：
 |**机制**|**优点**|**缺点**|**适用场景**|
 |:--|:--|:--|:--|
 |**互斥锁**|简单易用，保护复杂逻辑|性能开销大（上下文切换）|临界区代码复杂、耗时|
-|**原子操作**|无锁、高性能|仅支持简单操作（如自增、指针交换）|计数器、标志位、指针更新|
+|**原子操作**|单次操作不可分割；是否无锁与性能依实现|仅支持简单操作（如自增、指针交换）|计数器、标志位、指针更新|
 |**读写锁**|读操作并发，提升吞吐量|写操作仍需独占锁|读多写少（如缓存）|
 
 ---
@@ -3286,7 +3327,7 @@ C++11 通过以下核心改进显著提升开发效率与代码安全性：
 
 5. **避免虚假共享（False Sharing）**。
 
-    - 不同线程访问同一缓存行的不同变量时，需填充缓存行（`alignas`）。
+    - 不同线程频繁写同一缓存行内不同变量时可能出现虚假共享；先测量，再按目标平台布局、对齐或分离数据，缓存行不保证统一为64字节。
 
     - **示例**：
         ```cpp
@@ -3299,7 +3340,9 @@ C++11 通过以下核心改进显著提升开发效率与代码安全性：
 
 ---
 
-#### **五、实战案例：线程安全的对象池**
+#### **五、实战案例：同步容器与独占借用的对象池**
+
+mutex 保护池容器，unique_ptr 保证每次借用的所有权独占；归还后不再使用原对象地址。对象状态不会自动重置，池的生命周期也须覆盖所有调用。
 
 ```cpp
 #include <memory>
@@ -3310,23 +3353,24 @@ C++11 通过以下核心改进显著提升开发效率与代码安全性：
 template<typename T>
 class ObjectPool {
 public:
-    std::shared_ptr<T> acquire() {
+    std::unique_ptr<T> acquire() {
         std::unique_lock<std::mutex> lock(mutex_);
         if (pool_.empty()) {
-            return std::make_shared<T>();
+            lock.unlock();
+            return std::make_unique<T>();
         }
-        auto obj = pool_.back();
+        auto obj = std::move(pool_.back());
         pool_.pop_back();
         return obj;
     }
 
-    void release(std::shared_ptr<T> obj) {
+    void release(std::unique_ptr<T> obj) {
         std::unique_lock<std::mutex> lock(mutex_);
-        pool_.push_back(obj);
+        if (obj) pool_.push_back(std::move(obj));
     }
 
 private:
-    std::vector<std::shared_ptr<T>> pool_;
+    std::vector<std::unique_ptr<T>> pool_;
     std::mutex mutex_;
 };
 
@@ -3334,7 +3378,7 @@ private:
 void worker(ObjectPool<int>& pool) {
     auto obj = pool.acquire();
     *obj = 42; // 操作对象
-    pool.release(obj);
+    pool.release(std::move(obj));
 }
 
 int main() {
@@ -3360,7 +3404,7 @@ int main() {
 - **设计原则**：最小化共享、明确所有权、锁粒度控制、异常安全。
 
 
-当我们需要源**：时，**引就会派上用场。
+相关主题：
 
 - 智能指针解决悬垂指针问题。
 

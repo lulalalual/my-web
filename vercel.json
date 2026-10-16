@@ -3,5 +3,14 @@
   "framework": "hexo",
   "buildCommand": "npm run build",
   "outputDirectory": "public",
-  "installCommand": "npm install"
+  "installCommand": "npm ci",
+  "headers": [
+    {
+      "source": "/portfolio-assets/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    }
+  ]
 }

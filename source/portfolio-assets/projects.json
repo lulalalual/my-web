@@ -1,0 +1,72 @@
+[
+  {
+    "id": "interview",
+    "title": "计算机面试大师",
+    "en": "APPLICATION / INTERVIEW MASTER",
+    "type": "AI工程",
+    "status": "面试训练 · React / TypeScript",
+    "intro": "从简历出发，串联练习、模拟面试与复盘。",
+    "cover": "interview-cover",
+    "tags": [
+      "AI 面试",
+      "简历解析",
+      "React / TS"
+    ],
+    "role": "个人开发：界面、面试流程、模型代理与流式响应接入。",
+    "scope": "覆盖选岗、练习、模拟面试、报告与回放。站内使用本地模拟反馈。",
+    "story": [
+      [
+        "训练流程",
+        "以岗位、简历和项目经历组织问题，串联作答、追问、能力报告与历史回放。"
+      ],
+      [
+        "功能实现",
+        "使用 React / TypeScript，支持简历解析、白板和代码练习。原工程接入模型代理与流式响应，站内提供本地模拟面试官。"
+      ],
+      [
+        "质量改进",
+        "修复 C++ 简历解析、回放导出与挑战计时；Python 在独立 Worker 中执行。56 项回归测试及 TypeScript 检查通过。"
+      ]
+    ],
+    "links": [],
+    "demo": "/demos/interview/?mode=demo",
+    "demoNote": "本地模拟面试官 · 练习记录保存在此浏览器",
+    "coverWidth": 1200,
+    "coverHeight": 800
+  },
+  {
+    "id": "defense",
+    "title": "双人塔防",
+    "en": "GAME / SDL + WEBASSEMBLY",
+    "type": "游戏",
+    "status": "协同防守 · C++ / SDL",
+    "intro": "双人同屏防守，共享金币，配合建塔与施法。",
+    "cover": "defense-cover",
+    "tags": [
+      "双人协作",
+      "键盘 / 触控",
+      "四波关卡"
+    ],
+    "role": "基于公开 C++ / SDL 学习工程，完成浏览器适配、修复与双人扩展。",
+    "scope": "支持同屏双人、三类塔与四波关卡，提供键盘、触控及暂停重开。",
+    "story": [
+      [
+        "移植与扩展",
+        "编译为 WebAssembly，保留地图、敌人、塔、金币和四波关卡；为两个角色提供独立输入、技能与能量状态。"
+      ],
+      [
+        "修复与验证",
+        "修复计时、波次、升级、坐标与失败判定，检查暂停、重开及离屏恢复。"
+      ],
+      [
+        "项目来源",
+        "基于 Village TD 公开教程工程开展学习、修复与双人扩展；原教程代码、美术与音效归原作者。"
+      ]
+    ],
+    "links": [],
+    "demo": "/demos/defense-original/",
+    "demoNote": "四波防守 · 同屏双人 · 键盘与触控",
+    "coverWidth": 1289,
+    "coverHeight": 727
+  }
+]

@@ -13,6 +13,18 @@ tags:
 cover: /img/covers/ai/cover-cpp-stl.webp
 description: 把 STL 讲成 C++ 标准工具箱：按场景选择容器，用迭代器和算法写出清楚代码。
 ---
+<!-- knowledge-diagram:start -->
+## 图解速览
+
+容器、迭代器与算法相互配合，选型需考虑访问方式与失效条件。
+
+<iframe class="knowledge-diagram" title="STL 的四个关注点" src="/portfolio-assets/knowledge/?compact=1&amp;topic=cpp-stl" loading="lazy" style="width:100%;height:820px;border:0;border-radius:16px"></iframe>
+
+<!-- knowledge-diagram:end -->
+
+
+
+
 
 ## 学习路线
 
@@ -218,11 +230,11 @@ for (int i = 0; i < a.size(); i++)
 
 #### 当心 size_t 溢出
 
-vector 获取长度的方法 `.size()` 返回值类型为 `size_t`，通常 OJ 平台使用的是32 位编译器（有些平台例如 cf 可选 64 位），那么该类型范围为 $[0,2^{32})$.。
+`vector::size()` 返回 `size_type`（通常为 `size_t`），其宽度依平台而异。乘法在赋值之前按操作数类型计算，应先提升类型，并检查结果是否超出目标类型范围。
 
 ```cpp
 vector<int> a(65536);
-long long a = a.size() * a.size(); // 直接溢出变成0了
+unsigned long long area = 1ULL * a.size() * a.size(); // 此例结果为 4294967296
 ```
 
 ## 2.3 栈 [stack](https://zh.cppreference.com/w/cpp/container/stack)
@@ -771,9 +783,9 @@ for (set<int>::iterator it = st.begin(); it != st.end(); ++it)
 
 **`.end()` 和 `.rend()` 指向的位置可以理解为无意义的值**。
 
-对于一个长度为 10 的数组：`for (int i = 0。i < 10。i++)`，第 10 位可以理解为不可访问的。
+对于一个长度为 10 的数组：`for (int i = 0;i < 10;i++)`，第 10 位可以理解为不可访问的。
 
-对于一个长度为 10 的容器：`for (auto it = a.begin()。it != a.end()。++it)`，.end可以理解为不可访问的。
+对于一个长度为 10 的容器：`for (auto it = a.begin();it != a.end();++it)`，.end可以理解为不可访问的。
 
 **不同容器的迭代器功能可能不一样**。
 
@@ -874,7 +886,7 @@ swap(arr[4], arr[6]);
 
 ## 4.3 `sort()`
 
-使用快速排序给一个可迭代对象排序。
+`std::sort` 对随机访问迭代器指定的范围排序，比较器须满足严格弱序；标准规定复杂度要求，不固定要求某一种快速排序实现。
 
 **用法示例**。
 
@@ -925,7 +937,7 @@ int main()
 
 ## 4.4 `lower_bound()` / `upper_bound()`
 
-在**已升序排序**的元素中，应用二分查找检索指定元素，返回对应元素迭代器位置。**找不到则返回尾迭代器。**
+在**已升序排序**的元素中查找边界位置。`lower_bound` 返回首个不小于目标值的位置，`upper_bound` 返回首个大于目标值的位置；只有不存在符合边界条件的元素才返回尾后迭代器，目标值本身不存在时也可能返回中间位置。
 
 - `lower_bound()`: 寻找 $\geq x$ 的第一个元素的位置。
 - `upper_bound()`: 寻找 $>x$ 的第一个元素的位置。

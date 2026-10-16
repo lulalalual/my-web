@@ -14,6 +14,18 @@ tags:
 cover: /img/covers/ai/cover-cpp-network.webp
 description: 用人话讲 C++ 网络编程：两台机器怎么通过 IP、端口、协议和 Socket 完成通信。
 ---
+<!-- knowledge-diagram:start -->
+## 图解速览
+
+TCP 通信主线 · 实际实现还需处理半关闭、部分读写与错误恢复。
+
+<iframe class="knowledge-diagram" title="一次 TCP Socket 通信" src="/portfolio-assets/knowledge/?compact=1&amp;topic=cpp-network" loading="lazy" style="width:100%;height:820px;border:0;border-radius:16px"></iframe>
+
+<!-- knowledge-diagram:end -->
+
+
+
+
 
 ## 学习路线
 
@@ -113,7 +125,7 @@ C++ 中通过 `socket()` 函数创建 Socket，需指定 **地址族**、**套�
 
 **问题**：主机字节序（可能小端）与网络字节序（大端）不一致，需转换后才能正确解析数据（如端口号、IP 地址）。
 
-### 2. 大小端转换函数（C++ 标准库）
+### 2. 大小端转换函数（平台网络 API）
 
 |**函数**|**原型**|**功能**|**示例**|
 |:--|:--|:--|:--|
@@ -207,7 +219,7 @@ close(sock_fd);
 |:--|:--|:--|
 |`socket()`|创建 Socket|`domain`（地址族）、`type`（套接字类型）、`protocol`（协议，0 自动匹配）|
 |`bind()`|绑定 IP 和端口到 Socket|`sockfd`（Socket 描述符）、`addr`（地址结构体）、`addrlen`（地址长度）|
-|`listen()`|监听连接（仅服务器）|`sockfd`（服务器 Socket）、`backlog`（最大等待连接数，通常 5~10）|
+|`listen()`|监听连接（仅服务器）|`sockfd`（服务器 Socket）、`backlog`（等待 accept 的队列上限；平台和系统限制需另查）|
 |`accept()`|接受客户端连接（仅服务器，阻塞）|`sockfd`（服务器 Socket）、`addr`（客户端地址）、`addrlen`（地址长度指针）|
 |`connect()`|连接服务器（仅客户端）|`sockfd`（客户端 Socket）、`addr`（服务器地址）、`addrlen`（地址长度）|
 |`send()`/`recv()`|发送/接收数据（TCP 字节流）|`sockfd`（Socket 描述符）、`buf`（数据缓冲区）、`len`（长度）、`flags`（0 默认）|
@@ -215,10 +227,10 @@ close(sock_fd);
 
 ## 七、注意事项
 
-1. **错误处理**：所有 Socket 函数返回 -1 表示失败，需通过 `errno`（Linux）或 `WSAGetLastError()`（Windows）获取错误码。
+1. **错误处理**：按具体接口判断返回值：Linux 的 socket 等常以 -1 表示失败；Winsock 的 socket/accept 返回 INVALID_SOCKET，其他函数常返回 SOCKET_ERROR；inet_pton 和 WSAStartup 也有各自规则。
 
 2. **IP 地址转换**：
-    - 字符串转网络字节序：`inet_pton(AF_INET, "192.168.1.1", &addr.sin_addr)`（推荐，支持 IPv6）。
+    - 字符串转网络字节序：`inet_pton(AF_INET, "192.168.1.1", &addr.sin_addr)`（此处 AF_INET 只解析 IPv4；IPv6 用 AF_INET6 和对应地址结构）。
 
     - 网络字节序转字符串：`inet_ntop(AF_INET, &addr.sin_addr, buf, sizeof(buf))`。
 
@@ -319,7 +331,7 @@ struct in_addr {
 - **IP 地址**：
     - 服务器常用 `INADDR_ANY`（值为 0，绑定所有网卡，即 `0.0.0.0`）。
 
-    - 指定 IP 时用 `inet_pton(AF_INET, "192.168.1.1", &addr.sin_addr)`（推荐，支持 IPv6）。
+    - 指定 IP 时用 `inet_pton(AF_INET, "192.168.1.1", &addr.sin_addr)`（此处 AF_INET 只解析 IPv4；IPv6 用 AF_INET6 和对应地址结构）。
 
 - **端口复用**：若需重启服务器时立即重用端口，需设置 `SO_REUSEADDR` 选项：
     ```cpp
@@ -363,7 +375,7 @@ int listen(SOCKET s, int backlog);
 |**参数**|**说明**|
 |:--|:--|
 |`sockfd`|已绑定的服务器套接字描述符/句柄|
-|`backlog`|未完成连接队列（SYN 队列）的最大长度（半连接数），已完成连接队列（ACCEPT 队列）由系统自动管理。  <br>建议值：5~10（过小会拒绝连接，过大浪费资源）|
+|`backlog`|现代 Linux 中为已完成握手、等待 accept 的连接队列上限，并受系统 somaxconn 限制；半连接队列另有设置。值应按负载和系统限制确定，不固定推荐 5~10|
 
 #### 返回值
 
@@ -373,7 +385,7 @@ int listen(SOCKET s, int backlog);
 #### 示例
 
 ```cpp
-if (listen(server_fd, 5) == -1) {  // 最大 5 个半连接
+if (listen(server_fd, 5) == -1) {  // 示例 backlog 为5，现代Linux指等待accept的完成连接队列
   perror("listen failed");
   close(server_fd);
   exit(EXIT_FAILURE);
@@ -463,9 +475,9 @@ int connect(SOCKET s, const struct sockaddr *name, int namelen);
 
 #### 关键特性
 
-- **阻塞模式**：默认阻塞，直到连接成功或失败（超时由 `SO_SNDTIMEO` 选项控制）。
+- **阻塞模式**：默认阻塞，直到连接成功或失败（超时行为依平台；应用可用非阻塞 connect、等待就绪和 SO_ERROR 实现明确超时）。
 
-- **非阻塞模式**：若套接字设为非阻塞，`connect()` 会立即返回 `-1`，需通过 `select/poll` 检查连接可以理解为否完成。
+- **非阻塞模式**：非阻塞 connect 可能立即成功；Linux 上尚未完成时常返回 -1/EINPROGRESS。等待可写后，还要用 getsockopt(SO_ERROR) 核实成功或失败，不能把可写直接当连接成功。
 
 
 #### 示例（Linux 客户端连接服务器）
@@ -518,7 +530,7 @@ int send(SOCKET s, const char *buf, int len, int flags);
 
 - **失败**：返回 `-1`（Linux）或 `SOCKET_ERROR`（Windows）。
 
-- **特殊情况**：返回 0 表示连接已关闭（对端调用 `close`）。
+- **注意**：send 返回 0 不能直接解释为对端关闭；它报告本次接受的发送字节数，成功也不代表对端应用已收到。TCP 接收在请求非零长度且返回 0 时才表示有序 EOF。
 
 
 #### 示例（发送字符串）
@@ -621,7 +633,7 @@ int WSAStartup(WORD wVersionRequested, LPWSADATA lpWSAData);
 
 ##### 返回值
 
-- 成功：0；失败：非 0（需用 `WSAGetLastError()` 获取错误码）。
+- 成功：0；失败：直接返回非 0 的错误码；WSAStartup 的错误不应再通过 WSAGetLastError 获取。
 
 
 ##### 示例
@@ -631,8 +643,9 @@ int WSAStartup(WORD wVersionRequested, LPWSADATA lpWSAData);
 #pragma comment(lib, "ws2_32.lib")  // 链接 ws2_32 库（MSVC）
 
 WSADATA wsaData;
-if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-  printf("WSAStartup failed: %d\n", WSAGetLastError());
+const int startup_error = WSAStartup(MAKEWORD(2, 2), &wsaData);
+if (startup_error != 0) {
+  printf("WSAStartup failed: %d\n", startup_error);
   return 1;
 }
 ```
@@ -653,21 +666,24 @@ int WSACleanup(void);  // 成功返回 0，失败返回 SOCKET_ERROR
 |:--|:--|:--|
 |套接字类型|`int`（描述符）|`SOCKET`（无符号整型，`INVALID_SOCKET` 表示无效）|
 |关闭套接字|`close(int fd)`|`closesocket(SOCKET s)`|
-|错误处理|`errno`（全局变量）+ `perror()`|`WSAGetLastError()`（返回错误码）|
+|错误处理|`errno`（线程局部错误状态）+ `perror()`|`WSAGetLastError()`（返回错误码）|
 |函数前缀|无（如 `socket`、`bind`）|部分函数带 `WSAPrefix`（如 `WSASocket`，但通常直接用无前缀版本兼容 Berkeley API）|
 
 ### 3. Windows 平台 TCP 通信示例（客户端）
 
 ```cpp
 #include <iostream>
+#include <cstring>
 #include <winsock2.h>
+#include <ws2tcpip.h>
 #pragma comment(lib, "ws2_32.lib")
 
 int main() {
   // 1. 初始化 Winsock
   WSADATA wsaData;
-  if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-    std::cerr << "WSAStartup failed: " << WSAGetLastError() << std::endl;
+  const int startup_error = WSAStartup(MAKEWORD(2, 2), &wsaData);
+  if (startup_error != 0) {
+    std::cerr << "WSAStartup failed: " << startup_error << std::endl;
     return 1;
   }
 
@@ -786,20 +802,19 @@ Socket 通信的核心可以理解为**“创建-绑定-监听-连接-通信-关
 
 int main() {
     int server_fd, new_socket;
-    struct sockaddr_in address;
+    struct sockaddr_in address{};
     int opt = 1;
-    int addrlen = sizeof(address);
+    socklen_t addrlen = sizeof(address);
     char buffer[BUFFER_SIZE] = {0};
 
     // 1. 创建套接字
-    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         perror("socket failed");
         exit(EXIT_FAILURE);
     }
 
     // 2. 设置套接字选项（端口复用）
-    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR |
-    SO_REUSEPORT, &opt, sizeof(opt))) {
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
         perror("setsockopt failed");
         exit(EXIT_FAILURE);
     }
@@ -821,12 +836,12 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    cout << "Server listening on port " << PORT << endl;
+    std::cout << "Server listening on port " << PORT << std::endl;
 
     // 5. 接受客户端连接
     if ((new_socket = accept(server_fd,
     (struct sockaddr*)&address,
-    (socklen_t*)&addrlen)) < 0)
+    &addrlen)) < 0)
     {
         perror("accept failed");
         exit(EXIT_FAILURE);
@@ -843,7 +858,7 @@ int main() {
     while (true) {
         // 接收数据
         ssize_t valread = read(new_socket, buffer,
-        BUFFER_SIZE);
+        BUFFER_SIZE - 1);
         if (valread <= 0) {
             if (valread == 0) {
                 std::cout << "Client disconnected" <<
@@ -888,7 +903,7 @@ int main() {
 
 int main() {
     int sock = 0;
-    struct sockaddr_in serv_addr;
+    struct sockaddr_in serv_addr{};
     char buffer[BUFFER_SIZE] = {0};
 
     // 1. 创建套接字
@@ -919,7 +934,7 @@ int main() {
     std::string message;
     while (true) {
         std::cout << "Enter message: ";
-        std::getline(std::cin, message);
+        if (!std::getline(std::cin, message)) break;
 
         if (message == "exit") break;
 
@@ -930,7 +945,7 @@ int main() {
         }
 
         // 接收响应
-        ssize_t valread = read(sock, buffer, BUFFER_SIZE);
+        ssize_t valread = read(sock, buffer, BUFFER_SIZE - 1);
         if (valread <= 0) {
             if (valread == 0) {
                 std::cout << "Server disconnected" << std::endl;
@@ -955,6 +970,7 @@ int main() {
 ### 1. 服务端实现
 
 ```cpp
+#include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <cstring>
@@ -994,7 +1010,7 @@ int main() {
     socklen_t len = sizeof(cliaddr);
     while (true) {
         // 4. 接收数据
-        ssize_t n = recvfrom(sockfd, buffer, BUFFER_SIZE, 0,
+        ssize_t n = recvfrom(sockfd, buffer, BUFFER_SIZE - 1, 0,
                             (struct sockaddr *)&cliaddr, &len);
         if (n < 0) {
             perror("recvfrom failed");
@@ -1019,6 +1035,7 @@ int main() {
 ### 2. 客户端实现
 
 ```cpp
+#include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -1054,7 +1071,7 @@ int main() {
     std::string message;
     while (true) {
         std::cout << "Enter message: ";
-        std::getline(std::cin, message);
+        if (!std::getline(std::cin, message)) break;
 
         if (message == "exit") break;
 
@@ -1064,7 +1081,7 @@ int main() {
 
         // 4. 接收响应
         socklen_t len = sizeof(servaddr);
-        ssize_t n = recvfrom(sockfd, buffer, BUFFER_SIZE, 0,
+        ssize_t n = recvfrom(sockfd, buffer, BUFFER_SIZE - 1, 0,
                            (struct sockaddr *)&servaddr, &len);
         if (n < 0) {
             perror("recvfrom failed");
@@ -1113,7 +1130,7 @@ int main() {
     }
 
     SOCKET server_fd, new_socket;
-    struct sockaddr_in address;
+    struct sockaddr_in address{};
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[BUFFER_SIZE] = {0};
@@ -1345,16 +1362,16 @@ graph TD
 // 客户端处理线程函数
 void* handle_client(void* arg) {
     int client_fd = *(int*)arg;
-    free(arg);  // 释放动态分配的内存
+    delete static_cast<int*>(arg);  // 与创建线程前的 new int 配对
 
     char buffer[1024] = {0};
     while (true) {
         ssize_t valread = read(client_fd, buffer,
-        sizeof(buffer));
+        sizeof(buffer) - 1);
         if (valread <= 0) {
             if (valread == 0) {
-                cout << "Client disconnected: " << client_fd
-                << endl;
+                std::cout << "Client disconnected: " << client_fd
+                << std::endl;
             } else {
                 perror("read error");
             }
@@ -1377,18 +1394,18 @@ void* handle_client(void* arg) {
 
 int main() {
     int server_fd;
-    struct sockaddr_in address;
+    struct sockaddr_in address{};
     int opt = 1;
-    int addrlen = sizeof(address);
+    socklen_t addrlen = sizeof(address);
 
     // 创建套接字
-    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         perror("socket failed");
         exit(EXIT_FAILURE);
     }
 
     // 设置套接字选项
-    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) {
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
         perror("setsockopt failed");
         exit(EXIT_FAILURE);
     }
@@ -1413,7 +1430,7 @@ int main() {
 
     while (true) {
         int new_socket;
-        if ((new_socket = accept(server_fd, (struct sockaddr*)&address, (socklen_t*)&addrlen)) < 0) {
+        if ((new_socket = accept(server_fd, (struct sockaddr*)&address, &addrlen)) < 0) {
             perror("accept failed");
             continue;
         }
@@ -1564,7 +1581,9 @@ graph LR
 
 ## 四、这里要注意：基于线程池的并发服务器实现
 
-### 1. 完整实现代码
+### 1. 基础实现代码
+
+此例用于理解固定工作线程和任务排队，不包含连接数限制、读写超时和优雅停服；长连接会持续占用工作线程，不能当作高并发性能的实测证明。
 
 ```cpp
 #include <iostream>
@@ -1587,22 +1606,19 @@ public:
         for (size_t i = 0; i < num_threads; ++i) {
             workers.emplace_back([this] {
                 while (true) {
-                    function<void()> task;
+                    std::function<void()> task;
                     {
-                        unique_lock<std::mutex>
+                        std::unique_lock<std::mutex>
                         lock(this->queue_mutex);
 
                         this->condition.wait(lock, [this] {
-                            return this->stop || !this-
-                            >tasks.empty();
+                            return this->stop || !this->tasks.empty();
                         });
 
-                        if (this->stop && this-
-                        >tasks.empty())
+                        if (this->stop && this->tasks.empty())
                             return;
 
-                        task = std::move(this-
-                        >tasks.front());
+                        task = std::move(this->tasks.front());
                         this->tasks.pop();
                     }
                     task();
@@ -1650,7 +1666,7 @@ public:
 
         // 设置套接字选项
         int opt = 1;
-        if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) {
+        if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
             close(server_fd);
             throw std::runtime_error("setsockopt failed");
         }
@@ -1702,7 +1718,7 @@ public:
     void handle_client(int client_fd) {
         char buffer[1024] = {0};
         while (true) {
-            ssize_t valread = read(client_fd, buffer, sizeof(buffer));
+            ssize_t valread = read(client_fd, buffer, sizeof(buffer) - 1);
             if (valread <= 0) {
                 if (valread == 0) {
                     std::cout << "Client " << client_fd << " disconnected" << std::endl;
@@ -1747,7 +1763,9 @@ int main() {
 }
 ```
 
-### 2. 关键优化点
+### 2. 可继续实现的优化方向
+
+下面列的是扩展设想，上方代码尚未实现任务窃取、扩缩容、优先级、超时和负载监控。
 
 1. **任务窃取（Work Stealing）**：空闲线程从其他线程队列获取任务。
 
@@ -1760,15 +1778,17 @@ int main() {
 5. **负载监控**：实时监控线程池负载状态。
 
 
-### 3. 性能对比
+### 3. 理论资源关系（未附压测数据）
+
+以下仅说明线程数量的变化。栈的预留地址空间不等于实际常驻内存，8 MB 也不是所有平台的固定值；吞吐和延迟需在相同负载下测量。
 
 |**指标**|**每连接一线程**|**线程池(4线程)**|**线程池(8线程)**|
 |:--|:--|:--|:--|
 |100并发连接|创建100线程|4线程处理|8线程处理|
-|内存占用|~800MB (100×8MB)|~32MB (4×8MB)|~64MB (8×8MB)|
-|CPU利用率|高上下文切换|中等|较高|
-|吞吐量|低（线程竞争）|高|更高|
-|响应延迟|不稳定|稳定|更稳定|
+|线程栈规模|与100个线程各自的栈配置相关|与4个工作线程的栈配置相关|与8个工作线程的栈配置相关|
+|CPU与调度成本|取决于活跃线程和负载|需测量|需测量|
+|吞吐量|需测量|需测量|需测量|
+|响应延迟|取决于工作负载|排队也可能增加延迟|需结合负载测量|
 
 ## 五、把它落到代码里：高级线程池实现
 
@@ -1776,7 +1796,9 @@ int main() {
 
 ```cpp
 #include <queue>
-#include <tuple>
+#include <vector>
+#include <utility>
+#include <stdexcept>
 
 template<typename T>
 class PriorityQueue {
@@ -1786,6 +1808,7 @@ public:
     }
 
     T pop() {
+        if (queue.empty()) throw std::out_of_range("empty priority queue");
         auto top = queue.top();
         queue.pop();
         return top.second;
@@ -1794,7 +1817,12 @@ public:
     bool empty() const { return queue.empty(); }
 
 private:
-    std::priority_queue<std::pair<int, T>> queue;
+    struct ByPriority {
+        bool operator()(const std::pair<int, T>& a, const std::pair<int, T>& b) const {
+            return a.first < b.first;
+        }
+    };
+    std::priority_queue<std::pair<int, T>, std::vector<std::pair<int, T>>, ByPriority> queue;
 };
 
 class PriorityThreadPool {
@@ -1802,7 +1830,9 @@ class PriorityThreadPool {
 };
 ```
 
-### 2. 带任务超时的线程池
+### 2. 排队任务过期处理（结构示意）
+
+下面只展示任务开始前丢弃过期任务的逻辑，不会强制中止已经运行的任务；相关成员、提交接口和停止协议需另行补齐。
 
 ```cpp
 class TimeoutThreadPool {
@@ -1813,25 +1843,18 @@ class TimeoutThreadPool {
 
     // 工作线程中检查任务超时
     void worker_thread() {
-        while (!stop) {
+        while (true) {
             std::function<void()> task;
             {
                 std::unique_lock lock(mutex);
-                if (tasks.empty()) {
-                    condition.wait(lock);
+                condition.wait(lock, [this] { return stop || !tasks.empty(); });
+                if (stop && tasks.empty()) return;
+                if (tasks.front().deadline <= std::chrono::steady_clock::now()) {
+                    tasks.pop();  // 丢弃开始执行前已经过期的任务
                     continue;
                 }
-
-                // 检查队首任务是否超时
-                auto now = std::chrono::steady_clock::now();
-                if (tasks.front().deadline < now) {
-                    task = std::move(tasks.front().func);
-                    tasks.pop();
-                } else {
-                    // 等待最早超时任务的剩余时间
-                    condition.wait_until(lock, tasks.front().deadline);
-                    continue;
-                }
+                task = std::move(tasks.front().func);
+                tasks.pop();
             }
             task();
         }
@@ -1871,7 +1894,7 @@ try {
         // 可能抛出异常的任务
     });
 } catch (const std::runtime_error& e) {
-    // 处理队列满的情况
+    // 处理提交失败；上面的基础实现未设置队列容量，不会主动报“队列满”
     log_error(e.what());
 }
 
@@ -1902,6 +1925,11 @@ thread_pool.enqueue([] {
 
 
 ```cpp
+#include <type_traits>
+#include <memory>
+#include <utility>
+#include <stdexcept>
+#include <chrono>
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -1935,7 +1963,7 @@ public:
                         lock(this->queue_mutex);
 
                         // 等待条件变量：当任务队列非空或线程池停止
-                        时唤醒
+                        // 时唤醒
                         this->condition.wait(lock, [this] {
                             // 等待条件：线程池停止 或 任务队列非空
                             return this->stop || !this->tasks.empty();
@@ -1976,10 +2004,10 @@ public:
     // 提交任务到线程池
     template<class F, class... Args>
     auto enqueue(F&& f, Args&&... args)
-        -> std::future<typename std::result_of<F(Args...)>::type>
+        -> std::future<std::invoke_result_t<F, Args...>>
     {
         // 获取任务返回类型
-        using return_type = typename std::result_of<F(Args...)>::type;
+        using return_type = std::invoke_result_t<F, Args...>;
 
         // 将任务包装成可调用对象，并附加到promise上
         auto task = std::make_shared<std::packaged_task<return_type()>>(
@@ -2166,10 +2194,10 @@ public:
     // 提交任务到线程池
     template<class F, class... Args>
     auto enqueue(F&& f, Args&&... args)
-        -> std::future<typename std::result_of<F(Args...)>::type>
+        -> std::future<std::invoke_result_t<F, Args...>>
     {
         // 获取任务返回类型
-        using return_type = typename std::result_of<F(Args...)>::type;
+        using return_type = std::invoke_result_t<F, Args...>;
 
         // 将任务包装成可调用对象，并附加到promise上
         // 使用shared_ptr管理任务对象生命周期
@@ -2327,7 +2355,7 @@ int main() {
 
     - 使用`std::future`获取异步任务结果。
 
-    - `std::result_of`推导任务返回类型。
+    - `std::invoke_result_t` 推导任务返回类型（C++17 起）。
 
     - `get()`方法阻塞等待任务完成。
 

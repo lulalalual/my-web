@@ -14,6 +14,20 @@ tags:
 cover: /img/covers/ai/cover-raft-kv.webp
 description: 复盘基于 Raft 的分布式 KV：选主、日志复制、持久化、状态机、跳表和 RPC 通信。
 ---
+<!-- knowledge-diagram:start -->
+## 图解速览
+
+教程学习 · 日志提交还需满足当前任期等 Raft 安全规则。
+
+<iframe class="knowledge-diagram" title="Raft 复制到状态机" src="/portfolio-assets/knowledge/?compact=1&amp;topic=raft-kv-storage-review" loading="lazy" style="width:100%;height:820px;border:0;border-radius:16px"></iframe>
+
+<!-- knowledge-diagram:end -->
+
+
+
+
+
+> 学习项目说明：代码基于 [KVstorageBaseRaft-cpp](https://github.com/youngyangyang04/KVstorageBaseRaft-cpp) 教程项目。本文记录协议与实现的学习复盘，不作为个人从零研发存储系统或性能指标的证明。
 
 基于 Raft 的分布式 KV 存储，目标是让多个节点对外表现得像一个可靠的存储服务。用户写入一个 key-value，不应该因为某个节点宕机就丢数据；多个节点也不能各自做主，写出互相冲突的结果。
 

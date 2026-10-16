@@ -14,6 +14,18 @@ tags:
 cover: /img/covers/ai/cover-sql-advanced.webp
 description: 用人话讲 SQL 进阶：执行计划、索引设计、慢查询优化、事务锁和日志。
 ---
+<!-- knowledge-diagram:start -->
+## 图解速览
+
+用执行计划提出优化假设，再以真实场景复测耗时与扫描行为。
+
+<iframe class="knowledge-diagram" title="从慢查询到复测" src="/portfolio-assets/knowledge/?compact=1&amp;topic=sql-advanced" loading="lazy" style="width:100%;height:820px;border:0;border-radius:16px"></iframe>
+
+<!-- knowledge-diagram:end -->
+
+
+
+
 
 ## 学习路线
 
@@ -70,7 +82,7 @@ MySQL 支持多种索引类型，按数据结构和使用场景可分为以下�
 |类型|作用|示例|
 |:--|:--|:--|
 |**主键索引**|唯一标识记录，非空且唯一，一个表仅一个（InnoDB 中为主键的 B+树聚簇索引）|`id INT PRIMARY KEY`|
-|**唯一索引**|保证字段值唯一（允许 NULL，但 NULL 仅可出现一次）|`username VARCHAR(50) UNIQUE`|
+|**唯一索引**|保证字段值唯一（可空列允许多个 NULL）|`username VARCHAR(50) UNIQUE`|
 |**普通索引**|无唯一性约束，仅加速查询|`INDEX idx_age (age)`|
 |**复合索引**|多字段组合的索引（遵循“最左前缀法则”）|`INDEX idx_class_gender (class_id, gender)`|
 |**前缀索引**|对字符串字段的前 N 个字符建索引（节省空间）|`INDEX idx_name (name(10))`（取 name 前10字符）|
@@ -140,11 +152,11 @@ InnoDB 引擎默认使用 **B+树索引**，其结构使用时要抓住的点决
 
 ### 5. 索引的维护
 
-- **查看索引**：`SHOW INDEX FROM 表名。`（查看表的索引详情，含索引名、字段、类型等）。
+- **查看索引**：`SHOW INDEX FROM 表名;`（查看表的索引详情，含索引名、字段、类型等）。
 
-- **删除无用索引**：`DROP INDEX 索引名 ON 表名。`（避免冗余索引，如已有 `(a,b)` 则无需单独建 `a` 索引）。
+- **删除无用索引**：`DROP INDEX 索引名 ON 表名;`（避免冗余索引，如已有 `(a,b)` 则无需单独建 `a` 索引）。
 
-- **重建索引**：`ALTER TABLE 表名 ENGINE=InnoDB。`（或 `OPTIMIZE TABLE 表名。`，修复索引碎片，提升查询效率）。
+- **重建索引**：`ALTER TABLE 表名 ENGINE=InnoDB;`（或 `OPTIMIZE TABLE 表名;`，修复索引碎片，提升查询效率）。
 
 
 
@@ -156,7 +168,7 @@ SQL 优化的核心目标可以理解为**减少数据库 IO 开销、提升查�
 
 `EXPLAIN`可以理解为MySQL 提供的分析 SQL 执行计划的工具，通过它可以判断 SQL 是否走索引、扫描行数、连接方式等，是定位性能瓶颈的关键。
 
-**用法**：在 SQL 前加 `EXPLAIN`，如 `EXPLAIN SELECT * FROM students WHERE age > 18。`
+**用法**：在 SQL 前加 `EXPLAIN`，如 `EXPLAIN SELECT * FROM students WHERE age > 18;`
 
 **核心输出字段解读**：
 |字段|说明|优化方向|
@@ -197,9 +209,9 @@ SQL 优化的核心目标可以理解为**减少数据库 IO 开销、提升查�
 
 - **子查询转 JOIN**：多数场景下，JOIN 比子查询效率高（子查询可能多次执行）。
 
-    - 低效：`SELECT * FROM students WHERE class_id IN (SELECT id FROM classes WHERE grade=3)。`
+    - 低效：`SELECT * FROM students WHERE class_id IN (SELECT id FROM classes WHERE grade=3);`
 
-    - 高效：`SELECT s.* FROM students s JOIN classes c ON s.class_id=c.id WHERE c.grade=3。`
+    - 高效：`SELECT s.* FROM students s JOIN classes c ON s.class_id=c.id WHERE c.grade=3;`
 
 - **相关子查询慎用**：相关子查询（依赖外层查询字段）需逐行执行，效率低，可转为非相关子查询或 JOIN。
 
@@ -210,7 +222,7 @@ SQL 优化的核心目标可以理解为**减少数据库 IO 开销、提升查�
 
     - 例：索引 `(class_id, age)`，查询 `SELECT * FROM students WHERE class_id=101 ORDER BY age`，可利用索引排序。
 
-- **避免混合 ASC/DESC**：索引排序仅支持统一升序/降序，混合排序可能导致文件排序。
+- **匹配排序方向**：MySQL 8.0+ 的 InnoDB 支持降序索引；多列 ASC/DESC 混合排序也可能使用匹配的索引，是否 filesort 要看索引定义和执行计划。
 
 
 #### （5）分页查询优化
@@ -403,7 +415,7 @@ DELIMITER ;  -- 恢复默认分隔符
 
 |类型|说明|示例|
 |:--|:--|:--|
-|`IN`|输入参数（默认，调用时传入值，过程内只读）|`IN class_id INT`|
+|`IN`|输入参数（默认，过程内可改，修改不传回调用方）|`IN class_id INT`|
 |`OUT`|输出参数（过程内赋值，返回给调用者）|`OUT student_count INT`|
 |`INOUT`|输入输出参数（调用时传入，过程内可修改）|`INOUT total_score INT`|
 
@@ -444,8 +456,9 @@ SELECT @count AS student_count, @avg_age AS avg_age;
 #### （5）修改与删除存储过程
 
 ```sql
--- 修改存储过程（本质是替换定义）
-ALTER PROCEDURE GetClassStats ...
+-- ALTER 只能修改属性，不能修改参数或过程体
+ALTER PROCEDURE GetClassStats COMMENT '班级统计';
+-- 修改参数或过程体时，保存原定义后 DROP，再 CREATE
 
 -- 删除存储过程
 DROP PROCEDURE [IF EXISTS] GetClassStats;
@@ -648,7 +661,7 @@ UNLOCK TABLES;
 |**临键锁（Next-Key Lock）**|记录锁 + 间隙锁的组合（锁定记录及前一个间隙），InnoDB 默认行锁模式|可重复读隔离级别下默认启用|
 
 **行锁的核心特性**：
-- **基于索引**：行锁仅对有索引的字段生效，若查询未用索引（如 `WHERE name='张三'` 且 name 无索引），InnoDB 会全表扫描并升级为**表锁**。
+- **基于索引记录**：InnoDB 的记录锁作用于索引记录。锁定查询缺乏合适索引时，可能扫描并锁住大量记录或间隙，不能解释成行锁自动升级为表锁；普通一致性读通常不加这类锁。
 
 - **锁冲突规则**：共享锁（S）与排他锁（X）互斥，记录锁间按索引值冲突（如两个事务锁同一行 X 锁则阻塞）。
 
@@ -787,7 +800,7 @@ InnoDB 行锁基于 **B+树索引** 实现，核心依赖以下机制：
 
 - **死锁检测**：默认开启（`innodb_deadlock_detect=ON`），通过**等待图（Wait-for Graph）** 检测循环等待，发现死锁后选择一个事务回滚（通常是修改行数最少的事务）。
 
-- **超时释放**：若死锁检测关闭（`innodb_deadlock_detect=OFF`），事务会因锁等待超时（`innodb_lock_wait_timeout`，默认 50 秒）自动回滚。
+- **超时释放**：若死锁检测关闭（`innodb_deadlock_detect=OFF`），锁等待超过 `innodb_lock_wait_timeout`（默认 50 秒）时，默认只回滚失败的语句；启用 `innodb_rollback_on_timeout` 才回滚整个事务，应用应按业务处理后续回滚或重试。
 
 
 ### 3. 避免死锁的最佳实践
@@ -819,10 +832,16 @@ SHOW ENGINE INNODB STATUS\G  -- 关注 "TRANSACTIONS" 部分的 "LOCK WAIT"
 ### 2. 查看死锁日志
 
 ```sql
--- 开启死锁日志（默认开启）
+-- 查看是否记录所有死锁（默认 OFF）
 SHOW VARIABLES LIKE 'innodb_print_all_deadlocks';  -- 设为 ON 记录所有死锁到错误日志
 
--- 查看最近死锁（错误日志路径：SHOW VARIABLES LIKE 'log_error'）
+-- 查看最近一次检测到的死锁
+SHOW ENGINE INNODB STATUS\G
+```
+
+如需查看错误日志，先通过 `SHOW VARIABLES LIKE 'log_error';` 确认真实路径，再在系统终端执行：
+
+```bash
 tail -f /var/log/mysql/error.log | grep "deadlock"
 ```
 
@@ -830,7 +849,7 @@ tail -f /var/log/mysql/error.log | grep "deadlock"
 
 1. **优先用行锁**：InnoDB 行锁并发度高，避免 MyISAM 表锁（除非读多写少且数据量小）。
 
-2. **索引可以理解为关键**：行锁依赖索引，确保所有查询都用索引（避免全表扫描导致锁升级）。
+2. **索引可以理解为关键**：锁定访问应有合适索引，以减少不必要的大范围记录或间隙锁；以执行计划和业务需求判断，不要求所有查询强制走索引。
 
 3. **避免过度加锁**：仅对必要行加锁（如 `WHERE id=1` 而非 `WHERE status=1`，后者可能锁多行）。
 

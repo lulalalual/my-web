@@ -1,0 +1,33 @@
+[
+  {
+    "file": "qrcode.min.js",
+    "source": "https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js",
+    "sha256": "c541ef06327885a8415bca8df6071e14189b4855336def4f36db54bde8484f36",
+    "bytes": 19927
+  },
+  {
+    "file": "waterfall.js",
+    "source": "https://cdn.jsdelivr.net/npm/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js",
+    "sha256": "9346717edb8b8f4664ffe8233bb5458c8d4720442d1e27e2a3347d5c33f2e767",
+    "bytes": 2633
+  },
+  {
+    "file": "ali_iconfont_css.css",
+    "source": "https://cdn.jsdelivr.net/npm/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css",
+    "sha256": "5d3bb5e4a97b0832d8012b3c2717634627c196604466d541295904f878a1d3f5",
+    "bytes": 8224
+  },
+  {
+    "file": "anzhiyu-iconfont.woff2",
+    "source": "https://cdn.jsdelivr.net/npm/anzhiyu-theme-static@1.1.9/icon/font_2508400_fpn9ui60u6q.woff2?t=1690446183540",
+    "sha256": "499f0b658abd31e449091e071d1abcd3f533eb4d09a4dc9a43be4c6b875b8874",
+    "bytes": 16500
+  },
+  {
+    "file": "typed.umd.js",
+    "source": "https://cdn.jsdelivr.net/npm/typed.js@2.0.15/dist/typed.umd.js",
+    "sha256": "58424467abb3fa4b302a80c7108fe20ca8328e4ecb4275cf1a04db3fa5f83f27",
+    "bytes": 9843,
+    "license": "MIT (typed-LICENSE.txt)"
+  }
+]

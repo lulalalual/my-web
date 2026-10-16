@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "hexo server -p 53248 -i 127.0.0.1",
-    "build": "hexo generate",
+    "build": "node tools/render-portfolio.mjs && hexo generate",
     "start": "hexo server -p 53248 -i 127.0.0.1",
     "clean": "hexo clean",
     "lint": "hexo generate --silent",
     "verify:deployment": "node tools/verify-deployment.mjs",
-    "postinstall": "node node_modules/patch-package/index.js"
+    "postinstall": "node tools/theme-fixes.cjs"
   },
   "dependencies": {
     "hexo": "^8.1.1",
@@ -22,10 +22,7 @@
     "hexo-renderer-pug": "^3.0.0",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
-    "hexo-theme-anzhiyu": "^1.6.0"
-  },
-  "devDependencies": {
-    "patch-package": "^8.0.1"
+    "hexo-theme-anzhiyu": "1.6.0"
   },
   "hexo": {
     "version": "8.1.1"

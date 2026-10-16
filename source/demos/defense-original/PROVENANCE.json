@@ -1,0 +1,73 @@
+{
+  "title": "C++ 学习项目 · 原 SDL 浏览器双人适配",
+  "review_date": "2026-10-16",
+  "alias": "青阳寻雪",
+  "origin": "User-provided C++/SDL source; read-only original retained privately",
+  "upstream_reference": "https://github.com/yuchengtu2002/Village_TD",
+  "tutorial_reference": "https://space.bilibili.com/25864506",
+  "changes": [
+    "Emscripten scheduled original SDL input/update/render loop",
+    "New local P2 instance, independent keys/MP/skills and tint",
+    "Timer, wave, upgrades, mouse boundary, home-zero, cooldown and stale panel repairs",
+    "One coin-drop decision per defeated enemy, including player kills",
+    "Virtual destructors and skip removed targets",
+    "Pause/restart/fullscreen/touch controls",
+    "Only regenerate number textures on value change",
+    "Web number font changed from IPix to unmodified Press Start 2P, SIL OFL"
+  ],
+  "original_assets": {
+    "graphics_and_audio": "Original pixels/sounds; exact redistribution licence not yet confirmed; local review only",
+    "original_ipix_excluded": true,
+    "font": "https://github.com/google/fonts/tree/main/ofl/pressstart2p",
+    "font_license_file": "PressStart2P-OFL.txt"
+  },
+  "scope": [
+    "Local two-player co-op, not online multiplayer",
+    "Original four waves / three towers / five enemy types / original map and game config",
+    "Original was single-player; P2 is new October 2026 browser adaptation",
+    "No commit, push, PR or deployment"
+  ],
+  "testing": {
+    "production_browser_checks": 26,
+    "controlled_clock_win": "Four original waves cleared, HP 7; actual inputs and economy, no HP/coin/damage mutation",
+    "controlled_clock_loss": "Four waves reached and HP 0 loss verified; accelerated QA clock, not a real-time manual playthrough",
+    "qa_clock_function_not_shipped": true
+  },
+  "files": [
+    {
+      "file": "game.data",
+      "bytes": 3756974,
+      "sha256": "e0b0e3be8e63482df76b94bd5a266d5169ecce8f68ab212548438dc2264eb21c"
+    },
+    {
+      "file": "game.js",
+      "bytes": 224415,
+      "sha256": "89fa824c0bdffa2d96c06e0c448ce14a90913c778a366964b059209479d4379e"
+    },
+    {
+      "file": "game.wasm",
+      "bytes": 2764850,
+      "sha256": "a7313e742197698457d0baa143863f2ea0df9b7eba95accd312005318c795d97"
+    },
+    {
+      "file": "index.html",
+      "bytes": 3035,
+      "sha256": "5fff22fba7024bd178b2f89796479f76279216cbe35cfec48a478dc5a34c17f1"
+    },
+    {
+      "file": "PressStart2P-OFL.txt",
+      "bytes": 4413,
+      "sha256": "705960c3281a5765ecc0b59bd4ed7ca59eed165748076bc2fc3e8fdbfeb944b0"
+    },
+    {
+      "file": "web-ui.css",
+      "bytes": 2110,
+      "sha256": "9e9d7c6c9179b3d2a0417970ff20d74b785fde7329d45795043543e4f00dc1ae"
+    },
+    {
+      "file": "web-ui.js",
+      "bytes": 4654,
+      "sha256": "14d0a9b950008993bb03364d52ecde1467296a787ee868f6d4ecf12e7661190a"
+    }
+  ]
+}

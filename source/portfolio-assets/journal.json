@@ -1,0 +1,5 @@
+[
+  {"url":"/posts/interview-master-review/","kind":"PRODUCT / 项目复盘","title":"面试训练，从一次回答到下一次练习","description":"沿着选岗、追问与报告，回看面试应用的设计和实现。"},
+  {"url":"/posts/tower-defense-duo-review/","kind":"ENGINEERING / 开发记录","title":"在同一张地图里，理解双人协作","description":"从输入、地图到状态变化，记录塔防工程里的具体取舍。"},
+  {"url":"/posts/site-portal-refactor/","kind":"DESIGN / 网站手记","title":"内容、界面与维护之间的平衡","description":"保留早期改站记录，也让每次新的调整有迹可循。"}
+]

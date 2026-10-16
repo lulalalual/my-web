@@ -14,6 +14,18 @@ tags:
 cover: /img/covers/ai/cover-agentic-rl.png
 description: 复盘 Agentic RL Tool Optimizer：Agent trajectory 评测、偏好数据构造、SFT/DPO/GRPO JSONL 导出、策略投机检测和轻量训练。
 ---
+<!-- knowledge-diagram:start -->
+## 图解速览
+
+离线数据实验 · 3 条轨迹、2 组偏好对，当前未运行基础大模型训练。
+
+<iframe class="knowledge-diagram" title="从执行轨迹到训练数据" src="/portfolio-assets/knowledge/?compact=1&amp;topic=agentic-rl-tool-optimizer-review" loading="lazy" style="width:100%;height:820px;border:0;border-radius:16px"></iframe>
+
+<!-- knowledge-diagram:end -->
+
+
+
+
 
 Agentic RL Tool Optimizer 是一个面向 Agent 后训练的数据和 reward 实验台。它关注的不是“直接训练一个大模型”，而是训练前更关键的事情：如何记录 Agent 执行轨迹、如何评价轨迹质量、如何构造 SFT/DPO/GRPO 数据。
 

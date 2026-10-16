@@ -13,6 +13,11 @@
   --lula-hover-float: -8px;
 }
 
+#consoleMusic,
+#consoleCommentBarrage {
+  display: none;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -100,11 +105,6 @@ body.lula-pjax-leaving #content-inner {
 #content-inner {
   transition: opacity 0.42s ease, transform 0.62s var(--lula-silk-ease);
   will-change: opacity, transform;
-}
-
-body:not(.lula-ready) #content-inner {
-  opacity: 0;
-  transform: translate3d(0, 22px, 0);
 }
 
 body.lula-ready #content-inner {
@@ -1102,9 +1102,19 @@ body.lula-ready #content-inner {
 #nav-right .nav-button i,
 #nav #toggle-menu a,
 #nav #toggle-menu i {
-  color: rgba(240, 245, 255, 0.92) !important;
-  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+  color: var(--anzhiyu-fontcolor, #30343b) !important;
+  text-shadow: none;
 }
+
+#page-header.post-bg #nav #blog_name .title,
+#page-header.post-bg #nav #site-name,
+#page-header.post-bg #nav #name-container #page-name,
+#page-header.post-bg #nav .menus_item > a,
+#page-header.post-bg #nav .menus_item > a span,
+#page-header.post-bg #nav-right .nav-button a,
+#page-header.post-bg #nav-right .nav-button i,
+#page-header.post-bg #nav #toggle-menu a,
+#page-header.post-bg #nav #toggle-menu i {color: rgba(240, 245, 255, .92) !important;}
 
 #nav .menus_item > a {
   font-weight: 900;
@@ -1937,3 +1947,4 @@ body.lula-ready #content-inner {
     line-height: 1.32;
   }
 }
+:root #aside-content .author-info__name { font-family: var(--site-font) !important; }
