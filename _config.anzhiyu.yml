@@ -376,6 +376,7 @@ inject:
     - <link rel="stylesheet" href="/portfolio-assets/motion.css">
     - <link rel="stylesheet" href="/portfolio-assets/projects.css">
     - <script src="/js/native-navigation.js"></script>
+    - <script defer src="/js/article-toc.js"></script>
   bottom:
     - <script src="/js/lula-motion.js"></script>
     - <script type="module" src="/portfolio-assets/site.js"></script>

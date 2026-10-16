@@ -33,7 +33,7 @@
   }
 
   function mountReveal() {
-    var targets = document.querySelectorAll("#recent-posts > .recent-post-item:not([data-lula-reveal]), .card-widget:not([data-lula-reveal]), .lula-project-card:not([data-lula-reveal]), .lula-column-card:not([data-lula-reveal])");
+    var targets = document.querySelectorAll("#recent-posts > .recent-post-item:not([data-lula-reveal]), .card-widget:not(#card-toc):not([data-lula-reveal]), .lula-project-card:not([data-lula-reveal]), .lula-column-card:not([data-lula-reveal])");
     targets.forEach(function (target, index) {
       target.setAttribute("data-lula-reveal", "true");
       target.classList.add("lula-reveal");
@@ -275,7 +275,7 @@
   }
   function mountTilt() {
     if (!window.matchMedia || window.matchMedia('(pointer: coarse)').matches || reducedMotion.matches) return;
-    var cards = document.querySelectorAll('#recent-posts > .recent-post-item:not([data-lula-tilt]), .card-widget:not([data-lula-tilt]), .lula-project-card:not([data-lula-tilt]), .lula-column-card:not([data-lula-tilt]), #portfolio-root .work-card:not([data-lula-tilt])');
+    var cards = document.querySelectorAll('#recent-posts > .recent-post-item:not([data-lula-tilt]), .card-widget:not(#card-toc):not([data-lula-tilt]), .lula-project-card:not([data-lula-tilt]), .lula-column-card:not([data-lula-tilt]), #portfolio-root .work-card:not([data-lula-tilt])');
     cards.forEach(function (card) {
       var state = {card:card, x:0, y:0, tx:0, ty:0, rect:null};
       card.setAttribute('data-lula-tilt', 'true');

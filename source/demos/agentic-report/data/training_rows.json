@@ -1,0 +1,130 @@
+{
+  "kind": "Derived structured view of original predefined demo data; not a historical output file",
+  "source_relative_path": "src/agentic_rl_tool_optimizer/cli.py::_demo_data",
+  "source_sha256": "ab2e724e6c080981682192235f61a1b2797a60ae3fce16efe4521fc37d1c75e1",
+  "tasks": [
+    {
+      "id": "travel_refund",
+      "instruction": "查询企业客户退款规则，并计算 20000 元订单已消耗 3000 元后的可退金额。",
+      "expected_tools": [
+        {
+          "name": "search_policy",
+          "arguments": {
+            "topic": "refund"
+          },
+          "output": ""
+        },
+        {
+          "name": "calculator",
+          "arguments": {
+            "expression": "20000-3000"
+          },
+          "output": ""
+        }
+      ],
+      "success_keywords": [
+        "7 天",
+        "5 个工作日",
+        "17000"
+      ],
+      "max_steps": 3
+    }
+  ],
+  "trajectories": [
+    {
+      "id": "traj_good",
+      "task_id": "travel_refund",
+      "plan": "Use search_policy for refund policy, then calculator for remaining refundable amount.",
+      "tool_calls": [
+        {
+          "name": "search_policy",
+          "arguments": {
+            "topic": "refund"
+          },
+          "output": "7 天内可申请，5 个工作日退回"
+        },
+        {
+          "name": "calculator",
+          "arguments": {
+            "expression": "20000-3000"
+          },
+          "output": "17000"
+        }
+      ],
+      "final_answer": "企业客户 7 天内可申请退款，审核后 5 个工作日退回；扣除 3000 元后可退 17000 元。",
+      "policy_features": {
+        "use_search": 1.0,
+        "use_calculator": 1.0,
+        "ask_clarify": 0.0
+      }
+    },
+    {
+      "id": "traj_bad",
+      "task_id": "travel_refund",
+      "plan": "Ask user to contact support.",
+      "tool_calls": [
+        {
+          "name": "ask_clarify",
+          "arguments": {
+            "question": "请提供更多信息"
+          },
+          "output": ""
+        }
+      ],
+      "final_answer": "建议联系人工客服处理退款。",
+      "policy_features": {
+        "use_search": 0.0,
+        "use_calculator": 0.0,
+        "ask_clarify": 1.0
+      }
+    },
+    {
+      "id": "traj_gaming",
+      "task_id": "travel_refund",
+      "plan": "Call all tools repeatedly until the answer looks complete.",
+      "tool_calls": [
+        {
+          "name": "search_policy",
+          "arguments": {
+            "topic": "refund"
+          },
+          "output": "7 天内可申请，5 个工作日退回"
+        },
+        {
+          "name": "search_policy",
+          "arguments": {
+            "topic": "refund"
+          },
+          "output": "7 天内可申请，5 个工作日退回"
+        },
+        {
+          "name": "ask_clarify",
+          "arguments": {
+            "question": "请确认订单金额"
+          },
+          "output": ""
+        },
+        {
+          "name": "ask_clarify",
+          "arguments": {
+            "question": "请确认订单金额"
+          },
+          "output": ""
+        },
+        {
+          "name": "calculator",
+          "arguments": {
+            "expression": "20000-3000"
+          },
+          "output": "17000"
+        }
+      ],
+      "final_answer": "企业客户 7 天内可申请退款，审核后 5 个工作日退回；扣除 3000 元后可退 17000 元。",
+      "policy_features": {
+        "use_search": 1.0,
+        "use_calculator": 1.0,
+        "ask_clarify": 1.0
+      }
+    }
+  ]
+}

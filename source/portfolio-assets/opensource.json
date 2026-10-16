@@ -1,6 +1,8 @@
 [
   {
     "name": "Dify",
+    "cover": "oss-stream",
+    "coverAlt": "流式响应边界的玻璃概念视觉",
     "url": "https://github.com/langgenius/dify/pull/44199",
     "status": "PR #44199 · 已提交",
     "description": "处理流式生成的错误响应，避免空答案或半截答案被误判为成功。",
@@ -8,6 +10,8 @@
   },
   {
     "name": "LlamaIndex",
+    "cover": "oss-async",
+    "coverAlt": "异步文档检索的纸艺概念视觉",
     "url": "https://github.com/run-llama/llama_index/pull/23539",
     "status": "PR #23539 · 已提交",
     "description": "补齐文档摘要检索的异步路径，避免模型调用和文档读取阻塞其他请求。",
@@ -15,6 +19,8 @@
   },
   {
     "name": "Ragas",
+    "cover": "oss-empty",
+    "coverAlt": "空集合保护的水墨概念视觉",
     "url": "https://github.com/vibrantlabsai/ragas/pull/3065",
     "status": "PR #3065 · 已提交",
     "description": "为空示例库增加保护，跳过嵌入调用，避免矩阵异常。",

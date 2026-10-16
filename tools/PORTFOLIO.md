@@ -2,7 +2,7 @@
 
 保留 Hexo / AnZhiYu 与既有文章地址。运行 `npm run build` 会先生成作品集页面，再生成 Hexo 公共文件。
 
-- `source/portfolio-assets/projects.json`：六个项目的技术说明、角色、封面、应用或截图路径。`featured` 控制两张首页应用卡片；其余进入横向工程卡片轨道。`demo` 可选，只有实际应用才展开体验；同一份数据生成 `/projects/` 和独立详情页。
+- `source/portfolio-assets/projects.json`：七个项目的技术说明、角色、封面、应用或截图路径。`featured` 控制两张首页应用卡片；其余进入横向工程卡片轨道。`demo` 可选，实际应用或原始结果报告使用嵌入展示；同一份数据生成 `/projects/` 和独立详情页。
 - `opensource.json`、`journal.json`：贡献及精选文章。贡献状态需核实后更新。
 - `tools/templates/portfolio-home.html`：精简首页与栏目入口。工作经历维护于 `source/experience/index.html`；方案实践与开源页由构建器生成。不要直接修改生成的 `source/index.html`、`source/practice/index.html`、`source/opensource/index.html` 或 `source/work/*/index.html`。
 - `site.css`：作品集布局及主题变量；`theme-bridge.css`：原主题的接合边界；`projects.css`：工程轨道、技术标签、原界面截图与采集流程图。

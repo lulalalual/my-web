@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Agent 轨迹实验报告</title>
+  <meta name="description" content="一个示例任务、三条预设工具轨迹的原始实验结果：规则奖励、偏好对、投机提示与训练数据导出。">
+  <link rel="stylesheet" href="/portfolio-assets/fonts/site-font.css">
+  <link rel="stylesheet" href="/vendor/theme/ali_iconfont_css.css">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#trajectories">跳到轨迹结果</a>
+  <main class="report">
+    <header class="report-header">
+      <div class="heading-copy">
+        <h1>Agent 轨迹实验报告</h1>
+        <p>从工具调用轨迹，到规则奖励与偏好数据。</p>
+      </div>
+      <button id="theme-toggle" class="icon-button" type="button" aria-label="切换报告深浅色" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20.1 15.6A8.4 8.4 0 0 1 8.4 3.9a8.4 8.4 0 1 0 11.7 11.7Z"/></svg>
+        <span>深色</span>
+      </button>
+    </header>
+
+    <p class="scope-note">原始离线实验结果。工具调用与回答均为预设示例；评分来自五项规则，小型训练只更新三个特征权重。</p>
+    <div id="load-status" class="load-status" role="status" aria-live="polite">正在读取本地实验数据…</div>
+
+    <div id="report-content" hidden>
+      <section class="summary-strip" id="summary" aria-label="实验规模"></section>
+
+
+
+      <section id="trajectories" aria-labelledby="trajectory-title">
+        <div class="section-title"><div><h2 id="trajectory-title">轨迹与奖励</h2><p>奖励是加权规则分数，取值 0–1；它不代表模型准确率。</p></div></div>
+        <div id="trajectory-grid" class="trajectory-grid"></div>
+        <details class="plain-details rules-details">
+          <summary>评分规则与权重</summary>
+          <div class="details-body"><div id="reward-rules" class="rule-list"></div><p class="small-note">完成度按关键词命中；工具项按名称计数；参数按字符串比较；计划项检查工具名是否出现。规则没有核验工具实际执行、事实正确性或完整调用依赖。</p></div>
+        </details>
+      </section>
+
+      <section class="task-section" aria-labelledby="task-title">
+        <div class="section-title">
+          <div><h2 id="task-title">一个任务，三种路径</h2><p>把完成任务、回避工具与重复调用放在同一规则下观察。</p></div>
+          <a class="text-link" href="./data/original/optimizer_report.json" download="optimizer_report.json">下载原报告 <span aria-hidden="true">↘</span></a>
+        </div>
+        <div class="task-brief">
+          <div><span class="label">手工示例任务</span><p id="task-instruction"></p></div>
+          <dl class="task-meta"><div><dt>任务 ID</dt><dd id="task-id"></dd></div><div><dt>步骤预算</dt><dd id="task-budget"></dd></div></dl>
+        </div>
+        <details class="plain-details compact"><summary>查看任务预设、工具要求与判定关键词</summary><div class="details-body"><pre id="raw-task" class="json-block"></pre></div></details>
+      </section>
+
+      <section aria-labelledby="preference-title">
+        <div class="section-title"><div><h2 id="preference-title">由得分生成的偏好对</h2><p>同一任务内选择最高分轨迹，再与达到分差阈值的候选配对。</p></div></div>
+        <div id="preference-list" class="preference-list"></div>
+        <p class="small-note">偏好对是数据构造结果。这里没有执行 DPO 模型训练，也没有人类偏好标注。</p>
+      </section>
+
+      <section aria-labelledby="exports-title">
+        <div class="section-title"><div><h2 id="exports-title">三种真实导出</h2><p>查看原记录的字段与内容，下载保留原字节的 JSONL。</p></div></div>
+        <div class="data-note"><strong>导出阈值与投机提示是分开的。</strong><span>SFT 导出只按 reward ≥ 0.75 筛选，所以 <code>traj_gaming</code> 也在其中。投机检查当前提供诊断提示，尚未阻断导出。</span></div>
+        <div id="export-list" class="export-list"></div>
+      </section>
+
+      <section aria-labelledby="weights-title">
+        <div class="section-title"><div><h2 id="weights-title">小型特征权重实验</h2><p>原报告使用纯 Python fallback，运行 8 轮；这是固定轨迹上的权重变化。</p></div></div>
+        <div class="training-layout">
+          <div class="weight-panel"><div class="panel-heading"><h3>初始 → 最终权重</h3><span>3 个手工特征</span></div><div id="weights-list"></div></div>
+          <div class="loss-panel"><div class="panel-heading"><h3>记录的损失值</h3><span id="loss-range"></span></div><div id="loss-chart" class="loss-chart"></div><details class="plain-details compact"><summary>展开 8 轮数值</summary><ol id="loss-values" class="loss-values"></ol></details></div>
+        </div>
+        <details class="plain-details compact"><summary>查看另一条单步相对奖励更新结果</summary><div class="details-body"><p class="small-note">这是原报告的 <code>updated_policy</code> 字段，与上方八轮实验的 <code>lightweight_training.final_weights</code> 分开记录。</p><pre id="updated-policy" class="json-block"></pre></div></details>
+        <p class="small-note">组内均值奖励用于相对优势，更新对象是特征权重；工程中的惩罚项为权重衰减。没有模型概率分布、token 级 rollout 或完整 GRPO/PPO 训练，损失下降不能解释为模型能力提升。</p>
+      </section>
+
+      <section class="source-section" aria-labelledby="source-title">
+        <div class="section-title"><div><h2 id="source-title">结果从哪里来</h2><p>原始输出与展示层分开保存，可以逐条回看。</p></div></div>
+        <div class="source-layout">
+          <div><p>本页重新排版已有实验结果，没有重新生成轨迹、运行模型或修改奖励。</p><p><code>training_rows.json</code> 从原 <code>cli.py::_demo_data</code> 的数据结构只读提取，用于补全计划、参数和工具输出；它是展示派生数据，并非历史输出文件。</p></div>
+          <div class="source-links">
+            <a class="text-link" href="./data/original/optimizer_report.json" download="optimizer_report.json">原 optimizer_report.json <span aria-hidden="true">↘</span></a>
+            <a class="text-link" href="./data/training_rows.json" download="training_rows.json">派生 training_rows.json <span aria-hidden="true">↘</span></a>
+            <a class="text-link" href="./data/source-manifest.json" download="source-manifest.json">原件 SHA256 与路径调整 <span aria-hidden="true">↘</span></a>
+            <a class="text-link" href="./data/original/architecture.svg" target="_blank" rel="noopener">原工程结构图 <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <details class="plain-details"><summary>展开完整原始报告 JSON</summary><div class="details-body"><pre id="raw-report" class="json-block"></pre></div></details>
+      </section>
+      <footer>Agentic RL Tool Optimizer · 本地实验原型 <span>1 个手工任务 / 3 条预设轨迹</span></footer>
+    </div>
+    <noscript><p class="load-status">启用 JavaScript 可浏览交互报告；也可直接<a href="./data/original/optimizer_report.json">阅读原始 JSON</a>。</p></noscript>
+  </main>
+</body>
+</html>

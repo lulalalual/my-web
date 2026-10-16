@@ -81,6 +81,14 @@
     fitAll();
   }
   function fitDiagrams() {
+    var heading = document.querySelector('#page > h1.page-title, #archive > h1.page-title, #tag > h1.page-title, #category > h1.page-title');
+    if (heading && !heading.querySelector('i')) {
+      var pageIcon = document.createElement('i');
+      var kind = location.pathname.split('/')[1];
+      pageIcon.className = 'anzhiyufont anzhiyu-icon-' + ({about:'circle-info', comments:'comments', categories:'book-open', tags:'tags', archives:'box-archive'}[kind] || 'file-lines');
+      pageIcon.setAttribute('aria-hidden', 'true');
+      heading.prepend(pageIcon);
+    }
     var article = document.querySelector('#post #article-container');
     if (article && !document.querySelector('#post .reading-breadcrumb')) {
       var breadcrumb = document.createElement('nav');

@@ -10,3 +10,4 @@ source/demos/interview/pyodide/** -diff
 source/demos/defense-original/game.js -diff
 source/portfolio-assets/**/vendor/** -diff
 source/vendor/** -diff
+source/demos/agentic-report/data/original/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

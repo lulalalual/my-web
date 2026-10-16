@@ -1,0 +1,57 @@
+{
+  "original_files": [
+    {
+      "source_project": "agentic_rl_tool_optimizer",
+      "source_relative_path": "output/optimizer_report.json",
+      "public_relative_path": "data/original/optimizer_report.json",
+      "sha256": "a5413a3ef5519682d015c3b68ed8691da89b48fdc5e17864651b87d4f59620f2",
+      "bytes": 7395,
+      "byte_identical": true,
+      "adjustments": "Directory relocation only; file bytes unchanged."
+    },
+    {
+      "source_project": "agentic_rl_tool_optimizer",
+      "source_relative_path": "output/training_data/sft_trajectories.jsonl",
+      "public_relative_path": "data/original/training_data/sft_trajectories.jsonl",
+      "sha256": "edab43d3405cdf002cc1acaeda44cb653d5ebe5fd3314092ca636d2b4d98a856",
+      "bytes": 1979,
+      "byte_identical": true,
+      "adjustments": "Directory relocation only; file bytes unchanged."
+    },
+    {
+      "source_project": "agentic_rl_tool_optimizer",
+      "source_relative_path": "output/training_data/dpo_pairs.jsonl",
+      "public_relative_path": "data/original/training_data/dpo_pairs.jsonl",
+      "sha256": "ce2eb3c6e137e5fc9bc4e7e26fc5c2287f7afbc7ccbac0b6812a9de10ca45604",
+      "bytes": 1976,
+      "byte_identical": true,
+      "adjustments": "Directory relocation only; file bytes unchanged."
+    },
+    {
+      "source_project": "agentic_rl_tool_optimizer",
+      "source_relative_path": "output/training_data/grpo_groups.jsonl",
+      "public_relative_path": "data/original/training_data/grpo_groups.jsonl",
+      "sha256": "86877aa48208015b022018101dae37269088f6f2d65322aa82cfc967e9018458",
+      "bytes": 1880,
+      "byte_identical": true,
+      "adjustments": "Directory relocation only; file bytes unchanged."
+    },
+    {
+      "source_project": "agentic_rl_tool_optimizer",
+      "source_relative_path": "docs/assets/architecture.svg",
+      "public_relative_path": "data/original/architecture.svg",
+      "sha256": "8fc08b572efc754256bb4ef120d9f78740afffbced35be5c6c640367ea5ced9c",
+      "bytes": 3728,
+      "byte_identical": true,
+      "adjustments": "Directory relocation only; file bytes unchanged."
+    }
+  ],
+  "derived_files": [
+    {
+      "public_relative_path": "data/training_rows.json",
+      "derivation": "dataclasses.asdict(cli._demo_data()); no content changes",
+      "source_sha256": "ab2e724e6c080981682192235f61a1b2797a60ae3fce16efe4521fc37d1c75e1"
+    }
+  ],
+  "path_policy": "Public metadata contains project-relative paths only; original optimizer_report.json already uses relative output paths."
+}

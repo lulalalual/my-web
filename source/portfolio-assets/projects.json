@@ -237,5 +237,45 @@
         "现存报告包含 3 条合成样本与 3 组配置，保留原始表格和数值。Cost 为公式估算，Latency 为本地检索与抽取耗时；结果用于该小样本实验。"
       ]
     ]
+  },
+  {
+    "id": "agentic-rl",
+    "title": "Agent 轨迹实验台",
+    "icon": "shapes",
+    "type": "AI实验",
+    "featured": false,
+    "status": "Python / Evaluation / JSONL",
+    "intro": "Python · 轨迹建模、五维规则奖励与偏好数据导出。",
+    "cover": "agentic-rl-cover",
+    "coverWidth": 1672,
+    "coverHeight": 941,
+    "tags": [
+      "Python",
+      "Evaluation",
+      "SFT / DPO",
+      "GRPO-style"
+    ],
+    "role": "AI 协作实现数据模型、规则评测、偏好配对与小型特征权重实验。",
+    "scope": "以源码自带的 1 个示例任务和 3 条手工轨迹比较奖励、归因和投机提示；保留原报告及 SFT / DPO / GRPO 风格 JSONL。",
+    "demo": "/demos/agentic-report/",
+    "demoNote": "原实验数据可视化 · 1 个示例任务 / 3 条手工轨迹",
+    "story": [
+      [
+        "结构化轨迹",
+        "用 dataclass 定义任务、计划、工具参数、工具输出和最终回答，将执行过程拆成可单独检查的数据记录。"
+      ],
+      [
+        "五维奖励与偏好",
+        "将任务完成、工具选择、参数、步骤效率和计划执行分别计分，按同题轨迹的奖励差构造 chosen / rejected 偏好对，记录失败类型和启发式投机提示。"
+      ],
+      [
+        "训练数据导出",
+        "保留原 SFT 2 条、DPO 2 对和 GRPO 1 组的简化 JSONL 产物；得分与投机提示独立呈现，便于检查阈值筛选的取舍。"
+      ],
+      [
+        "小型权重实验与验证",
+        "运行同题相对奖励与手工特征权重实验，纯 Python 路径 7 项测试通过。本项目展示离线规则与数据链路，不涉及在线工具执行或基础大模型训练。"
+      ]
+    ]
   }
 ]

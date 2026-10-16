@@ -1,0 +1,19 @@
+{
+  "method": "Node VM with local-file fetch; data/link/hash checks, not browser layout QA",
+  "original_files": 5,
+  "exact_original_bytes": 16958,
+  "rendered_trajectories": 3,
+  "reward_meters": 15,
+  "preference_pairs": 2,
+  "export_records": {
+    "sft": 2,
+    "dpo": 2,
+    "grpo": 1
+  },
+  "local_links_checked": 11,
+  "raw_report_matches": true,
+  "theme_toggle_checked": true,
+  "private_absolute_paths_found": 0,
+  "continuous_animation_loops": 0,
+  "browser_layout_qa": "Parent integration QA pending; 320px/light/dark/iframe checks required"
+}

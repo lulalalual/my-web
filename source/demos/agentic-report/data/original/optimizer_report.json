@@ -1,0 +1,265 @@
+{
+  "scores": [
+    {
+      "trajectory_id": "traj_good",
+      "reward": 1.0,
+      "metrics": {
+        "task_completion": 1.0,
+        "tool_correctness": 1.0,
+        "argument_correctness": 1.0,
+        "step_efficiency": 1.0,
+        "plan_adherence": 1.0
+      },
+      "reasons": []
+    },
+    {
+      "trajectory_id": "traj_bad",
+      "reward": 0.33,
+      "metrics": {
+        "task_completion": 0.0,
+        "tool_correctness": 0.0,
+        "argument_correctness": 1.0,
+        "step_efficiency": 1.0,
+        "plan_adherence": 0.0
+      },
+      "reasons": [
+        "task_completion=0.00",
+        "tool_correctness=0.00",
+        "plan_adherence=0.00"
+      ]
+    },
+    {
+      "trajectory_id": "traj_gaming",
+      "reward": 0.8133,
+      "metrics": {
+        "task_completion": 1.0,
+        "tool_correctness": 1.0,
+        "argument_correctness": 1.0,
+        "step_efficiency": 0.3333,
+        "plan_adherence": 0.0
+      },
+      "reasons": [
+        "step_efficiency=0.33",
+        "plan_adherence=0.00"
+      ]
+    }
+  ],
+  "preference_pairs": [
+    {
+      "task_id": "travel_refund",
+      "chosen_trajectory_id": "traj_good",
+      "rejected_trajectory_id": "traj_gaming",
+      "margin": 0.1867
+    },
+    {
+      "task_id": "travel_refund",
+      "chosen_trajectory_id": "traj_good",
+      "rejected_trajectory_id": "traj_bad",
+      "margin": 0.67
+    }
+  ],
+  "updated_policy": {
+    "use_search": 0.229723,
+    "use_calculator": 0.130202,
+    "ask_clarify": -0.122317
+  },
+  "training_exports": {
+    "sft": "output/training_data/sft_trajectories.jsonl",
+    "dpo": "output/training_data/dpo_pairs.jsonl",
+    "grpo": "output/training_data/grpo_groups.jsonl"
+  },
+  "lightweight_training": {
+    "backend": "python_fallback",
+    "initial_weights": {
+      "ask_clarify": 0.0,
+      "use_calculator": 0.0,
+      "use_search": 0.0
+    },
+    "final_weights": {
+      "ask_clarify": -0.113553,
+      "use_calculator": 0.152855,
+      "use_search": 0.152855
+    },
+    "loss_history": [
+      0.999693,
+      0.993414,
+      0.987144,
+      0.980884,
+      0.974633,
+      0.968391,
+      0.962159,
+      0.955936
+    ]
+  },
+  "failure_modes": {
+    "traj_good": [],
+    "traj_bad": [
+      "task_completion_error",
+      "tool_selection_error",
+      "plan_execution_drift"
+    ],
+    "traj_gaming": [
+      "step_efficiency_error",
+      "plan_execution_drift"
+    ]
+  },
+  "policy_gaming": {
+    "traj_good": [],
+    "traj_bad": [
+      {
+        "kind": "clarification_abuse",
+        "severity": "medium",
+        "explanation": "Trajectory asks for clarification even though the task has enough specified tools, which is a common shortcut policy."
+      },
+      {
+        "kind": "tool_avoidance",
+        "severity": "high",
+        "explanation": "Trajectory avoids all required tools and cannot be trusted."
+      }
+    ],
+    "traj_gaming": [
+      {
+        "kind": "redundant_tool_calls",
+        "severity": "medium",
+        "explanation": "Trajectory repeats equivalent tool calls 2 times, which can inflate evidence while increasing cost."
+      },
+      {
+        "kind": "clarification_abuse",
+        "severity": "high",
+        "explanation": "Trajectory asks for clarification even though the task has enough specified tools, which is a common shortcut policy."
+      },
+      {
+        "kind": "step_budget_overrun",
+        "severity": "medium",
+        "explanation": "Trajectory uses 5 steps while the budget is 3."
+      }
+    ]
+  },
+  "alignment_report": {
+    "overview": {
+      "tasks": 1,
+      "trajectories": 3,
+      "average_reward": 0.7144,
+      "preference_pairs": 2
+    },
+    "comparison": {
+      "dpo": {
+        "best_for": "pairwise preference alignment",
+        "uses": "chosen/rejected records with a clear reward margin"
+      },
+      "grpo": {
+        "best_for": "multi-sample trajectory optimization",
+        "uses": "group-relative reward baseline across candidates for one task"
+      }
+    },
+    "quality_gates": {
+      "failure_modes": {
+        "task_completion_error": 1,
+        "tool_selection_error": 1,
+        "plan_execution_drift": 2,
+        "step_efficiency_error": 1
+      },
+      "policy_gaming_findings": 5,
+      "gaming_details": [
+        {
+          "trajectory_id": "traj_bad",
+          "kind": "clarification_abuse",
+          "severity": "medium",
+          "explanation": "Trajectory asks for clarification even though the task has enough specified tools, which is a common shortcut policy."
+        },
+        {
+          "trajectory_id": "traj_bad",
+          "kind": "tool_avoidance",
+          "severity": "high",
+          "explanation": "Trajectory avoids all required tools and cannot be trusted."
+        },
+        {
+          "trajectory_id": "traj_gaming",
+          "kind": "redundant_tool_calls",
+          "severity": "medium",
+          "explanation": "Trajectory repeats equivalent tool calls 2 times, which can inflate evidence while increasing cost."
+        },
+        {
+          "trajectory_id": "traj_gaming",
+          "kind": "clarification_abuse",
+          "severity": "high",
+          "explanation": "Trajectory asks for clarification even though the task has enough specified tools, which is a common shortcut policy."
+        },
+        {
+          "trajectory_id": "traj_gaming",
+          "kind": "step_budget_overrun",
+          "severity": "medium",
+          "explanation": "Trajectory uses 5 steps while the budget is 3."
+        }
+      ]
+    },
+    "training_result": {
+      "backend": "python_fallback",
+      "initial_weights": {
+        "ask_clarify": 0.0,
+        "use_calculator": 0.0,
+        "use_search": 0.0
+      },
+      "final_weights": {
+        "ask_clarify": -0.113553,
+        "use_calculator": 0.152855,
+        "use_search": 0.152855
+      },
+      "loss_history": [
+        0.999693,
+        0.993414,
+        0.987144,
+        0.980884,
+        0.974633,
+        0.968391,
+        0.962159,
+        0.955936
+      ]
+    },
+    "scores": [
+      {
+        "trajectory_id": "traj_good",
+        "reward": 1.0,
+        "metrics": {
+          "task_completion": 1.0,
+          "tool_correctness": 1.0,
+          "argument_correctness": 1.0,
+          "step_efficiency": 1.0,
+          "plan_adherence": 1.0
+        },
+        "reasons": []
+      },
+      {
+        "trajectory_id": "traj_bad",
+        "reward": 0.33,
+        "metrics": {
+          "task_completion": 0.0,
+          "tool_correctness": 0.0,
+          "argument_correctness": 1.0,
+          "step_efficiency": 1.0,
+          "plan_adherence": 0.0
+        },
+        "reasons": [
+          "task_completion=0.00",
+          "tool_correctness=0.00",
+          "plan_adherence=0.00"
+        ]
+      },
+      {
+        "trajectory_id": "traj_gaming",
+        "reward": 0.8133,
+        "metrics": {
+          "task_completion": 1.0,
+          "tool_correctness": 1.0,
+          "argument_correctness": 1.0,
+          "step_efficiency": 0.3333,
+          "plan_adherence": 0.0
+        },
+        "reasons": [
+          "step_efficiency=0.33",
+          "plan_adherence=0.00"
+        ]
+      }
+    ]
+  }
+}
