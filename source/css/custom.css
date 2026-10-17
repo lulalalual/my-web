@@ -2193,7 +2193,7 @@ html { scroll-padding-top: 84px; }
 #recent-posts .recent-post-item .recent-post-info { width: 100% !important; flex: 0 0 auto !important; }
 #page-header #nav-right { display: none !important; }
 
-#content-inner.layout > #page { margin-top: 0 !important; }
+#content-inner.layout > :is(#page, #archive, #tag, #category) { margin-top: 0 !important; }
 #article-container a:not(.headerlink):not(:has(img)) { border-bottom: 0 !important; text-decoration: underline; text-underline-offset: .3em; text-decoration-thickness: 1px; text-decoration-skip-ink: auto; }
 #portfolio-root .text-link { padding-bottom: 4px; }
 .about-contact .contact-bottom i { display: inline-block; margin-right: .45em; }
