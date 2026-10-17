@@ -998,6 +998,9 @@ body.lula-ready #content-inner {
     background: transparent;
     font-size: 18px;
     line-height: 28px;
+    height: auto;
+    white-space: nowrap;
+    flex-shrink: 0;
     box-shadow: none;
     transform: none;
   }
@@ -1005,6 +1008,7 @@ body.lula-ready #content-inner {
   #page-header #nav .menus_items > .menus_item > a.site-page span {
     color: inherit !important;
     letter-spacing: .1em;
+    flex: 0 0 auto;
   }
 
   #page-header #nav .menus_items > .menus_item.is-current > a.site-page,
@@ -1155,10 +1159,10 @@ html { scroll-padding-top: 84px; }
 
 @media (max-width: 768px) {
   #page-header { --nav-height:108px; --nav-expanded-height:170px; }
-  #page-header #nav #menus { top: 60px; height: 44px; padding: 0 10px; }
+  #page-header #nav #menus { top: 60px; height: 44px; padding: 0; }
   #page-header #nav #menus .menus_items { position: relative; width: 100%; height: 44px; margin: 0; justify-content: center; }
   #page-header #nav .menus_items > .menus_item { position: static; padding: 0 2px; margin: 0; }
-  #page-header #nav .menus_items > .menus_item > a.site-page { min-height: 44px; gap: 6px; padding: 8px 12px; font-size: 16px; line-height: 28px; }
+  #page-header #nav .menus_items > .menus_item > a.site-page { min-height: 44px; gap: 4px; padding: 8px; font-size: 16px; line-height: 1.75; }
   #page-header #nav .menus_items > .menus_item > a.site-page span { letter-spacing: .04em; }
   #page-header #nav .menus_items .menus_item > ul.menus_item_child { left: 50%; top: 44px; width: calc(100vw - 32px); max-width: none; min-height: 54px; padding: 4px 6px; gap: 2px; border-radius: 18px; overflow-x: auto; overscroll-behavior-x: contain; justify-content: flex-start; scrollbar-width: thin; scrollbar-color: var(--menu-border) transparent; }
   #page-header #nav .menus_items .menus_item_child > li > a.site-page,
@@ -1168,7 +1172,20 @@ html { scroll-padding-top: 84px; }
 }
 
 @media (max-width: 360px) {
-  #page-header #nav .menus_items > .menus_item > a.site-page { padding: 8px; gap: 4px; font-size: 15px; }
+  #page-header #nav .menus_items > .menus_item > a.site-page { padding: 8px 6px; font-size: 15px; }
+}
+
+/* Keep each label intact; enlarged text can wrap whole buttons into another row. */
+@media (max-width: 599px) {
+  #page-header { --nav-height: auto; --nav-expanded-height: auto; }
+  #page-header #nav { --nav-bottom-space: 4px; }
+  #page-header #nav-group { height: auto; flex-wrap: wrap; }
+  #page-header #nav #menus { position: relative; top: auto; height: auto; }
+  #page-header #nav #menus .menus_items { height: auto; flex-wrap: wrap; row-gap: 4px; }
+  #page-header #nav .menus_items > .menus_item { flex: 0 0 auto; padding: 0 1px; }
+  #page-header #nav .menus_items .menus_item > ul.menus_item_child { top: 100%; }
+  #page-header #nav:has(.menus_item:not(.menu-dismissed):hover),
+  #page-header #nav:has(.menus_items:not([data-menu-input="pointer"]) .menus_item:not(.menu-dismissed):focus-within) { --nav-bottom-space: 66px; }
 }
 
 .about-contact { margin-top: 40px; scroll-margin-top: 84px; }
@@ -2159,7 +2176,7 @@ html { scroll-padding-top: 84px; }
 :root #aside-content .author-info__name { font-family: var(--site-font) !important; }
 
 /* Menus participate in the page layout instead of covering project content. */
-#page-header #nav { position: relative !important; padding-top: 0 !important; padding-bottom: 0 !important; border: 0 !important; box-shadow: none !important; background: transparent !important; backdrop-filter: none; -webkit-backdrop-filter: none; }
+#page-header #nav { position: relative !important; padding-top: 0 !important; padding-bottom: var(--nav-bottom-space, 0px) !important; border: 0 !important; box-shadow: none !important; background: transparent !important; backdrop-filter: none; -webkit-backdrop-filter: none; }
 #page-header.post-bg #nav { border: 0 !important; box-shadow: none !important; }
 #page-header.not-top-img { background: var(--anzhiyu-background); transition: height .18s ease; }
 #page-header.not-top-img:has(#nav .menus_item:not(.menu-dismissed):hover),
