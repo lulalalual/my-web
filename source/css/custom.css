@@ -2216,18 +2216,22 @@ html { scroll-padding-top: 84px; }
 #card-toc.article-toc-panel .toc-number, #card-toc.article-toc-panel .toc-percentage { display: none; }
 #card-toc.article-toc-panel .toc-content .toc-link:not(.active) span { filter: none; opacity: 1; }
 
-/* Preserve complete labels and table columns on narrow reading layouts. */
+/* Preserve complete labels and table columns at every breakpoint. */
 #aside-content .card-archive-list-count { line-height: 1.4; overflow: visible; }
 #post .post-copyright .post-copyright__notice .post-copyright-info { display: block; height: auto; overflow: visible; -webkit-line-clamp: unset; overflow-wrap: anywhere; }
+#page-header #nav .mask-name-container { display: none !important; }
+#recent-posts .recent-post-item .recent-post-info { height: auto !important; padding: 24px clamp(20px, 2vw, 32px); }
+#recent-posts .recent-post-item .recent-post-info > .article-title { position: static; display: block; padding: 0; height: auto; overflow: visible; -webkit-line-clamp: unset !important; overflow-wrap: anywhere; }
+#recent-posts .recent-post-item .recent-post-info > .article-meta-wrap { position: static; display: flex; flex-wrap: wrap; gap: 12px; height: auto; max-height: none; margin-top: 16px; padding: 0; overflow: visible; }
+#recent-posts .recent-post-item .recent-post-info > .article-meta-wrap > .article-meta.tags { display: flex; flex-wrap: wrap; gap: 8px 12px; width: 100%; max-width: none; height: auto; overflow: visible; white-space: normal; order: 0; }
+#recent-posts .recent-post-item .recent-post-info > .article-meta-wrap .article-meta__tags { display: inline-flex; margin: 0; white-space: nowrap; }
+#recent-posts .recent-post-item .recent-post-info > .article-meta-wrap > .post-meta-date { position: static; margin-left: auto; order: 1; }
+#article-container .table-wrap { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+#article-container table th, #article-container table td { min-width: 6em; word-break: normal; }
+#page-header.post-bg { height: auto; min-height: 480px; }
+#page-header.post-bg #post-info { top: auto; height: auto; }
+#page-header.post-bg #post-info .post-title { display: block; max-width: 100%; height: auto; overflow: visible; -webkit-line-clamp: unset; line-height: 1.2; }
 @media (max-width: 768px) {
-  #recent-posts .recent-post-item .recent-post-info { height: auto !important; padding: 24px 20px; }
-  #recent-posts .recent-post-item .recent-post-info > .article-title { position: static; display: block; padding: 0; height: auto; overflow: visible; -webkit-line-clamp: unset !important; overflow-wrap: anywhere; }
-  #recent-posts .recent-post-item .recent-post-info > .article-meta-wrap { position: static; display: flex; flex-wrap: wrap; gap: 12px; height: auto; max-height: none; margin-top: 16px; padding: 0; overflow: visible; }
-  #recent-posts .recent-post-item .recent-post-info > .article-meta-wrap > .article-meta.tags { display: flex; flex-wrap: wrap; gap: 8px 12px; width: 100%; max-width: none; height: auto; overflow: visible; white-space: normal; order: 0; }
-  #recent-posts .recent-post-item .recent-post-info > .article-meta-wrap .article-meta__tags { display: inline-flex; margin: 0; white-space: nowrap; }
-  #recent-posts .recent-post-item .recent-post-info > .article-meta-wrap > .post-meta-date { position: static; margin-left: auto; order: 1; }
-  #article-container .table-wrap { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
-  #article-container table th, #article-container table td { min-width: 6em; word-break: normal; }
   #page-header.post-bg { height: auto; min-height: 0; }
   #page-header.post-bg #post-info { top: auto; width: 100%; height: auto; max-width: none; padding: 32px 24px 88px !important; align-items: flex-start; }
   #page-header.post-bg #post-info .post-title { display: block; max-width: 100%; font-size: clamp(28px, 8vw, 40px); line-height: 1.25; height: auto; overflow: visible; -webkit-line-clamp: unset; overflow-wrap: anywhere; }
