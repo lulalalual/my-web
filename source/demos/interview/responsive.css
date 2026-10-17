@@ -1,0 +1,11 @@
+/* Contain the animated backdrop on its own wrapper, without clipping the page. */
+.page-transition-container.fx-page-aurora { overflow: clip; }
+@media (max-width: 600px) {
+  #root nav.sticky { height: auto; min-height: 64px; padding: 10px 16px; gap: 12px; flex-wrap: wrap; }
+  #root nav.sticky > div { min-width: 0; }
+  #root nav.sticky > div:first-child { gap: 8px; }
+  #root nav.sticky > div:first-child > div { flex-shrink: 0; }
+  #root nav.sticky > div:first-child > span { font-size: 16px; white-space: nowrap; }
+  #root nav.sticky > div:last-child { gap: 8px; margin-left: auto; }
+  #root nav.sticky button { flex-shrink: 0; }
+}

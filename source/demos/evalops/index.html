@@ -10,12 +10,12 @@
     table { border-collapse: collapse; width: 100%; }
     th, td { border: 1px solid #d8dee4; padding: 10px; text-align: left; }
     th { background: #f6f8fa; }
-  .scope-note{font-size:14px;line-height:1.8;color:#526071}body{margin:24px}table{min-width:780px}html{overflow:auto}@media(max-width:600px){body{margin:16px}h1{font-size:20px}}@media(prefers-color-scheme:dark){body{background:#121720;color:#e7ebf2}.scope-note{color:#b9c4d5}.summary{background:#192e2a}th{background:#1c2431}td,th{border-color:#465368}}</style>
+  .scope-note{font-size:14px;line-height:1.8;color:#526071}body{margin:24px;overflow-wrap:anywhere}table{min-width:780px}.report-table{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}.report-table:focus-visible{outline:2px solid #238267;outline-offset:4px}@media(max-width:600px){body{margin:16px}h1{font-size:20px}}@media(prefers-color-scheme:dark){body{background:#121720;color:#e7ebf2}.scope-note{color:#b9c4d5}.summary{background:#192e2a}th{background:#1c2431}td,th{border-color:#465368}}</style>
 </head>
 <body><p class="scope-note">原始离线报告 · 3 条合成样本 / 3 组配置；Cost 为公式估算，Latency 为本地检索与抽取耗时。</p>
   <h1>EvalOps RAG Flywheel Dashboard</h1>
   <div class="summary">Best config: <strong>tfidf_chunk45_top2</strong>. Promote the best config only if pass_rate holds and review_queue does not contain high-risk items.</div>
-  <table>
+  <div class="report-table" role="region" aria-label="配置评测结果，可横向滚动查看全部指标" tabindex="0"><table>
     <thead>
       <tr>
         <th>Config</th><th>Pass Rate</th><th>Avg Score</th><th>Avg Cost</th>
@@ -23,6 +23,6 @@
       </tr>
     </thead>
     <tbody><tr><td>tfidf_chunk45_top2</td><td>1.00</td><td>0.89</td><td>$0.000016</td><td>0.38 ms</td><td>0.94</td><td>0</td></tr><tr><td>tfidf_chunk90_top4</td><td>1.00</td><td>0.86</td><td>$0.000035</td><td>0.53 ms</td><td>0.99</td><td>0</td></tr><tr><td>vector_rerank_top4</td><td>1.00</td><td>0.86</td><td>$0.000035</td><td>0.64 ms</td><td>0.99</td><td>0</td></tr></tbody>
-  </table>
+  </table></div>
 </body>
 </html>
