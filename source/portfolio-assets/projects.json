@@ -76,6 +76,156 @@
     "icon": "dice-d20"
   },
   {
+    "id": "cs-learning",
+    "title": "计算机学习一站通",
+    "icon": "keyboard",
+    "type": "学习应用",
+    "featured": false,
+    "status": "Next.js / React Flow / TypeScript",
+    "intro": "React Flow / TypeScript · 知识路线图、认知诊断与掌握度门禁。",
+    "cover": "cs-learning-cover",
+    "coverAlt": "计算机学习一站通知识路线图原界面",
+    "coverWidth": 1440,
+    "coverHeight": 1000,
+    "tags": [
+      "Next.js",
+      "TypeScript",
+      "React Flow",
+      "Remotion",
+      "Supabase"
+    ],
+    "role": "个人项目 · AI 协作开发。",
+    "scope": "覆盖 39 个概念，以先修关系组织知识路线图，将认知诊断、路径回溯、追问、实操测试和间隔复习串成状态机；可视化组件按需加载。",
+    "story": [
+      [
+        "知识图谱与路径回溯",
+        "React Flow 渲染阶段、章节、概念和先修连线；从薄弱概念沿先修关系回溯，以掌握度缺口选择补强目标，避免只按固定章节顺序推进。"
+      ],
+      [
+        "状态机与掌握度门禁",
+        "诊断区分概念、原理、应用和边界四层错因；以前测、追问、变式测评更新学习状态，实操用例未全部通过时不解锁下一步。"
+      ],
+      [
+        "可视化与按需加载",
+        "将场景状态、SVG 渲染和插值播放分离，复用原有 Remotion 播放器；知识详情与交互实验组件通过动态导入加载。"
+      ],
+      [
+        "数据与运行结构",
+        "Next.js API 连接 Supabase，迁移文件定义业务表和行级访问策略；路线图使用本地章节数据，学习记录及会话需要配置对应数据库。"
+      ]
+    ],
+    "screenshots": [
+      {
+        "src": "/portfolio-assets/cs-learning-visuals.webp",
+        "width": 1440,
+        "height": 1000,
+        "alt": "原可视化组件：链表插入动画与交互实验"
+      },
+      {
+        "src": "/portfolio-assets/cs-learning-os.webp",
+        "width": 1440,
+        "height": 1000,
+        "alt": "知识路线图：操作系统章节及先修连线"
+      }
+    ]
+  },
+  {
+    "id": "chemistry",
+    "title": "化学机理智能体 · 机理剧场",
+    "icon": "shapes",
+    "type": "学习应用",
+    "featured": false,
+    "status": "Next.js / SVG / 3Dmol",
+    "intro": "SVG / 3Dmol / TypeScript · 电子流向、机理推导与错因诊断。",
+    "cover": "chemistry-cover",
+    "coverAlt": "机理剧场反应图鉴原界面",
+    "coverWidth": 1440,
+    "coverHeight": 1000,
+    "tags": [
+      "Next.js",
+      "TypeScript",
+      "SVG",
+      "3Dmol",
+      "SSE"
+    ],
+    "role": "个人项目 · AI 协作开发。",
+    "scope": "以 56 条反应规则、38 道题和 14 个先修概念组织确定性诊断，连接补强路径、机理分步播放、能量曲线和三维分子组件。",
+    "story": [
+      [
+        "规则引擎与错因归类",
+        "按底物、试剂和条件匹配反应规则，返回位点依据与推导链；题目选项映射错因标签，再沿概念先修链规划补强路径。"
+      ],
+      [
+        "SVG 帧与三维联动",
+        "电子流向、键变化、旁白和能量曲线绑定分步帧钟；播放器支持播放、单步与进度控制，并将当前步骤传给三维分子展示。"
+      ],
+      [
+        "辅导接口与降级",
+        "SSE 接口先由规则判断学习阶段与推进条件，再组织模型回复；模型不可用或回复未通过校验时，返回既有规则脚本。"
+      ],
+      [
+        "学习状态与复习",
+        "localStorage 保存学习进度与错题，规则引擎更新掌握度、生成变式和安排复习；云端同步使用单独的鉴权接口。"
+      ]
+    ],
+    "screenshots": [
+      {
+        "src": "/portfolio-assets/chemistry-learn.webp",
+        "width": 1440,
+        "height": 1113,
+        "alt": "SN2 机理：分步推导、电子流向与能量剖面"
+      }
+    ]
+  },
+  {
+    "id": "english-learning",
+    "title": "英语专四专八一站通 · 笔耕",
+    "icon": "book-open",
+    "type": "评价应用",
+    "featured": false,
+    "status": "Next.js / TypeScript / Recharts",
+    "intro": "TypeScript / Recharts · 文本特征、规则评分与原文证据链。",
+    "cover": "english-learning-cover",
+    "coverAlt": "笔耕教师端班级报告原界面",
+    "coverWidth": 1440,
+    "coverHeight": 1000,
+    "tags": [
+      "Next.js",
+      "TypeScript",
+      "Recharts",
+      "Harper",
+      "规则评分"
+    ],
+    "role": "个人项目 · AI 协作开发。",
+    "scope": "将写作特征提取、三维评分、证据回放与教师复核连接到同一份作文；分离学生练习路径与教师评价路径。",
+    "story": [
+      [
+        "文本特征与规则评分",
+        "提取词数、词汇丰富度、衔接密度、结构和错误模式，以可配置口径映射维度分；Harper 作为语法检测增强层，加载失败时保留基础规则。"
+      ],
+      [
+        "原文证据与评价回放",
+        "维度分关联原文片段及评分步骤，将评价依据与修改建议放在一起；提供权重灵敏度试算与重复评分一致性检查。"
+      ],
+      [
+        "双端流程与教师复核",
+        "学生完成初稿、查看反馈并提交修改稿；教师逐维复核和确认最终分数，系统规则分只作为参考，不替代教师决定。"
+      ],
+      [
+        "成长轨迹与数据结构",
+        "聚合多轮写作的维度变化、班级分布及相关性指标；匿名演示数据存于服务端内存，重启后重新初始化。"
+      ]
+    ],
+    "screenshots": [
+      {
+        "src": "/portfolio-assets/english-learning-report.webp",
+        "width": 1440,
+        "height": 1267,
+        "alt": "写作评分报告：维度分、原文证据与修改路径"
+      }
+    ]
+  },
+  {
     "id": "crawler",
     "title": "网页采集技能编排",
     "icon": "link",

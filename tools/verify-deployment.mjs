@@ -20,6 +20,9 @@ const routes = [
   "/work/desktop-workbench/",
   "/work/evalops/",
   "/work/agentic-rl/",
+  "/work/cs-learning/",
+  "/work/chemistry/",
+  "/work/english-learning/",
   "/demos/agentic-report/",
   "/demos/motion-gallery/",
   "/demos/evalops/",
@@ -45,6 +48,7 @@ for (const route of routes) {
   });
 
   const acceptable = response.status >= 200 && response.status < 400;
+  await response.arrayBuffer();
 
   console.log(`${response.status} ${route}`);
 
