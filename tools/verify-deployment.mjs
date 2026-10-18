@@ -62,6 +62,7 @@ for (const [path, mime] of [
   ['/portfolio-assets/projects.css', 'text/css'],
   ['/js/article-toc.js', 'javascript'],
   ['/portfolio-assets/site.js', 'javascript'],
+  ['/portfolio-assets/project-sources.mjs', 'javascript'],
   ['/portfolio-assets/projects.json', 'application/json'],
   ['/demos/defense-original/game.wasm', 'application/wasm'],
   ['/demos/interview/pyodide/pyodide.asm.wasm', 'application/wasm'],

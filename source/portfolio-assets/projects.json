@@ -111,7 +111,7 @@
       ],
       [
         "数据与运行结构",
-        "Next.js API 连接 Supabase，迁移文件定义业务表和行级访问策略；路线图使用本地章节数据，学习记录及会话需要配置对应数据库。"
+        "Next.js API 连接 Supabase，迁移文件定义业务表和行级访问策略；路线图、学习会话及学情记录通过原应用的演示环境运行。"
       ]
     ],
     "screenshots": [
@@ -127,7 +127,9 @@
         "height": 1000,
         "alt": "知识路线图：操作系统章节及先修连线"
       }
-    ]
+    ],
+    "demo": "https://app-c9z4iiiaftls.cxiagents.com/",
+    "demoNote": "原应用在线体验 · 匿名演示数据"
   },
   {
     "id": "chemistry",
@@ -175,7 +177,9 @@
         "height": 1113,
         "alt": "SN2 机理：分步推导、电子流向与能量剖面"
       }
-    ]
+    ],
+    "demo": "https://app-8mamzv6m988t.cxiagents.com/",
+    "demoNote": "原应用在线体验 · 匿名演示数据"
   },
   {
     "id": "english-learning",
@@ -223,7 +227,10 @@
         "height": 1267,
         "alt": "写作评分报告：维度分、原文证据与修改路径"
       }
-    ]
+    ],
+    "demo": "https://app-lchslh9t6cds.cxiagents.com/",
+    "demoNote": "原应用在线体验 · 匿名演示数据",
+    "demoHint": "此应用的评分工作台适合横屏或电脑浏览。"
   },
   {
     "id": "crawler",

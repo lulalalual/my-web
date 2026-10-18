@@ -6,6 +6,12 @@
   "installCommand": "npm ci",
   "headers": [
     {
+      "source": "/portfolio-assets/project-sources.mjs",
+      "headers": [
+        { "key": "Content-Type", "value": "text/javascript; charset=utf-8" }
+      ]
+    },
+    {
       "source": "/portfolio-assets/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
